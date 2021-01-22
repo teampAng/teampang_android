@@ -1,0 +1,1031 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        >
+
+        //상단 파란색 바
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:background="@color/mainColor"
+            android:orientation="vertical"
+            android:layout_weight="1.5"
+            >
+            //상단 파란색 바_맨 상단 공간
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"></LinearLayout>
+            //상단 파란색 바_글자공간
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="4">
+                //상단 파란색 바_글자공간_왼쪽 빈공간
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"></LinearLayout>
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="15.6"
+                    android:orientation="vertical"
+                    android:layout_gravity="center_vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="30dp"
+                            android:layout_weight="20"
+                            android:fontFamily="@font/spoqahansansneoregular"
+                            android:text="드래그 한 번으로"
+                            android:textColor="@color/white"
+                            android:textSize="22sp"
+                            app:autoSizeTextType="uniform"></TextView>
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:layout_gravity="end"
+                            android:src="@drawable/ic_alarm_exist"
+                            android:scaleType="fitEnd"></ImageView>
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:layout_weight="1"
+                        android:textColor="@color/white"
+                        android:fontFamily="@font/spoqahansansneobold"
+                        android:text="약속 시간을 정해보세요!"
+                        android:textSize="30sp"
+                        app:autoSizeTextType="uniform">
+                    </TextView>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"></LinearLayout> //왼쪽 빈공간
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+        //파란색 상단 중 하단 빈칸+가장 임박한 일정
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="3"
+            android:orientation="vertical">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_horizontal">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    >
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="fill_parent"
+                        android:layout_weight="1.5"
+                        android:background="@color/mainColor"></LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="fill_parent"
+                        android:layout_weight="1"
+                        android:background="@color/transparent"></LinearLayout>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:weightSum="25">
+                    //왼쪽 여백
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        ></LinearLayout>
+                    //가운데 큰 공간
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="23"
+                        android:weightSum="7.5"
+                        android:orientation="vertical">
+                        //가운데 큰 공간_파란색 여백
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"></LinearLayout>
+
+                        //가장 임박한 일정
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="6.5"
+                            android:layout_margin="5dp"
+                            android:background="@drawable/round_corner"
+                            android:elevation="5dp">
+                           //왼쪽 여백
+                            <LinearLayout
+                               android:layout_width="0dp"
+                               android:layout_height="match_parent"
+                               android:layout_weight="1"></LinearLayout>
+                            //textview공간
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="20"
+                                android:orientation="vertical">
+                                //가장 임박한 일정 text
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="0dp"
+                                    android:layout_weight="1">
+                                    <TextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="15dp"
+                                        android:text="가장 임박한 일정"
+                                        android:layout_gravity="center_vertical"
+                                        android:textSize="11sp"
+                                        android:fontFamily="@font/spoqahansansneomedium"
+                                        android:textColor="#828282"
+                                        app:autoSizeTextType="uniform"></TextView>
+                                </LinearLayout>
+                                //회색 선
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="0dp"
+                                    android:layout_weight="0.04"
+                                    android:background="#e0e0e0"></LinearLayout>
+                                //가장 임박한 일정 정보
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="0dp"
+                                    android:layout_weight="2.6">
+                                    //일정 이미지
+                                    <LinearLayout
+                                        android:layout_width="0dp"
+                                        android:layout_height="match_parent"
+                                        android:layout_weight="1">
+                                        <ImageView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="match_parent"
+                                            android:src="@drawable/ic_sample_image"
+                                            android:layout_gravity="center"></ImageView>
+                                    </LinearLayout>
+                                    //왼쪽 여백
+                                    <LinearLayout
+                                        android:layout_width="0dp"
+                                        android:layout_height="match_parent"
+                                        android:layout_weight="0.25"></LinearLayout>
+                                    //일정 정보 text
+                                    <LinearLayout
+                                        android:layout_width="0dp"
+                                        android:layout_height="match_parent"
+                                        android:layout_weight="2.5"
+                                        android:orientation="vertical">
+                                        //여백
+                                        <LinearLayout
+                                            android:layout_width="match_parent"
+                                            android:layout_height="0dp"
+                                            android:layout_weight="0.5"></LinearLayout>
+                                        //일정이름
+                                        <LinearLayout
+                                            android:layout_width="match_parent"
+                                            android:layout_height="0dp"
+                                            android:layout_weight="2">
+                                            <TextView
+                                                android:layout_width="match_parent"
+                                                android:layout_height="20dp"
+                                                android:text="팀프앙 백엔드 스터디"
+                                                android:fontFamily="@font/spoqahansansneomedium"
+                                                android:textColor="#333333"
+                                                android:textSize="15sp"
+                                                android:layout_gravity="center_vertical"
+                                                app:autoSizeTextType="uniform"
+                                                >
+                                            </TextView>
+                                        </LinearLayout>
+                                        //일정 정보 상세
+                                        <LinearLayout
+                                            android:layout_width="match_parent"
+                                            android:layout_height="0dp"
+                                            android:layout_weight="2"
+                                            android:orientation="vertical">
+                                            <LinearLayout
+                                                android:layout_width="match_parent"
+                                                android:layout_height="0dp"
+                                                android:layout_weight="1">
+                                                <ImageView
+                                                    android:layout_width="0dp"
+                                                    android:layout_weight="1"
+                                                    android:layout_height="match_parent"
+                                                    android:src="@drawable/ic_where"
+                                                    android:layout_gravity="start"></ImageView>
+                                                <TextView
+                                                    android:layout_width="0dp"
+                                                    android:layout_height="15dp"
+                                                    android:layout_weight="10"
+                                                    android:textSize="11sp"
+                                                    android:text="11 August 2020"
+                                                    android:textColor="#828282"
+                                                    app:autoSizeTextType="uniform"
+                                                    ></TextView>
+                                            </LinearLayout>
+                                            <LinearLayout
+                                                android:layout_width="match_parent"
+                                                android:layout_height="0dp"
+                                                android:layout_weight="1">
+                                                <ImageView
+                                                    android:layout_width="0dp"
+                                                    android:layout_weight="1"
+                                                    android:layout_height="match_parent"
+                                                    android:padding="3dp"
+                                                    android:scaleType="fitCenter"
+                                                    android:src="@drawable/ic_where"
+                                                    android:layout_gravity="start"></ImageView>
+                                                <TextView
+                                                    android:layout_width="0dp"
+                                                    android:layout_height="15dp"
+                                                    android:layout_weight="10"
+                                                    android:textSize="10sp"
+                                                    android:text="중앙대학교 팀플실 4"
+                                                    android:textColor="#828282"
+                                                    app:autoSizeTextType="uniform"></TextView>
+                                            </LinearLayout>
+                                        </LinearLayout>
+
+                                        //여백
+                                        <LinearLayout
+                                            android:layout_width="match_parent"
+                                            android:layout_height="0dp"
+                                            android:layout_weight="1"></LinearLayout>
+
+                                    </LinearLayout>
+                                    <LinearLayout
+                                        android:layout_width="0dp"
+                                        android:layout_height="match_parent"
+                                        android:layout_weight="1.5">
+                                        <LinearLayout
+                                            android:layout_width="0dp"
+                                            android:layout_height="match_parent"
+                                            android:layout_weight="1"></LinearLayout>
+                                        <LinearLayout
+                                            android:layout_width="0dp"
+                                            android:layout_height="match_parent"
+                                            android:layout_weight="5"
+                                            android:orientation="vertical">
+                                            <LinearLayout
+                                                android:layout_width="match_parent"
+                                                android:layout_height="0dp"
+                                                android:layout_weight="0.5"></LinearLayout>
+                                            <LinearLayout
+                                                android:layout_width="match_parent"
+                                                android:layout_height="0dp"
+                                                android:layout_weight="3">
+                                                <FrameLayout
+                                                    android:layout_width="match_parent"
+                                                    android:layout_height="match_parent">
+                                                    <ImageView
+                                                        android:padding="6dp"
+                                                        android:layout_width="wrap_content"
+                                                        android:layout_height="wrap_content"
+                                                        android:src="@drawable/ic_speaker"
+                                                        android:layout_gravity="center"
+                                                        android:background="@drawable/round_maincolor"></ImageView>
+                                                </FrameLayout>
+
+                                            </LinearLayout>
+
+                                            <LinearLayout
+                                                android:layout_width="match_parent"
+                                                android:layout_height="0dp"
+                                                android:layout_weight="1">
+                                                <TextView
+                                                    android:layout_width="match_parent"
+                                                    android:layout_height="15dp"
+                                                    android:textSize="9sp"
+                                                    android:layout_gravity="center"
+                                                    android:textColor="#4f4f4f"
+                                                    android:gravity="center"
+                                                    android:text="전체 팀원 알림 전송"
+                                                    android:fontFamily="@font/spoqahansansneoregular"
+                                                    app:autoSizeTextType="uniform"
+                                                    app:autoSizeMinTextSize="9sp"
+                                                    app:autoSizeMaxTextSize="50sp"
+                                                    ></TextView>
+                                            </LinearLayout>
+                                            <LinearLayout
+                                                android:layout_width="match_parent"
+                                                android:layout_height="0dp"
+                                                android:layout_weight="1"></LinearLayout>
+
+
+                                        </LinearLayout>
+
+                                    </LinearLayout>
+                                </LinearLayout>
+
+                            </LinearLayout>
+                            //오른쪽 여백
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"></LinearLayout>
+                        </LinearLayout>
+                    </LinearLayout>
+                    //오른쪽 여백
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        ></LinearLayout>
+                </LinearLayout>
+            </FrameLayout>
+        </LinearLayout>
+
+        //미들
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="8">
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"></LinearLayout>
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="23"
+                android:orientation="vertical">
+                // 상단 여백
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"></LinearLayout>
+                // 팀플리스트, 만료된 일정 text
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="2.5">
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:text="팀플 리스트"
+                        android:fontFamily="@font/spoqahansansneomedium"
+                        android:textColor="#333333"
+                        android:gravity="center_vertical"></TextView>
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:text="만료된 일정"
+                        android:fontFamily="@font/spoqahansansneomedium"
+                        android:textColor="#5aa6f8"
+                        android:gravity="center_vertical|end"></TextView>
+                </LinearLayout>
+                //일정추가하기 버튼+팀플리스트
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="22.3"
+                    android:orientation="vertical">
+                    //일정추가하기 버튼
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:layout_margin="5dp"
+                        android:elevation="5dp"
+                        android:orientation="vertical"
+                        android:background="@drawable/round_corner"
+                        android:gravity="center"
+                        >
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="일정 추가하기"
+                            android:textSize="15sp"
+                            android:fontFamily="@font/spoqahansansneomedium"
+                            android:drawableLeft="@drawable/ic_add"
+                            android:textColor="@color/mainColor"
+                            app:autoSizeTextType="uniform"
+                            app:autoSizeMinTextSize="15sp"
+                            app:autoSizeMaxTextSize="50sp"/>
+                    </LinearLayout>
+
+                    //팀플리스트 항목들
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="5.3">
+                        <ScrollView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:orientation="vertical">
+
+                                //팀플리스트 항목
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="70dp"
+                                    android:layout_margin="5dp"
+                                    android:elevation="5dp"
+                                    android:background="@drawable/round_corner"
+                                    android:orientation="vertical">
+                                    //상단 여백
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="0dp"
+                                        android:layout_weight="0.3"
+                                        ></LinearLayout>
+
+                                    <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="0dp"
+                                    android:layout_weight="1"
+                                    >
+                                        //왼쪽
+                                        <LinearLayout
+                                            android:layout_width="0dp"
+                                            android:layout_height="match_parent"
+                                            android:layout_weight="1">
+                                            <ImageView
+                                                android:layout_width="match_parent"
+                                                android:layout_height="match_parent"
+                                                android:src="@drawable/ic_sample_image"></ImageView>
+                                        </LinearLayout>
+                                        //가운데
+                                        <LinearLayout
+                                            android:layout_width="0dp"
+                                            android:layout_height="match_parent"
+                                            android:layout_weight="3"
+                                            android:orientation="vertical">
+
+                                            <LinearLayout
+                                                android:layout_width="match_parent"
+                                                android:layout_height="0dp"
+                                                android:layout_weight="1">
+                                                <TextView
+                                                    android:layout_width="match_parent"
+                                                    android:layout_height="20dp"
+                                                    android:text="팀프앙 백엔드 스터디"
+                                                    android:fontFamily="@font/spoqahansansneoregular"
+                                                    android:textColor="#454b54"
+                                                    android:textSize="15sp"
+                                                    android:layout_gravity="center_vertical"
+                                                    app:autoSizeTextType="uniform"
+                                                    >
+                                                </TextView>
+                                            </LinearLayout>
+
+                                            <LinearLayout
+                                                android:layout_width="match_parent"
+                                                android:layout_height="0dp"
+                                                android:layout_weight="1">
+                                                <TextView
+                                                    android:layout_width="0dp"
+                                                    android:layout_height="15dp"
+                                                    android:layout_weight="10"
+                                                    android:textSize="11sp"
+                                                    android:text="11 August 2020"
+                                                    android:textColor="#8690a2"
+                                                    app:autoSizeTextType="uniform"
+                                                    ></TextView>
+                                            </LinearLayout>
+                                        </LinearLayout>
+                                        //오른쪽
+                                        <LinearLayout
+                                            android:layout_width="0dp"
+                                            android:layout_height="match_parent"
+                                            android:layout_weight="1">
+                                            <TextView
+                                                android:layout_width="match_parent"
+                                                android:layout_height="match_parent"
+                                                android:text="D-1"
+                                                android:textColor="#ed6863"
+                                                android:textSize="17sp"
+                                                android:fontFamily="@font/spoqahansansneomedium"
+                                                android:gravity="center"></TextView>
+                                        </LinearLayout>
+                                    </LinearLayout>
+                                    //하단 여백
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="0dp"
+                                        android:layout_weight="0.3"
+                                        ></LinearLayout>
+                                </LinearLayout>
+                                //팀플리스트 항목
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="70dp"
+                                    android:layout_margin="5dp"
+                                    android:elevation="5dp"
+                                    android:background="@drawable/round_corner"
+                                    android:orientation="vertical">
+                                    //상단 여백
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="0dp"
+                                        android:layout_weight="0.3"
+                                        ></LinearLayout>
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="0dp"
+                                        android:layout_weight="1"
+                                        >
+                                        //왼쪽
+                                        <LinearLayout
+                                            android:layout_width="0dp"
+                                            android:layout_height="match_parent"
+                                            android:layout_weight="1">
+                                            <ImageView
+                                                android:layout_width="match_parent"
+                                                android:layout_height="match_parent"
+                                                android:src="@drawable/ic_sample_image"></ImageView>
+                                        </LinearLayout>
+                                        //가운데
+                                        <LinearLayout
+                                            android:layout_width="0dp"
+                                            android:layout_height="match_parent"
+                                            android:layout_weight="3"
+                                            android:orientation="vertical">
+
+                                            <LinearLayout
+                                                android:layout_width="match_parent"
+                                                android:layout_height="0dp"
+                                                android:layout_weight="1">
+                                                <TextView
+                                                    android:layout_width="match_parent"
+                                                    android:layout_height="20dp"
+                                                    android:text="팀프앙 백엔드 스터디"
+                                                    android:fontFamily="@font/spoqahansansneoregular"
+                                                    android:textColor="#454b54"
+                                                    android:textSize="15sp"
+                                                    android:layout_gravity="center_vertical"
+                                                    app:autoSizeTextType="uniform"
+                                                    >
+                                                </TextView>
+                                            </LinearLayout>
+
+                                            <LinearLayout
+                                                android:layout_width="match_parent"
+                                                android:layout_height="0dp"
+                                                android:layout_weight="1">
+                                                <TextView
+                                                    android:layout_width="0dp"
+                                                    android:layout_height="15dp"
+                                                    android:layout_weight="10"
+                                                    android:textSize="11sp"
+                                                    android:text="11 August 2020"
+                                                    android:textColor="#8690a2"
+                                                    app:autoSizeTextType="uniform"
+                                                    ></TextView>
+                                            </LinearLayout>
+                                        </LinearLayout>
+                                        //오른쪽
+                                        <LinearLayout
+                                            android:layout_width="0dp"
+                                            android:layout_height="match_parent"
+                                            android:layout_weight="1">
+                                            <TextView
+                                                android:layout_width="match_parent"
+                                                android:layout_height="match_parent"
+                                                android:text="D-2"
+                                                android:textColor="#5aa6f8"
+                                                android:textSize="17sp"
+                                                android:fontFamily="@font/spoqahansansneomedium"
+                                                android:gravity="center"></TextView>
+                                        </LinearLayout>
+                                    </LinearLayout>
+                                    //하단 여백
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="0dp"
+                                        android:layout_weight="0.3"
+                                        ></LinearLayout>
+                                </LinearLayout>
+                                //팀플리스트 항목
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="70dp"
+                                    android:layout_margin="5dp"
+                                    android:elevation="5dp"
+                                    android:background="@drawable/round_corner"
+                                    android:orientation="vertical">
+                                    //상단 여백
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="0dp"
+                                        android:layout_weight="0.3"
+                                        ></LinearLayout>
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="0dp"
+                                        android:layout_weight="1"
+                                        >
+                                        //왼쪽
+                                        <LinearLayout
+                                            android:layout_width="0dp"
+                                            android:layout_height="match_parent"
+                                            android:layout_weight="1">
+                                            <ImageView
+                                                android:layout_width="match_parent"
+                                                android:layout_height="match_parent"
+                                                android:src="@drawable/ic_sample_image"></ImageView>
+                                        </LinearLayout>
+                                        //가운데
+                                        <LinearLayout
+                                            android:layout_width="0dp"
+                                            android:layout_height="match_parent"
+                                            android:layout_weight="3"
+                                            android:orientation="vertical">
+
+                                            <LinearLayout
+                                                android:layout_width="match_parent"
+                                                android:layout_height="0dp"
+                                                android:layout_weight="1">
+                                                <TextView
+                                                    android:layout_width="match_parent"
+                                                    android:layout_height="20dp"
+                                                    android:text="팀프앙 백엔드 스터디"
+                                                    android:fontFamily="@font/spoqahansansneoregular"
+                                                    android:textColor="#454b54"
+                                                    android:textSize="15sp"
+                                                    android:layout_gravity="center_vertical"
+                                                    app:autoSizeTextType="uniform"
+                                                    >
+                                                </TextView>
+                                            </LinearLayout>
+
+                                            <LinearLayout
+                                                android:layout_width="match_parent"
+                                                android:layout_height="0dp"
+                                                android:layout_weight="1">
+                                                <TextView
+                                                    android:layout_width="0dp"
+                                                    android:layout_height="15dp"
+                                                    android:layout_weight="10"
+                                                    android:textSize="11sp"
+                                                    android:text="11 August 2020"
+                                                    android:textColor="#8690a2"
+                                                    app:autoSizeTextType="uniform"
+                                                    ></TextView>
+                                            </LinearLayout>
+                                        </LinearLayout>
+                                        //오른쪽
+                                        <LinearLayout
+                                            android:layout_width="0dp"
+                                            android:layout_height="match_parent"
+                                            android:layout_weight="1">
+
+                                            <TextView
+                                                android:layout_width="match_parent"
+                                                android:layout_height="match_parent"
+                                                android:fontFamily="@font/spoqahansansneomedium"
+                                                android:gravity="center"
+                                                android:text="D-3"
+                                                android:textColor="#5aa6f8"
+                                                android:textSize="17sp"></TextView>
+                                        </LinearLayout>
+                                    </LinearLayout>
+                                    //하단 여백
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="0dp"
+                                        android:layout_weight="0.3"
+                                        ></LinearLayout>
+                                </LinearLayout>
+                                //팀플리스트 항목
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="70dp"
+                                    android:layout_margin="5dp"
+                                    android:elevation="5dp"
+                                    android:background="@drawable/round_corner"
+                                    android:orientation="vertical">
+                                    //상단 여백
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="0dp"
+                                        android:layout_weight="0.3"
+                                        ></LinearLayout>
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="0dp"
+                                        android:layout_weight="1"
+                                        >
+                                        //왼쪽
+                                        <LinearLayout
+                                            android:layout_width="0dp"
+                                            android:layout_height="match_parent"
+                                            android:layout_weight="1">
+                                            <ImageView
+                                                android:layout_width="match_parent"
+                                                android:layout_height="match_parent"
+                                                android:src="@drawable/ic_sample_image"></ImageView>
+                                        </LinearLayout>
+                                        //가운데
+                                        <LinearLayout
+                                            android:layout_width="0dp"
+                                            android:layout_height="match_parent"
+                                            android:layout_weight="3"
+                                            android:orientation="vertical">
+
+                                            <LinearLayout
+                                                android:layout_width="match_parent"
+                                                android:layout_height="0dp"
+                                                android:layout_weight="1">
+                                                <TextView
+                                                    android:layout_width="match_parent"
+                                                    android:layout_height="20dp"
+                                                    android:text="팀프앙 백엔드 스터디"
+                                                    android:fontFamily="@font/spoqahansansneoregular"
+                                                    android:textColor="#454b54"
+                                                    android:textSize="15sp"
+                                                    android:layout_gravity="center_vertical"
+                                                    app:autoSizeTextType="uniform"
+                                                    >
+                                                </TextView>
+                                            </LinearLayout>
+
+                                            <LinearLayout
+                                                android:layout_width="match_parent"
+                                                android:layout_height="0dp"
+                                                android:layout_weight="1">
+                                                <TextView
+                                                    android:layout_width="0dp"
+                                                    android:layout_height="15dp"
+                                                    android:layout_weight="10"
+                                                    android:textSize="11sp"
+                                                    android:text="11 August 2020"
+                                                    android:textColor="#8690a2"
+                                                    app:autoSizeTextType="uniform"
+                                                    ></TextView>
+                                            </LinearLayout>
+                                        </LinearLayout>
+                                        //오른쪽
+                                        <LinearLayout
+                                            android:layout_width="0dp"
+                                            android:layout_height="match_parent"
+                                            android:layout_weight="1">
+                                            <TextView
+                                                android:layout_width="match_parent"
+                                                android:layout_height="match_parent"
+                                                android:text="D-4"
+                                                android:textColor="#5aa6f8"
+                                                android:textSize="17sp"
+                                                android:fontFamily="@font/spoqahansansneomedium"
+                                                android:gravity="center"></TextView>
+                                        </LinearLayout>
+                                    </LinearLayout>
+                                    //하단 여백
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="0dp"
+                                        android:layout_weight="0.3"
+                                        ></LinearLayout>
+                                </LinearLayout>
+                                //팀플리스트 항목
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="70dp"
+                                    android:layout_margin="5dp"
+                                    android:elevation="5dp"
+                                    android:background="@drawable/round_corner"
+                                    android:orientation="vertical">
+                                    //상단 여백
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="0dp"
+                                        android:layout_weight="0.3"
+                                        ></LinearLayout>
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="0dp"
+                                        android:layout_weight="1"
+                                        >
+                                        //왼쪽
+                                        <LinearLayout
+                                            android:layout_width="0dp"
+                                            android:layout_height="match_parent"
+                                            android:layout_weight="1">
+                                            <ImageView
+                                                android:layout_width="match_parent"
+                                                android:layout_height="match_parent"
+                                                android:src="@drawable/ic_sample_image"></ImageView>
+                                        </LinearLayout>
+                                        //가운데
+                                        <LinearLayout
+                                            android:layout_width="0dp"
+                                            android:layout_height="match_parent"
+                                            android:layout_weight="3"
+                                            android:orientation="vertical">
+
+                                            <LinearLayout
+                                                android:layout_width="match_parent"
+                                                android:layout_height="0dp"
+                                                android:layout_weight="1">
+                                                <TextView
+                                                    android:layout_width="match_parent"
+                                                    android:layout_height="20dp"
+                                                    android:text="팀프앙 백엔드 스터디"
+                                                    android:fontFamily="@font/spoqahansansneoregular"
+                                                    android:textColor="#454b54"
+                                                    android:textSize="15sp"
+                                                    android:layout_gravity="center_vertical"
+                                                    app:autoSizeTextType="uniform"
+                                                    >
+                                                </TextView>
+                                            </LinearLayout>
+
+                                            <LinearLayout
+                                                android:layout_width="match_parent"
+                                                android:layout_height="0dp"
+                                                android:layout_weight="1">
+                                                <TextView
+                                                    android:layout_width="0dp"
+                                                    android:layout_height="15dp"
+                                                    android:layout_weight="10"
+                                                    android:textSize="11sp"
+                                                    android:text="11 August 2020"
+                                                    android:textColor="#8690a2"
+                                                    app:autoSizeTextType="uniform"
+                                                    ></TextView>
+                                            </LinearLayout>
+                                        </LinearLayout>
+                                        //오른쪽
+                                        <LinearLayout
+                                            android:layout_width="0dp"
+                                            android:layout_height="match_parent"
+                                            android:layout_weight="1">
+                                            <TextView
+                                                android:layout_width="match_parent"
+                                                android:layout_height="match_parent"
+                                                android:text="D-5"
+                                                android:textColor="#5aa6f8"
+                                                android:textSize="17sp"
+                                                android:fontFamily="@font/spoqahansansneomedium"
+                                                android:gravity="center"></TextView>
+                                        </LinearLayout>
+                                    </LinearLayout>
+                                    //하단 여백
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="0dp"
+                                        android:layout_weight="0.3"
+                                        ></LinearLayout>
+                                </LinearLayout>
+                                //팀플리스트 항목
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="70dp"
+                                    android:layout_margin="5dp"
+                                    android:elevation="5dp"
+                                    android:background="@drawable/round_corner"
+                                    android:orientation="vertical">
+                                    //상단 여백
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="0dp"
+                                        android:layout_weight="0.3"
+                                        ></LinearLayout>
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="0dp"
+                                        android:layout_weight="1"
+                                        >
+                                        //왼쪽
+                                        <LinearLayout
+                                            android:layout_width="0dp"
+                                            android:layout_height="match_parent"
+                                            android:layout_weight="1">
+                                            <ImageView
+                                                android:layout_width="match_parent"
+                                                android:layout_height="match_parent"
+                                                android:src="@drawable/ic_sample_image"></ImageView>
+                                        </LinearLayout>
+                                        //가운데
+                                        <LinearLayout
+                                            android:layout_width="0dp"
+                                            android:layout_height="match_parent"
+                                            android:layout_weight="3"
+                                            android:orientation="vertical">
+
+                                            <LinearLayout
+                                                android:layout_width="match_parent"
+                                                android:layout_height="0dp"
+                                                android:layout_weight="1">
+                                                <TextView
+                                                    android:layout_width="match_parent"
+                                                    android:layout_height="20dp"
+                                                    android:text="팀프앙 백엔드 스터디"
+                                                    android:fontFamily="@font/spoqahansansneoregular"
+                                                    android:textColor="#454b54"
+                                                    android:textSize="15sp"
+                                                    android:layout_gravity="center_vertical"
+                                                    app:autoSizeTextType="uniform"
+                                                    >
+                                                </TextView>
+                                            </LinearLayout>
+
+                                            <LinearLayout
+                                                android:layout_width="match_parent"
+                                                android:layout_height="0dp"
+                                                android:layout_weight="1">
+                                                <TextView
+                                                    android:layout_width="0dp"
+                                                    android:layout_height="15dp"
+                                                    android:layout_weight="10"
+                                                    android:textSize="11sp"
+                                                    android:text="11 August 2020"
+                                                    android:textColor="#8690a2"
+                                                    app:autoSizeTextType="uniform"
+                                                    ></TextView>
+                                            </LinearLayout>
+                                        </LinearLayout>
+                                        //오른쪽
+                                        <LinearLayout
+                                            android:layout_width="0dp"
+                                            android:layout_height="match_parent"
+                                            android:layout_weight="1">
+                                            <TextView
+                                                android:layout_width="match_parent"
+                                                android:layout_height="match_parent"
+                                                android:text="D-6"
+                                                android:textColor="#5aa6f8"
+                                                android:textSize="17sp"
+                                                android:fontFamily="@font/spoqahansansneomedium"
+                                                android:gravity="center"></TextView>
+                                        </LinearLayout>
+                                    </LinearLayout>
+                                    //하단 여백
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="0dp"
+                                        android:layout_weight="0.3"
+                                        ></LinearLayout>
+                                </LinearLayout>
+
+                            </LinearLayout>
+
+
+                        </ScrollView>
+                    </LinearLayout>
+
+                </LinearLayout>
+                //하단 여백
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"></LinearLayout>
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"></LinearLayout>
+
+        </LinearLayout>
+
+        ////탭바 파트
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="@color/white"></LinearLayout>
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
