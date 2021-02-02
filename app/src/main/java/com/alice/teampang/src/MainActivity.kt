@@ -1,7 +1,8 @@
-package com.alice.teampang
+package com.alice.teampang.src
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.alice.teampang.R
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
