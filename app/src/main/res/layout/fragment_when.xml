@@ -70,22 +70,16 @@
                             android:scaleType="fitEnd"></ImageView>
                     </LinearLayout>
 
-                    <LinearLayout
+                    <TextView
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1">
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="30dp"
-                            android:textColor="@color/white"
-                            android:fontFamily="@font/spoqahansansneobold"
-                            android:text="약속 시간을 정해보세요!"
-                            android:textSize="22sp"
-                            app:autoSizeTextType="uniform">
-                        </TextView>
-                    </LinearLayout>
-
-
+                        android:layout_height="30dp"
+                        android:layout_weight="1"
+                        android:textColor="@color/white"
+                        android:fontFamily="@font/spoqahansansneobold"
+                        android:text="약속 시간을 정해보세요!"
+                        android:textSize="30sp"
+                        app:autoSizeTextType="uniform">
+                    </TextView>
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="0dp"
@@ -156,11 +150,11 @@
                             android:layout_margin="5dp"
                             android:background="@drawable/round_corner"
                             android:elevation="5dp">
-                           //왼쪽 여백
+                            //왼쪽 여백
                             <LinearLayout
-                               android:layout_width="0dp"
-                               android:layout_height="match_parent"
-                               android:layout_weight="1"></LinearLayout>
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"></LinearLayout>
                             //textview공간
                             <LinearLayout
                                 android:layout_width="0dp"
@@ -219,88 +213,70 @@
                                         <LinearLayout
                                             android:layout_width="match_parent"
                                             android:layout_height="0dp"
-                                            android:layout_weight="1.3"></LinearLayout>
+                                            android:layout_weight="0.5"></LinearLayout>
                                         //일정이름
                                         <LinearLayout
                                             android:layout_width="match_parent"
                                             android:layout_height="0dp"
-                                            android:layout_weight="1">
+                                            android:layout_weight="2">
                                             <TextView
                                                 android:layout_width="match_parent"
-                                                android:layout_height="18dp"
+                                                android:layout_height="20dp"
                                                 android:text="팀프앙 백엔드 스터디"
-                                                android:layout_gravity="center"
                                                 android:fontFamily="@font/spoqahansansneomedium"
                                                 android:textColor="#333333"
-                                                android:textSize="18sp"
-                                       
+                                                android:textSize="15sp"
+                                                android:layout_gravity="center_vertical"
                                                 app:autoSizeTextType="uniform"
                                                 >
                                             </TextView>
                                         </LinearLayout>
-                                        //여백
-
-
                                         //일정 정보 상세
-
                                         <LinearLayout
                                             android:layout_width="match_parent"
                                             android:layout_height="0dp"
-                                            android:layout_weight="1.9"
+                                            android:layout_weight="2"
                                             android:orientation="vertical">
-
                                             <LinearLayout
                                                 android:layout_width="match_parent"
                                                 android:layout_height="0dp"
-                                                android:layout_weight="0.3"></LinearLayout>
-
-                                            <LinearLayout
-                                                android:layout_width="match_parent"
-                                                android:layout_height="wrap_content"
-                                                android:layout_weight="1" >
-                                                <ImageView
-                                                    android:layout_width="0dp"
-                                                    android:layout_weight="1"
-                                                    android:padding="2dp"
-                                                    android:layout_height="match_parent"
-                                                    android:src="@drawable/ic_when_unselected"
-                                                    android:scaleType="centerInside"></ImageView>
-
-                                                <TextView
-                                                    android:layout_width="0dp"
-                                                    android:layout_height="15dp"
-                                                    android:layout_weight="10"
-                                                    android:layout_gravity="center"
-                                                    android:text="11 August 2020"
-                                                    android:textColor="#828282"
-                                                    android:textSize="15sp"
-                                                    app:autoSizeMaxTextSize="30sp"
-                                                    app:autoSizeMinTextSize="2sp"
-                                                    app:autoSizeTextType="uniform"></TextView>
-                                            </LinearLayout>
-                                            <LinearLayout
-                                                android:layout_width="match_parent"
-                                                android:layout_height="wrap_content"
                                                 android:layout_weight="1">
                                                 <ImageView
                                                     android:layout_width="0dp"
                                                     android:layout_weight="1"
-                                                    android:padding="2dp"
                                                     android:layout_height="match_parent"
-                                                    android:scaleType="centerInside"
-                                                    android:src="@drawable/ic_where_unselected"
-                                                    android:layout_gravity="center"></ImageView>
+                                                    android:src="@drawable/ic_where"
+                                                    android:layout_gravity="start"></ImageView>
                                                 <TextView
                                                     android:layout_width="0dp"
                                                     android:layout_height="15dp"
                                                     android:layout_weight="10"
-                                                    android:textSize="15sp"
-                                                    android:layout_gravity="center"
-                                                    android:text="중앙대학교 팀플실 4"
+                                                    android:textSize="11sp"
+                                                    android:text="11 August 2020"
                                                     android:textColor="#828282"
                                                     app:autoSizeTextType="uniform"
-                                                     app:autoSizeMinTextSize="2sp"
-                                                    app:autoSizeMaxTextSize="30sp"></TextView>
+                                                    ></TextView>
+                                            </LinearLayout>
+                                            <LinearLayout
+                                                android:layout_width="match_parent"
+                                                android:layout_height="0dp"
+                                                android:layout_weight="1">
+                                                <ImageView
+                                                    android:layout_width="0dp"
+                                                    android:layout_weight="1"
+                                                    android:layout_height="match_parent"
+                                                    android:padding="3dp"
+                                                    android:scaleType="fitCenter"
+                                                    android:src="@drawable/ic_where"
+                                                    android:layout_gravity="start"></ImageView>
+                                                <TextView
+                                                    android:layout_width="0dp"
+                                                    android:layout_height="15dp"
+                                                    android:layout_weight="10"
+                                                    android:textSize="10sp"
+                                                    android:text="중앙대학교 팀플실 4"
+                                                    android:textColor="#828282"
+                                                    app:autoSizeTextType="uniform"></TextView>
                                             </LinearLayout>
                                         </LinearLayout>
 
@@ -308,7 +284,7 @@
                                         <LinearLayout
                                             android:layout_width="match_parent"
                                             android:layout_height="0dp"
-                                            android:layout_weight="1.22"></LinearLayout>
+                                            android:layout_weight="1"></LinearLayout>
 
                                     </LinearLayout>
                                     <LinearLayout
@@ -327,44 +303,43 @@
                                             <LinearLayout
                                                 android:layout_width="match_parent"
                                                 android:layout_height="0dp"
-                                                android:layout_weight="1"></LinearLayout>
+                                                android:layout_weight="0.5"></LinearLayout>
                                             <LinearLayout
                                                 android:layout_width="match_parent"
                                                 android:layout_height="0dp"
-                                                android:layout_weight="3"
-                                                android:orientation="vertical"
-                                                >
-
-                                                <ImageView
-
-                                                    android:layout_width="wrap_content"
-                                                    android:layout_height="wrap_content"
-                                                    android:gravity="center"
-                                                    android:layout_gravity="center"
-                                                    android:background="@drawable/round_maincolor"
-                                                    android:src="@drawable/ic_speaker"></ImageView>
-
+                                                android:layout_weight="3">
+                                                <FrameLayout
+                                                    android:layout_width="match_parent"
+                                                    android:layout_height="match_parent">
+                                                    <ImageView
+                                                        android:padding="6dp"
+                                                        android:layout_width="wrap_content"
+                                                        android:layout_height="wrap_content"
+                                                        android:src="@drawable/ic_speaker"
+                                                        android:layout_gravity="center"
+                                                        android:background="@drawable/round_maincolor"></ImageView>
+                                                </FrameLayout>
 
                                             </LinearLayout>
 
                                             <LinearLayout
                                                 android:layout_width="match_parent"
-                                                android:layout_height="wrap_content"
-                                                android:layout_weight="0.5">
+                                                android:layout_height="0dp"
+                                                android:layout_weight="1">
                                                 <TextView
                                                     android:layout_width="match_parent"
                                                     android:layout_height="15dp"
-                                                    android:textSize="15sp"
+                                                    android:textSize="9sp"
                                                     android:layout_gravity="center"
                                                     android:textColor="#4f4f4f"
+                                                    android:gravity="center"
                                                     android:text="전체 팀원 알림 전송"
                                                     android:fontFamily="@font/spoqahansansneoregular"
                                                     app:autoSizeTextType="uniform"
-                                                    app:autoSizeMinTextSize="5sp"
+                                                    app:autoSizeMinTextSize="9sp"
                                                     app:autoSizeMaxTextSize="50sp"
                                                     ></TextView>
                                             </LinearLayout>
-                                            //하단여백
                                             <LinearLayout
                                                 android:layout_width="match_parent"
                                                 android:layout_height="0dp"
@@ -417,8 +392,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    android:layout_weight="2.5"
-                    android:layout_margin="5dp">
+                    android:layout_weight="2.5">
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
@@ -444,7 +418,6 @@
                     android:orientation="vertical">
                     //일정추가하기 버튼
                     <LinearLayout
-                        android:id="@+id/addButton"
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
                         android:layout_weight="1"
@@ -497,10 +470,10 @@
                                         ></LinearLayout>
 
                                     <LinearLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="0dp"
-                                    android:layout_weight="1"
-                                    >
+                                        android:layout_width="match_parent"
+                                        android:layout_height="0dp"
+                                        android:layout_weight="1"
+                                        >
                                         //왼쪽
                                         <LinearLayout
                                             android:layout_width="0dp"
@@ -1053,32 +1026,32 @@
         </LinearLayout>
 
         ////탭바 파트
-<!--        <LinearLayout-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="0dp"-->
-<!--            android:layout_weight="1"-->
-<!--            android:background="@color/transparent">-->
-<!--            <FrameLayout-->
-<!--                android:id="@+id/container"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="match_parent"-->
-<!--                tools:context=".MainHomeActivity">-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="@color/transparent">
+            <!--            <FrameLayout-->
+            <!--                android:id="@+id/container"-->
+            <!--                android:layout_width="match_parent"-->
+            <!--                android:layout_height="match_parent"-->
+            <!--                tools:context=".MainHomeActivity">-->
 
-<!--                <com.google.android.material.bottomnavigation.BottomNavigationView-->
-<!--                    android:id="@+id/bottom"-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_gravity="bottom"-->
-<!--                    app:itemTextAppearance="@font/spoqahansansneomedium"-->
-<!--                    app:itemBackground="@color/white"-->
-<!--                    app:itemIconTint="@drawable/item_color"-->
-<!--                    app:itemTextColor="@drawable/item_color"-->
-<!--                    app:labelVisibilityMode="labeled"-->
-<!--                    app:menu="@menu/menu_bottom" />-->
+            <!--                <com.google.android.material.bottomnavigation.BottomNavigationView-->
+            <!--                    android:id="@+id/bottom"-->
+            <!--                    android:layout_width="match_parent"-->
+            <!--                    android:layout_height="wrap_content"-->
+            <!--                    android:layout_gravity="bottom"-->
+            <!--                    app:itemTextAppearance="@font/spoqahansansneomedium"-->
+            <!--                    app:itemBackground="@color/white"-->
+            <!--                    app:itemIconTint="@drawable/item_color"-->
+            <!--                    app:itemTextColor="@drawable/item_color"-->
+            <!--                    app:labelVisibilityMode="labeled"-->
+            <!--                    app:menu="@menu/menu_bottom" />-->
 
-<!--            </FrameLayout>-->
+            <!--            </FrameLayout>-->
 
-<!--        </LinearLayout>-->
+        </LinearLayout>
 
     </LinearLayout>
 

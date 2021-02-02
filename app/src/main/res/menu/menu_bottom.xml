@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/tab_calendar"
+        android:enabled="true"
+        android:title="일정"
+        android:icon="@drawable/ic_calendar_unselected"
+        app:showAsAction="always"/>
+    <item
+        android:id="@+id/tab_when"
+        android:enabled="true"
+        android:title="언제"
+        android:icon="@drawable/ic_when_unselected"
+        app:showAsAction="always"/>
+    <item
+        android:id="@+id/tab_where"
+        android:enabled="true"
+        android:title="어디서"
+        android:icon="@drawable/ic_where_unselected"
+        app:showAsAction="always"/>
+</menu>

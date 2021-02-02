@@ -1,6 +1,6 @@
 package com.cau.teampang;
 
-public class LoginData {
+public class LoginData{
 
     private String username;
     private String password;
