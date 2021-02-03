@@ -20,6 +20,8 @@ class PlanCreateTimeFrag : BaseFrag(), View.OnClickListener {
 
     lateinit var navController : NavController
 
+
+
     private var _binding: FragPlanCreateTimeBinding? = null
     private val binding get() = _binding!!
 
