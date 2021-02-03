@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="74dp">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="38dp"
+        android:layout_height="38dp"
+        android:backgroundTint="#f2f1f7"
+        app:cardCornerRadius="30dp"
+        android:layout_marginTop="17dp"
+        android:layout_marginLeft="26dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        >
+    <ImageView
+        android:layout_width="18dp"
+        android:layout_height="18dp"
+        android:layout_gravity="center"
+        app:srcCompat="@drawable/ic_void"
+        />
+    </androidx.cardview.widget.CardView>
+    <TextView
+        android:id="@+id/item_d_day"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/spoqahansansneomedium"
+        android:textStyle="normal"
+        android:textSize="17sp"
+        android:textColor="#5aa6f8"
+        android:layout_marginTop="27dp"
+        android:layout_marginRight="22dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:text="D-1"
+        />
+
+    <TextView
+        android:id="@+id/item_subject"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/spoqahansansneoregular"
+        android:textStyle="normal"
+        android:textSize="14sp"
+        android:textColor="#454b54"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginRight="154dp"
+        android:layout_marginTop="20dp"
+        android:text="팀프앙 백엔드 스터디"
+        />
+
+
+    <TextView
+        android:id="@+id/item_time_loaction"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/spoqahansansneoregular"
+        android:textStyle="normal"
+        android:textSize="11sp"
+        android:textColor="#8690a2"
+        android:text="11 August 2020 / 중앙대학교 팀플실 4 "
+        android:layout_marginTop="41dp"
+        android:layout_marginRight="95dp"
+        app:layout_constraintEnd_toEndOf ="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+</androidx.constraintlayout.widget.ConstraintLayout>
