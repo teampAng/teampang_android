@@ -2,4 +2,38 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/nav_graph"/>
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/planCreateNameFrag">
+    <fragment
+        android:id="@+id/planCreateCalendarFrag"
+        android:name="com.alice.teampang.src.plan_create.calendar.PlanCreateCalendarFrag"
+        android:label="PlanCreateCalendarFrag"
+        tools:layout="@layout/frag_plan_create_calendar">
+        <action
+            android:id="@+id/action_planCreateCalendarFrag_to_planCreateTimeFrag"
+            app:destination="@id/planCreateTimeFrag" />
+    </fragment>
+    <fragment
+        android:id="@+id/planCreateNameFrag"
+        android:name="com.alice.teampang.src.plan_create.name.PlanCreateNameFrag"
+        android:label="PlanCreateNameFrag"
+        tools:layout="@layout/frag_plan_create_name">
+        <action
+            android:id="@+id/action_planCreateNameFrag_to_planCreateCalendarFrag"
+            app:destination="@id/planCreateCalendarFrag" />
+    </fragment>
+    <fragment
+        android:id="@+id/planCreateTimeFrag"
+        android:name="com.alice.teampang.src.plan_create.time.PlanCreateTimeFrag"
+        android:label="PlanCreateTimeFrag"
+        tools:layout="@layout/frag_plan_create_time">
+        <action
+            android:id="@+id/action_planCreateTimeFrag_to_planCreateShareFrag"
+            app:destination="@id/planCreateShareFrag" />
+    </fragment>
+    <fragment
+        android:id="@+id/planCreateShareFrag"
+        android:name="com.alice.teampang.src.plan_create.share.PlanCreateShareFrag"
+        android:label="PlanCreateShareFrag"
+        tools:layout="@layout/frag_plan_create_share"/>
+</navigation>
