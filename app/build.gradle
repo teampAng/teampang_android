@@ -63,17 +63,17 @@ dependencies {
     //https://developer.android.com/studio/write/java8-support?hl=ko
     coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:1.1.1'
 
-<<<<<<< HEAD
-    디자인관련
+//<<<<<<< HEAD
+//    디자인관련
     //noinspection GradleCompatible
     implementation 'com.android.support:design:29.0.0'
     implementation 'com.google.android.material:material:1.2.0'
-=======
+//=======
     //https://github.com/prolificinteractive/material-calendarview
     implementation 'com.github.prolificinteractive:material-calendarview:2.0.0'
 
     implementation 'com.github.applikeysolutions:cosmocalendar:1.0.4'
 
     implementation "androidx.recyclerview:recyclerview:1.1.0"
->>>>>>> ab17c7ab55987a492204773bc832d1d1a6dbefff
+//>>>>>>> ab17c7ab55987a492204773bc832d1d1a6dbefff
 }

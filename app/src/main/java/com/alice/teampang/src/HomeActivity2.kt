@@ -2,6 +2,7 @@ package com.alice.teampang.src
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.fragment.app.Fragment
 import com.alice.teampang.R
 import com.alice.teampang.ui.fragment.DateFragment
 import com.alice.teampang.ui.fragment.LocationFragment
@@ -15,16 +16,17 @@ class HomeActivity2 : AppCompatActivity() {
         setContentView(R.layout.activity_home2)
 
         val fragmentTransaction = supportFragmentManager.beginTransaction()
-        fragmentTransaction.replace(R.id.linearLayout, PlanFragment()).commit()
+        fragmentTransaction.replace(R.id.framelayout, PlanFragment()).commit()
 
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottomNavigationView)
         bottomNavigationView.setOnNavigationItemSelectedListener { it->
+
             val transaction = supportFragmentManager.beginTransaction()
             when (it.itemId) {
                 R.id.bottom_plan -> {
                     if (!test.equals("plan")) {
                         transaction.replace(    //fragment가 해당 layout으로 대체됨
-                                R.id.linearLayout,
+                                R.id.framelayout,
                                 PlanFragment()
                         ).commit()
                         test = "plan"
@@ -34,7 +36,7 @@ class HomeActivity2 : AppCompatActivity() {
                 R.id.bottom_date -> {
                     if (!test.equals("date")) {
                         transaction.replace(    //fragment가 해당 layout으로 대체됨
-                                R.id.linearLayout,
+                                R.id.framelayout,
                                 DateFragment()
                         ).commit()
                         test = "date"
@@ -44,7 +46,7 @@ class HomeActivity2 : AppCompatActivity() {
                 R.id.bottom_location -> {
                     if (!test.equals("location")) {
                         transaction.replace(    //fragment가 해당 layout으로 대체됨
-                                R.id.linearLayout,
+                                R.id.framelayout,
                                 LocationFragment()
                         ).commit()
                         test = "location"
@@ -57,4 +59,11 @@ class HomeActivity2 : AppCompatActivity() {
             }
         }
     }
+
+
+//    fun replaceFragment(fragment:Fragment){
+//        val fragmentTransaction = supportFragmentManager.beginTransaction()
+//        fragmentTransaction.replace(R.id.framelayout,fragment).commit()
+//    }
+
 }

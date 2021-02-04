@@ -2,9 +2,9 @@
     <string name="app_name">Teampang</string>
     <string name="kakao_key">2f1364ac457bb5d65d8e06e5d09df5d1</string>
     <string name="kakao_scheme">kakao2f1364ac457bb5d65d8e06e5d09df5d1</string>
-<<<<<<< HEAD
+    <!--<<<<<<< HEAD-->
 
-=======
+    <!--=======-->
     <string name="splash_loading">Loading…</string>
->>>>>>> ab17c7ab55987a492204773bc832d1d1a6dbefff
+    <!--&gt;>>>>>> ab17c7ab55987a492204773bc832d1d1a6dbefff-->
 </resources>

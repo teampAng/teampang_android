@@ -7,7 +7,7 @@
     tools:context=".src.HomeActivity2">
 
     <FrameLayout
-        android:id="@+id/linearLayout"
+        android:id="@+id/framelayout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:orientation="vertical"
@@ -25,8 +25,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:menu="@menu/bottom_menu"
-        app:itemIconTint="@drawable/menu_selector_color"
-        app:itemTextColor="@drawable/menu_selector_color"
+        app:itemIconTint="@color/menu_selector_color"
+        app:itemTextColor="@color/menu_selector_color"
         app:itemBackground="@android:color/white"
         app:labelVisibilityMode="labeled"
         />

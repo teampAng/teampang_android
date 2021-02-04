@@ -9,6 +9,7 @@ import androidx.navigation.Navigation
 import com.alice.teampang.R
 import com.alice.teampang.databinding.FragPlanCreateCalendarBinding
 import com.alice.teampang.src.BaseFrag
+import com.alice.teampang.src.plan_create.name.PlanCreateNameFrag
 import com.applikeysolutions.cosmocalendar.selection.OnDaySelectedListener
 import com.applikeysolutions.cosmocalendar.selection.RangeSelectionManager
 
@@ -16,8 +17,10 @@ class PlanCreateCalendarFrag : BaseFrag(), View.OnClickListener {
 
     lateinit var navController : NavController
 
-    private var _binding: FragPlanCreateCalendarBinding? = null
-    private val binding get() = _binding!!
+    private var _binding : FragPlanCreateCalendarBinding? = null
+    private val binding  get() = _binding!!
+
+
 
     override fun onCreateView(
         inflater: LayoutInflater,

@@ -48,5 +48,4 @@ class PlanCreateNameFrag : BaseFrag(), View.OnClickListener {
         super.onDestroyView()
         _binding = null
     }
-
 }
