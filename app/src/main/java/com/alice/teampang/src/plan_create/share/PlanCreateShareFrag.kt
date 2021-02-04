@@ -34,11 +34,15 @@ class PlanCreateShareFrag : BaseFrag(), View.OnClickListener {
         navController = Navigation.findNavController(view)
 
         binding.btnBack.setOnClickListener(this)
+        binding.btnKakao.setOnClickListener(this)
+        binding.btnInvite.setOnClickListener(this)
     }
 
     override fun onClick(v: View) {
         when(v.id) {
             R.id.btn_back -> navController.popBackStack()
+            R.id.btn_kakao -> {}
+            R.id.btn_invite -> {}
         }
     }
 

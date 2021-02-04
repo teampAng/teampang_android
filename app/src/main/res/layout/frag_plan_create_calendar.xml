@@ -26,6 +26,7 @@
         android:textSize="24sp"
         android:textColor="@color/black"/>
     <LinearLayout
+        android:id="@+id/linear"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -63,11 +64,12 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="17dp"
             android:layout_marginTop="50dp"
-            android:text="2020년 8월 1일 ~ 2020년 8월 8일"
+            android:text="일정을 선택해주세요"
             android:lineSpacingExtra="7.2sp"
             android:textSize="13sp"
             android:textColor="@color/black"/>
     </LinearLayout>
+
 
     <LinearLayout
         android:id="@+id/btn_next"
