@@ -1,5 +1,6 @@
 package com.alice.teampang.src.main
 
+
 import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
@@ -79,4 +80,5 @@ class MainFrag : BaseFrag() {
         navController = Navigation.findNavController(view)
     }
 }
+
 

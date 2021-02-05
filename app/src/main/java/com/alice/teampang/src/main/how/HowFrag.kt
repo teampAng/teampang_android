@@ -1,5 +1,6 @@
 package com.alice.teampang.src.main.how
 
+
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -17,3 +18,4 @@ class HowFrag : BaseFrag() {
         return view
     }
 }
+
