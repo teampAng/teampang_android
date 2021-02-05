@@ -20,7 +20,9 @@
         tools:layout="@layout/frag_plan_create_name">
         <action
             android:id="@+id/action_planCreateNameFrag_to_planCreateCalendarFrag"
-            app:destination="@id/planCreateCalendarFrag" />
+            app:destination="@id/planCreateCalendarFrag"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left" />
     </fragment>
     <fragment
         android:id="@+id/planCreateTimeFrag"
@@ -45,5 +47,11 @@
         android:id="@+id/splashFrag"
         android:name="com.alice.teampang.src.splash.SplashFrag"
         android:label="SplashFrag"
-        tools:layout="@layout/frag_splash"/>
+        tools:layout="@layout/frag_splash">
+        <action
+            android:id="@+id/action_splashFrag_to_loginFrag"
+            app:destination="@id/loginFrag"
+            app:popUpTo="@id/splashFrag"
+            app:popUpToInclusive="true" />
+    </fragment>
 </navigation>
