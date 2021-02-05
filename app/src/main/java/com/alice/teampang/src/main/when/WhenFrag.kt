@@ -18,7 +18,6 @@ import com.alice.teampang.R
 import com.alice.teampang.databinding.FragPlanCreateNameBinding
 
 import com.alice.teampang.databinding.FragmentDateBinding
-import com.alice.teampang.model.Schedule
 import com.alice.teampang.src.BaseFrag
 import com.alice.teampang.ui.adapter.CustomAdapter
 
