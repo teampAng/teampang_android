@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingVertical="16dp"
+    android:paddingHorizontal="9dp"
+    android:orientation="vertical">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="참여 팀원"
+        android:textAppearance="@style/MainFontM"
+        android:textColor="@color/black"
+        android:lineSpacingExtra="3.9sp"
+        android:textSize="17sp" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:layout_marginStart="8dp"
+        android:text="참여 팀원"
+        android:textAppearance="@style/MainFontR"
+        android:textColor="@color/greyish_brown"
+        android:lineSpacingExtra="3.9sp"
+        android:textSize="14sp" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="3dp"
+        android:layout_marginStart="8dp"
+        android:text="참여 팀원"
+        android:textAppearance="@style/MainFontR"
+        android:textColor="@color/primary"
+        android:lineSpacingExtra="3.9sp"
+        android:textSize="14sp" />
+
+</LinearLayout>
