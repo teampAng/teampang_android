@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.alice.teampang.R
 import com.alice.teampang.databinding.FragPlanPossibleSelectionBinding
-import com.alice.teampang.model.Selection
 import com.alice.teampang.src.BaseFrag
 import com.prolificinteractive.materialcalendarview.CalendarDay
 import com.prolificinteractive.materialcalendarview.CalendarMode
