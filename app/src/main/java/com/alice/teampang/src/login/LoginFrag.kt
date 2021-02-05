@@ -3,6 +3,7 @@ package com.alice.teampang.src.login
 import android.os.Bundle
 import android.text.SpannableString
 import android.text.style.UnderlineSpan
+import android.text.util.Linkify
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,6 +12,7 @@ import androidx.navigation.Navigation
 import com.alice.teampang.R
 import com.alice.teampang.databinding.FragLoginBinding
 import com.alice.teampang.src.BaseFrag
+import java.util.regex.Pattern
 
 class LoginFrag: BaseFrag(), View.OnClickListener {
 
@@ -46,12 +48,22 @@ class LoginFrag: BaseFrag(), View.OnClickListener {
         spannableString2.setSpan(UnderlineSpan(), 0, spannableString2.length, 0)
         binding.tvCondition2.text = spannableString2
 
+        val mTransform = Linkify.TransformFilter { match, url -> "" }
+
+        val pattern1 = Pattern.compile("서비스 이용약관")
+        val pattern2 = Pattern.compile("개인정보 처리방침")
+
+        Linkify.addLinks(binding.tvCondition1, pattern1, "https://gun0912.tistory.com/66",null,mTransform)
+        Linkify.addLinks(binding.tvCondition2, pattern2, "https://gun0912.tistory.com/66",null,mTransform)
+
+
         binding.btnLogin.setOnClickListener(this)
     }
 
     override fun onClick(v: View) {
         when(v.id) {
-            R.id.btn_login -> navController.popBackStack()
+            R.id.btn_login -> {
+            }
         }
     }
 
