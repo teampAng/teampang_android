@@ -1,4 +1,4 @@
-package com.alice.teampang.src.plan_create.name
+package com.alice.teampang.src.plan_possible.name
 
 import android.content.Context
 import android.os.Bundle
@@ -14,65 +14,58 @@ import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.alice.teampang.R
 import com.alice.teampang.databinding.FragPlanCreateNameBinding
+import com.alice.teampang.databinding.FragPlanPossibleNameBinding
 import com.alice.teampang.src.BaseFrag
 
-class PlanCreateNameFrag : BaseFrag(), View.OnClickListener {
-
+class PlanPossibleNameFrag : BaseFrag(), View.OnClickListener {
     lateinit var navController : NavController
 
 
-    private var _binding: FragPlanCreateNameBinding? = null
+    private var _binding: FragPlanPossibleNameBinding? = null
     private val binding get() = _binding!!
 
-    //나중에 넘기기
-    var planName = ""
+    var membername = ""
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragPlanCreateNameBinding.inflate(inflater, container, false)
+        _binding = FragPlanPossibleNameBinding.inflate(inflater, container, false)
         val view = binding.root
 
         return view
     }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         navController = Navigation.findNavController(view)
 
         val listener = EnterListener()
-        binding.tvEdit.setOnEditorActionListener(listener)
+        binding.possibeName.setOnEditorActionListener(listener)
 
-        binding.tvEdit.addTextChangedListener(object : TextWatcher {
+        binding.possibeName.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(p0: Editable?) {
             }
 
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                planName = p0.toString()
+                membername = p0.toString()
             }
 
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
             }
-
         })
-        binding.btnBack.setOnClickListener(this)
-        binding.btnNext.setOnClickListener(this)
-        binding.layout.setOnClickListener(this)
 
+        binding.possibleBtn.setOnClickListener(this)
     }
-
     override fun onClick(v: View) {
         when(v.id) {
-            R.id.btn_back -> navController.popBackStack()
-            R.id.btn_next -> {
-                if (planName != "") {
+            R.id.possible_btn -> {
+                if (membername != "") {
                     hideKeyBoard()
-                    navController.navigate(R.id.action_planCreateNameFrag_to_planCreateCalendarFrag)
+                    navController.navigate(R.id.action_planPossibleNameFrag_to_planPossibleSelectionFrag)
                 } else {
-                    showCustomToast("일정 이름을 입력해주세요.")
+                    showCustomToast("이름을 입력해주세요.")
                 }
             }
             R.id.layout -> hideKeyBoard()
@@ -81,22 +74,13 @@ class PlanCreateNameFrag : BaseFrag(), View.OnClickListener {
 
     fun hideKeyBoard() {
         val imm = requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        imm.hideSoftInputFromWindow(binding.tvEdit.windowToken, 0)
+        imm.hideSoftInputFromWindow(binding.possibeName.windowToken, 0)
     }
 
-    //이너 클래스 리스너를 이용해서 setOnEditorActionListener를 사용하는 방법
     inner class EnterListener : TextView.OnEditorActionListener {
         override fun onEditorAction(p0: TextView?, p1: Int, p2: KeyEvent?): Boolean {
 
-            // 키보드 내리겠다고 하면
             return false
         }
     }
-
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
-
 }

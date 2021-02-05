@@ -24,7 +24,7 @@
             android:layout_width="38dp"
             android:layout_height="38dp"
             android:layout_marginTop="17dp"
-            android:background="#f2f1f7"
+            android:backgroundTint="#f2f1f7"
             app:cardCornerRadius="30dp"
             app:layout_constraintStart_toStartOf="@id/start_guideline"
             app:layout_constraintTop_toTopOf="parent">

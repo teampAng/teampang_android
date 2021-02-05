@@ -1,8 +1,6 @@
 package com.alice.teampang.ui.adapter
 
 
-import android.util.TypedValue
-import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -30,8 +28,8 @@ class CustomAdapter() :
 //        viewholder.english.gravity = Gravity.CENTER
 //        viewholder.korean.gravity = Gravity.CENTER
         viewholder.id.setText(mList[position].Dday)
-        viewholder.english.setText(mList[position].plansubject)
-        viewholder.korean.setText(mList[position].time)
+        viewholder.subject.setText(mList[position].plansubject)
+        viewholder.time.setText(mList[position].time)
     }
 
     override fun getItemCount(): Int {
@@ -41,6 +39,6 @@ class CustomAdapter() :
 
 class CustomViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     val id = itemView.findViewById<TextView>(R.id.item_d_day)
-    val english = itemView.findViewById<TextView>(R.id.item_subject)
-    val korean = itemView.findViewById<TextView>(R.id.item_time_loaction)
+    val subject = itemView.findViewById<TextView>(R.id.item_subject)
+    val time = itemView.findViewById<TextView>(R.id.item_time_loaction)
 }

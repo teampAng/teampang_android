@@ -12,14 +12,11 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
-<!--<<<<<<< HEAD-->
+        <!-- No Title Bar-->
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
-<!--=======-->
-
     </style>
     <style name="MainFontR" parent="android:Widget.TextView">
         <item name="android:fontFamily">@font/mainr</item>
-<!--&gt;>>>>>> ab17c7ab55987a492204773bc832d1d1a6dbefff-->
     </style>
 </resources>

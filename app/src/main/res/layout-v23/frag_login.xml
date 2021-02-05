@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/white">
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        app:layout_constraintVertical_bias="0.57"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/btn_login"
+        android:orientation="vertical">
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:background="@null"
+            app:srcCompat="@drawable/ic_logo"/>
+        <ImageView
+            android:layout_width="125dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="33dp"
+            android:background="@null"
+            app:srcCompat="@drawable/ic_title"/>
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/btn_back"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginHorizontal="17dp"
+            android:layout_marginTop="12.5dp"
+            android:text="팀플을 더 편하고 즐겁게"
+            android:lineSpacingExtra="7.2sp"
+            android:textSize="13sp"
+            android:textColor="@color/greyish_brown"/>
+    </LinearLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/btn_login"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        app:layout_constraintBottom_toTopOf="@id/tv1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginHorizontal="32dp"
+        android:layout_marginBottom="27dp"
+        android:background="@drawable/btn_yellow"
+        android:orientation="horizontal"
+        android:gravity="center">
+        <ImageView
+            android:layout_width="22dp"
+            android:layout_height="19dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginStart="24dp"
+            android:background="@null"
+            app:srcCompat="@drawable/ic_icon__kakao"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:text="카카오로 계속하기"
+            android:textSize="13sp"
+            android:textColor="@color/black"
+            android:textAppearance="@style/MainFontR"
+            android:lineSpacingExtra="4.8sp"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    <LinearLayout
+        android:id="@+id/tv1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@id/tv2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="계속하기 버튼을 누르면 "
+            android:textSize="10sp"
+            android:textColor="@color/warm_grey"
+            android:textAppearance="@style/MainFontR"
+            android:lineSpacingExtra="4.8sp"/>
+        <TextView
+            android:id="@+id/tv_condition1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="서비스 이용약관"
+            android:textSize="10sp"
+            android:textColor="@color/primary"
+            android:textAppearance="@style/MainFontR"
+            android:lineSpacingExtra="4.8sp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="과"
+            android:textSize="10sp"
+            android:textColor="@color/warm_grey"
+            android:textAppearance="@style/MainFontR"
+            android:lineSpacingExtra="4.8sp"/>
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/tv2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="6dp"
+        android:layout_marginBottom="35dp">
+        <TextView
+            android:id="@+id/tv_condition2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="개인정보 처리방침"
+            android:textSize="10sp"
+            android:textColor="@color/primary"
+            android:textAppearance="@style/MainFontR"
+            android:lineSpacingExtra="4.8sp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="에 동의한 것으로 간주합니다."
+            android:textSize="10sp"
+            android:textColor="@color/warm_grey"
+            android:textAppearance="@style/MainFontR"
+            android:lineSpacingExtra="4.8sp"/>
+    </LinearLayout>
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
