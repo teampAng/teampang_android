@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.alice.teampang">
-
-    <!--queries에 카카오톡 패키지 추가-->
+    <!-- queries에 카카오톡 패키지 추가 -->
     <queries>
         <package android:name="com.kakao.talk" />
     </queries>
@@ -17,7 +16,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Teampang">
+
+
         <activity android:name=".src.MainActivity"
+
             android:windowSoftInputMode="adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -25,7 +27,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
+        <activity android:name=".src.HomeActivity2"></activity>
         <activity android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
@@ -36,7 +38,8 @@
                 <data
                     android:host="oauth"
                     android:scheme="@string/kakao_scheme" />
-                <data android:host="kakaolink"
+                <data
+                    android:host="kakaolink"
                     android:scheme="@string/kakao_scheme" />
             </intent-filter>
         </activity>

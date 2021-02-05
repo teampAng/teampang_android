@@ -69,6 +69,7 @@ class PlanCreateCalendarFrag : BaseFrag(), View.OnClickListener {
         val day = calendar.get(Calendar.DAY_OF_MONTH)
         val month = calendar.get(Calendar.MONTH)
         val year = calendar.get(Calendar.YEAR)
+
         return "${year}년 ${month + 1}월 ${day}일"
     }
 

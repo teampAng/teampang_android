@@ -1,5 +1,6 @@
-package com.alice.teampang.src.plan_create.share
+package com.alice.teampang.src.splash
 
+import android.animation.Animator
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -7,14 +8,14 @@ import android.view.ViewGroup
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.alice.teampang.R
-import com.alice.teampang.databinding.FragPlanCreateShareBinding
+import com.alice.teampang.databinding.FragSplashBinding
 import com.alice.teampang.src.BaseFrag
 
-class PlanCreateShareFrag : BaseFrag(), View.OnClickListener {
+class SplashFrag: BaseFrag() {
 
     lateinit var navController : NavController
 
-    private var _binding: FragPlanCreateShareBinding? = null
+    private var _binding: FragSplashBinding? = null
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -22,7 +23,7 @@ class PlanCreateShareFrag : BaseFrag(), View.OnClickListener {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragPlanCreateShareBinding.inflate(inflater, container, false)
+        _binding = FragSplashBinding.inflate(inflater, container, false)
         val view = binding.root
 
         return view
@@ -33,18 +34,15 @@ class PlanCreateShareFrag : BaseFrag(), View.OnClickListener {
 
         navController = Navigation.findNavController(view)
 
-        binding.btnBack.setOnClickListener(this)
-        binding.btnKakao.setOnClickListener(this)
-        binding.btnInvite.setOnClickListener(this)
-    }
+        binding.animationView.addAnimatorListener(object : Animator.AnimatorListener {
+            override fun onAnimationStart(animation: Animator) {}
+            override fun onAnimationEnd(animation: Animator) {
+                navController.navigate(R.id.action_splashFrag_to_loginFrag)
+            }
+            override fun onAnimationCancel(animation: Animator) {}
+            override fun onAnimationRepeat(animation: Animator) {}
+        })
 
-    override fun onClick(v: View) {
-
-        when(v.id) {
-            R.id.btn_back -> navController.popBackStack()
-            R.id.btn_kakao -> {}
-            R.id.btn_invite -> {}
-        }
     }
 
     override fun onDestroyView() {

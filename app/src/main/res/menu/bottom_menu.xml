@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/bottom_plan"
+        android:enabled="true"
+        android:icon="@drawable/ic_calendar_unselected"
+        android:title="일정"/>
+
+    <item
+        android:id="@+id/bottom_date"
+        android:enabled="true"
+        android:icon="@drawable/ic_when_unselected"
+        android:title="언제"/>
+
+    <item
+        android:id="@+id/bottom_location"
+        android:enabled="true"
+        android:icon="@drawable/ic_where_unselected"
+        android:title="어디서"/>
+</menu>

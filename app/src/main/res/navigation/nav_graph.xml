@@ -2,13 +2,30 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+
+    android:id="@+id/mainFrag"
+    app:startDestination="@id/planPossibleNameFrag">
+
+    <fragment
+        android:id="@+id/mainWhenFrag"
+        android:name="com.alice.teampang.src.main.when.WhenFrag"
+        android:label="WhenFrag"
+        tools:layout="@layout/fragment_date">
+        <action
+            android:id="@+id/action_WhenFrag_to_planCreateNameFrag"
+            app:destination="@+id/planCreateNameFrag"/>
+    </fragment>
+
+
     android:id="@+id/nav_graph"
     app:startDestination="@id/splashFrag">
+
     <fragment
         android:id="@+id/planCreateCalendarFrag"
         android:name="com.alice.teampang.src.plan_create.calendar.PlanCreateCalendarFrag"
         android:label="PlanCreateCalendarFrag"
         tools:layout="@layout/frag_plan_create_calendar">
+
         <action
             android:id="@+id/action_planCreateCalendarFrag_to_planCreateTimeFrag"
             app:destination="@id/planCreateTimeFrag" />
@@ -20,9 +37,13 @@
         tools:layout="@layout/frag_plan_create_name">
         <action
             android:id="@+id/action_planCreateNameFrag_to_planCreateCalendarFrag"
+
+            app:destination="@id/planCreateCalendarFrag" />
+
             app:destination="@id/planCreateCalendarFrag"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left" />
+
     </fragment>
     <fragment
         android:id="@+id/planCreateTimeFrag"
@@ -38,6 +59,34 @@
         android:name="com.alice.teampang.src.plan_create.share.PlanCreateShareFrag"
         android:label="PlanCreateShareFrag"
         tools:layout="@layout/frag_plan_create_share"/>
+
+
+    <fragment
+        android:id="@+id/planPossibleNameFrag"
+        android:name="com.alice.teampang.src.plan_possible.name.PlanPossibleNameFrag"
+        android:label="PlanPossibleNameFrag"
+        tools:layout="@layout/frag_plan_possible_name">
+
+        <action
+            android:id="@+id/action_planPossibleNameFrag_to_planPossibleSelectionFrag"
+            app:destination="@id/planPossibleSelectionFrag" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/planPossibleSelectionFrag"
+        android:name="com.alice.teampang.src.plan_possible.selection.PlanPossibleSelectionFrag"
+        android:label="PlanPossibleNameFrag"
+        tools:layout="@layout/frag_plan_possible_selection">
+
+    </fragment>
+    <fragment
+        android:id="@+id/mainFrag2"
+        android:name="com.alice.teampang.src.main.MainFrag"
+        android:label="MainFrag"
+        tools:layout="@layout/frag_main2"/>
+
+
     <fragment
         android:id="@+id/loginFrag"
         android:name="com.alice.teampang.src.login.LoginFrag"
