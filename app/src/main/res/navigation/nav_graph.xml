@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/loginFrag">
+    app:startDestination="@id/splashFrag">
     <fragment
         android:id="@+id/planCreateCalendarFrag"
         android:name="com.alice.teampang.src.plan_create.calendar.PlanCreateCalendarFrag"
@@ -41,4 +41,9 @@
         android:name="com.alice.teampang.src.login.LoginFrag"
         android:label="LoginFrag"
         tools:layout="@layout/frag_login"/>
+    <fragment
+        android:id="@+id/splashFrag"
+        android:name="com.alice.teampang.src.splash.SplashFrag"
+        android:label="SplashFrag"
+        tools:layout="@layout/frag_splash"/>
 </navigation>

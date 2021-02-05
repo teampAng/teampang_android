@@ -66,4 +66,7 @@ dependencies {
     //https://github.com/ApplikeySolutions/CosmoCalendar
     implementation 'com.github.applikeysolutions:cosmocalendar:1.0.4'
     implementation "androidx.recyclerview:recyclerview:1.1.0"
+
+    //https://github.com/airbnb/lottie-android
+    implementation 'com.airbnb.android:lottie:3.5.0'
 }
