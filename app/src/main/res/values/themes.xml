@@ -24,4 +24,7 @@
     <style name="MainFontM" parent="android:Widget.TextView">
         <item name="android:fontFamily">@font/spoqahansansneomedium</item>
     </style>
+    <style name="MainFontB" parent="android:Widget.TextView">
+        <item name="android:fontFamily">@font/spoqahansansneobold</item>
+    </style>
 </resources>
