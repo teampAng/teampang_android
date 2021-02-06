@@ -21,4 +21,8 @@
     <color name="gray">#b4b4b4</color>
 
     <color name="greyish_brown">#4f4f4f</color>
+    <color name="bright_blue">#007aff</color>
+    <color name="white92">#ebf8f8f8</color>
+    <color name="deep_sky_blue">#0a84ff</color>
+    <color name="orangey_red">#ff4339</color>
 </resources>

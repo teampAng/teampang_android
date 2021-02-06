@@ -2,7 +2,7 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    app:startDestination="@id/teamDetailAfterFrag">
+    app:startDestination="@id/teamDetailBeforeFrag">
 
     <fragment
         android:id="@+id/mainWhenFrag"
@@ -97,10 +97,10 @@
         android:id="@+id/teamDetailAfterFrag"
         android:name="com.alice.teampang.src.team_detail.TeamDetailAfterFrag"
         android:label="TeamDetailAfterFrag"
-        tools:layout="@layout/frag_team_detail_before"/>
+        tools:layout="@layout/frag_team_detail_after"/>
     <fragment
         android:id="@+id/teamDetailBeforeFrag"
         android:name="com.alice.teampang.src.team_detail.TeamDetailBeforeFrag"
         android:label="TeamDetailBeforeFrag"
-        tools:layout="@layout/frag_team_detail_after"/>
+        tools:layout="@layout/frag_team_detail_before"/>
 </navigation>
