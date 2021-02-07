@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:gravity="center_vertical"
+    android:layout_marginHorizontal="19dp"
+    android:paddingVertical="19dp">
+    <TextView
+        android:id="@+id/day"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:lineSpacingExtra="5.4sp"
+        android:text="월"
+        android:textAppearance="@style/MainFontR"
+        android:textColor="@color/black"
+        android:textSize="18sp" />
+    <TextView
+        android:id="@+id/time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="6dp"
+        android:lineSpacingExtra="5.4sp"
+        android:text="09:00 - 10:00"
+        android:textAppearance="@style/MainFontR"
+        android:textColor="@color/black"
+        android:textSize="18sp" />
+    <TextView
+        android:id="@+id/name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="34dp"
+        android:lineSpacingExtra="6sp"
+        android:text="동아리"
+        android:textAppearance="@style/MainFontR"
+        android:textColor="@color/black"
+        android:textSize="18sp" />
+    <View
+        android:layout_weight="1"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@color/white_two"/>
+    <ImageButton
+        android:id="@+id/btn_delete"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_gravity="end"
+        android:layout_marginEnd="6dp"
+        android:background="@drawable/ic_delete" />
+</LinearLayout>

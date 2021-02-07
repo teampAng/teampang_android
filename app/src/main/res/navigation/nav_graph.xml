@@ -2,7 +2,7 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    app:startDestination="@id/signupFrag">
+    app:startDestination="@id/myScheduleFrag">
 
     <fragment
         android:id="@+id/mainWhenFrag"
@@ -108,4 +108,18 @@
         android:name="com.alice.teampang.src.signup.SignupFrag"
         android:label="SignupFrag"
         tools:layout="@layout/frag_signup"/>
+    <fragment
+        android:id="@+id/myScheduleEditFrag"
+        android:name="com.alice.teampang.src.my_schedule.MyScheduleEditFrag"
+        android:label="MyScheduleEditFrag"
+        tools:layout="@layout/frag_my_schedule_edit"/>
+    <fragment
+        android:id="@+id/myScheduleFrag"
+        android:name="com.alice.teampang.src.my_schedule.MyScheduleFrag"
+        android:label="MyScheduleFrag"
+        tools:layout="@layout/frag_my_schedule">
+        <action
+            android:id="@+id/action_myScheduleFrag_to_myScheduleEditFrag"
+            app:destination="@id/myScheduleEditFrag" />
+    </fragment>
 </navigation>
