@@ -67,6 +67,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:hint="ex)팀팡"
+                    android:maxLength="10"
                     android:singleLine = "true"
                     android:lines = "1"
                     android:enabled="true"
@@ -106,6 +107,7 @@
                     android:textColor="@color/pinkish_grey_two"/>
             </LinearLayout>
             <TextView
+                android:id="@+id/nickname_con1"
                 android:visibility="invisible"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -115,6 +117,7 @@
                 android:textSize="10sp"
                 android:textColor="@color/orangey_red"/>
             <TextView
+                android:id="@+id/nickname_con2"
                 android:visibility="gone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -126,8 +129,10 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="18dp"
                 android:orientation="horizontal">
                 <TextView
+                    android:id="@+id/btn_univ_o"
                     android:layout_weight="1"
                     android:layout_width="0dp"
                     android:layout_height="30dp"
@@ -138,6 +143,7 @@
                     android:textSize="11sp"
                     android:textColor="@color/pinkish_grey"/>
                 <TextView
+                    android:id="@+id/btn_univ_x"
                     android:layout_weight="1"
                     android:layout_width="0dp"
                     android:layout_height="30dp"
@@ -150,6 +156,8 @@
                     android:textColor="@color/pinkish_grey"/>
             </LinearLayout>
             <LinearLayout
+                android:id="@+id/univ_box1"
+                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="23dp"
@@ -172,6 +180,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="학교 입력"
+                        android:maxLength="13"
                         android:singleLine = "true"
                         android:lines = "1"
                         android:enabled="true"
@@ -211,6 +220,8 @@
                 </LinearLayout>
             </LinearLayout>
             <LinearLayout
+                android:id="@+id/univ_box2"
+                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="23dp"
@@ -233,6 +244,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="학과 입력"
+                        android:maxLength="13"
                         android:singleLine = "true"
                         android:lines = "1"
                         android:enabled="true"
@@ -276,7 +288,7 @@
     </ScrollView>
 
     <LinearLayout
-        android:id="@+id/btn_next"
+        android:id="@+id/btn_finish"
         android:layout_width="match_parent"
         android:layout_height="44dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -287,14 +299,16 @@
         android:background="@drawable/btn_grey"
         android:orientation="horizontal"
         android:gravity="center">
+
         <TextView
+            android:id="@+id/tv_finish"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:lineSpacingExtra="4.8sp"
             android:text="완료"
-            android:textSize="16sp"
-            android:textColor="@color/warm_grey"
             android:textAppearance="@style/MainFontR"
-            android:lineSpacingExtra="4.8sp"/>
+            android:textColor="@color/warm_grey"
+            android:textSize="16sp" />
     </LinearLayout>
 
 
