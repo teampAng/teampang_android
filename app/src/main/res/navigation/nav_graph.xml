@@ -2,7 +2,7 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    app:startDestination="@id/teamDetailBeforeFrag">
+    app:startDestination="@id/signupFrag">
 
     <fragment
         android:id="@+id/mainWhenFrag"
@@ -103,4 +103,8 @@
         android:name="com.alice.teampang.src.team_detail.TeamDetailBeforeFrag"
         android:label="TeamDetailBeforeFrag"
         tools:layout="@layout/frag_team_detail_before"/>
+    <fragment
+        android:id="@+id/signupFrag"
+        android:name="com.alice.teampang.src.signup.SignupFrag"
+        android:label="SignupFrag" />
 </navigation>
