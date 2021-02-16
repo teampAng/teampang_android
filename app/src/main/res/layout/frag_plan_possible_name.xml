@@ -8,57 +8,78 @@
     android:background="@color/white">
 
     <TextView
-        android:id="@+id/title"
+        android:id="@+id/possible_name_text1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginHorizontal="17dp"
-        android:layout_marginTop="100dp"
+        app:layout_constraintStart_toStartOf="@id/start_guideline"
+        android:layout_marginTop="263dp"
         android:text="아래의 이름을 사용하실건가요?"
-        android:lineSpacingExtra="7.2sp"
-        android:textSize="24sp"
-        android:textColor="@color/black"/>
+        android:fontFamily="@font/spoqahansansneoregular"
+        android:lineSpacingExtra="6.6sp"
+        android:textStyle="normal"
+        android:textSize="22sp"
+        android:textColor="#333333"/>
 
     <EditText
-        android:id="@+id/possibe_name"
-        android:layout_width="match_parent"
+        android:id="@+id/possibe_name_edit1"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/title"
+        app:layout_constraintWidth_default="percent"
+        app:layout_constraintWidth_percent="0.915"
+        app:layout_constraintTop_toBottomOf="@id/possible_name_text1"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginHorizontal="16dp"
-        android:layout_marginTop="71dp"
-        android:hint="임건"
+        android:layout_marginTop="65dp"
         android:singleLine = "true"
         android:lines = "1"
         android:enabled="true"
         android:lineSpacingExtra="7.2sp"
-        android:textSize="24sp"
-        android:textColorHint="@color/pinkish_grey"/>
+        android:textSize="24sp" />
 
-    <LinearLayout
-        android:id="@+id/possible_btn"
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/possible_name_text2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@id/start_guideline"
+        app:layout_constraintTop_toBottomOf="@id/possibe_name_edit1"
+        android:layout_marginTop="9dp"
+        android:textStyle="normal"
+        android:textSize="10sp"
+        android:textColor="@color/orange_red"
+        android:lineSpacingExtra="3sp" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/possible_name_btn"
+        android:layout_width="0dp"
         android:layout_height="44dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginHorizontal="17dp"
-        android:layout_marginBottom="16dp"
-        android:background="@drawable/btn_grey"
-        android:orientation="horizontal"
-        android:gravity="center">
+        app:layout_constraintWidth_default="percent"
+        app:layout_constraintWidth_percent="0.915"
+        app:layout_constraintStart_toStartOf="@id/start_guideline"
+        app:layout_constraintTop_toBottomOf="@id/possible_name_text2"
+        android:layout_marginTop="35dp"
+        android:backgroundTint="@color/primary"
+        app:cardCornerRadius="7dp"
+        >
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="다음"
+        android:textColor="#ffffff"
+        android:textSize="16sp"
+        android:textStyle="normal"
+        android:layout_gravity="center"
+        android:lineSpacingExtra="4.8sp"
+        android:fontFamily="@font/spoqahansansneoregular"/>
+    </androidx.cardview.widget.CardView>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="다음"
-            android:textSize="16sp"
-            android:textColor="@color/warm_grey"
-            android:textAppearance="@style/MainFontR"
-            android:lineSpacingExtra="4.8sp"/>
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/start_guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.0427"/>
 
-    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

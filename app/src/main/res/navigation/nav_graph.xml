@@ -2,7 +2,7 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    app:startDestination="@id/planPossibleNameFrag">
+    app:startDestination="@id/planConfirmMinHour">
 
     <fragment
         android:id="@+id/mainWhenFrag"
@@ -60,8 +60,8 @@
         tools:layout="@layout/frag_plan_possible_name">
 
         <action
-            android:id="@+id/action_planPossibleNameFrag_to_planPossibleSelectionFrag"
-            app:destination="@id/planPossibleSelectionFrag" />
+            android:id="@+id/action_planPossibleNameFrag_to_planPossibleInvitedFrag"
+            app:destination="@id/planPossibleInvitedFrag" />
 
     </fragment>
 
@@ -71,6 +71,12 @@
         android:label="PlanPossibleNameFrag"
         tools:layout="@layout/frag_plan_possible_selection">
 
+        <action
+            android:id="@+id/action_planPossibleSelectionFrag_self"
+            app:destination="@id/planPossibleSelectionFrag" />
+        <action
+            android:id="@+id/action_planPossibleSelectionFrag_to_planPossibleComplete"
+            app:destination="@id/planPossibleComplete" />
     </fragment>
     <fragment
         android:id="@+id/mainFrag2"
@@ -95,4 +101,44 @@
             app:popUpTo="@id/splashFrag"
             app:popUpToInclusive="true" />
     </fragment>
+
+
+    <fragment
+        android:id="@+id/planPossibleInvitationFrag"
+        android:name="com.alice.teampang.src.plan_possible.invitation.PlanPossibleInvitationFrag"
+        android:label="PlanPossibleInvitationFrag" >
+
+        <action
+            android:id="@+id/action_planPossibleInvitationFrag_to_planPossibleNameFrag"
+            app:destination="@id/planPossibleNameFrag" />
+    </fragment>
+    <fragment
+        android:id="@+id/planPossibleInvitedFrag"
+        android:name="com.alice.teampang.src.plan_possible.invited.PlanPossibleInvitedFrag"
+        android:label="PlanPossibleInvitedFrag" >
+        <action
+            android:id="@+id/action_planPossibleInvitedFrag_to_planPossibleSelectionFrag"
+            app:destination="@id/planPossibleSelectionFrag" />
+    </fragment>
+    <fragment
+        android:id="@+id/planConfirmMinHour"
+        android:name="com.alice.teampang.src.plan_confirm.minhour.PlanConfirmMinHour"
+        android:label="PlanConfirmMinHour" >
+        <action
+            android:id="@+id/action_planConfirmMinHour_to_planConfirmDateFrag"
+            app:destination="@id/planConfirmDateFrag" />
+    </fragment>
+    <fragment
+        android:id="@+id/planConfirmDateFrag"
+        android:name="com.alice.teampang.src.plan_confirm.date.PlanConfirmDateFrag"
+        android:label="PlanConfirmDateFrag" >
+        <argument
+            android:name="mintime"
+            app:argType="integer"
+            android:defaultValue="15" />
+    </fragment>
+    <fragment
+        android:id="@+id/planPossibleComplete"
+        android:name="com.alice.teampang.src.plan_possible.complete.PlanPossibleComplete"
+        android:label="PlanPossibleComplete" />
 </navigation>

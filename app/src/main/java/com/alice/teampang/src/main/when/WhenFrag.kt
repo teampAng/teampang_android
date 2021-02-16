@@ -78,9 +78,9 @@ class WhenFrag :BaseFrag(),View.OnClickListener{
                 data2.add(data) // RecyclerView의 마지막 줄에 삽입
                 adapter.notifyDataSetChanged()
             }
-            R.id.btn_after -> {
-                navController.navigate(R.id.action_WhenFrag_to_planCreateNameFrag)
-            }
+//            R.id.btn_after -> {
+//                navController.navigate(R.id.action_WhenFrag_to_planCreateNameFrag)
+//            }
         }
     }
 

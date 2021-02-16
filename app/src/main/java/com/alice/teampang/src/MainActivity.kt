@@ -2,6 +2,7 @@ package com.alice.teampang.src
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import androidx.fragment.app.FragmentContainerView
 import com.alice.teampang.R
 import com.alice.teampang.src.main.MainFrag
@@ -11,6 +12,8 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+
 
     }
 }

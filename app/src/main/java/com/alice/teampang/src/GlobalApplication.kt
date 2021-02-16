@@ -81,6 +81,8 @@ class GlobalApplication : Application() {
             return retrofitKakao
         }
 
+
+
         fun kakaoLink(
             templateId: Long,
             userName: String,

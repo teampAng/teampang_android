@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
+    id "androidx.navigation.safeargs.kotlin"
 }
 
 android {
@@ -33,7 +34,7 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
     kotlinOptions {
-        jvmTarget = '1.8'
+        jvmTarget = JavaVersion.VERSION_1_8.toString()
     }
     buildFeatures {
         viewBinding true
@@ -70,4 +71,6 @@ dependencies {
 
     //https://github.com/airbnb/lottie-android
     implementation 'com.airbnb.android:lottie:3.5.0'
+
+    implementation 'com.gitlab.developerdeveloperdeveloper:androidutilslibrary:1.0.0'
 }

@@ -35,6 +35,7 @@ class PlanCreateNameFrag : BaseFrag(), View.OnClickListener {
         _binding = FragPlanCreateNameBinding.inflate(inflater, container, false)
         val view = binding.root
 
+
         return view
     }
 
@@ -52,8 +53,8 @@ class PlanCreateNameFrag : BaseFrag(), View.OnClickListener {
 
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
                 planName = p0.toString()
-            }
 
+            }
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
             }
 
