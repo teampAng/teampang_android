@@ -53,12 +53,6 @@ class MyScheduleEditFrag : BaseFrag(), View.OnClickListener {
         _binding = FragMyScheduleEditBinding.inflate(inflater, container, false)
         val view = binding.root
 
-
-//        if (arguments?.getSerializable("times") != null) {
-//            times = (arguments?.getSerializable("times") as Times?)!!
-//            timesArrayList.add(times)
-//        }
-
         return view
     }
 
@@ -69,15 +63,10 @@ class MyScheduleEditFrag : BaseFrag(), View.OnClickListener {
         navController = Navigation.findNavController(view)
         myScheduleEditAdapter = MyScheduleEditAdapter(requireContext())
 
-        //새로운 개인일정 추가할 때 필요(나중에 어느 버튼으로 온 건지 구분해야겠다)
-        setRcvMyScheduleEdit()
-
         setFragmentResultListener("requestKey") { resultKey, bundle ->
             timesArrayList = bundle.getSerializable("times") as ArrayList<Times>
             scheduleName = bundle.getString("name")
             binding.scheduleName.hint = scheduleName
-            //개인일정 수정할 때 일정이름은 수정 안 되게
-            binding.scheduleName.isEnabled = false
             setRcvMyScheduleEdit()
         }
 
@@ -115,13 +104,13 @@ class MyScheduleEditFrag : BaseFrag(), View.OnClickListener {
                     //test
                     showCustomToast("${scheduleName}${binding.btnDay.text}${binding.btnTime.text}")
                     //리사이클러뷰 아이템 추가
-                    //개인일정 추가 api 쏘기
-
                     timesArrayList.add(Times(day, startTimeS, endTimeS))
                     myScheduleEditAdapter.notifyDataSetChanged()
                 }
             }
             binding.btnFinish -> {
+                //일정 추가로 넘어온 경우 -> 일정 생성 api
+                //일정 수정으로 넘어온 경우 -> 일정 수정 api
                 navController.popBackStack()
             }
             binding.layout -> hideKeyBoard()
