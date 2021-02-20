@@ -25,6 +25,6 @@ class SelectionAdapter :  RecyclerView.Adapter<SelectionAdapter.SelectionViewHol
     }
 
    inner class SelectionViewHolder(itemView : View): RecyclerView.ViewHolder(itemView){
-       val number2 = itemView.findViewById<TextView>(R.id.tv_day_number)
+       val number2 = itemView.findViewById<TextView>(R.id.tv_text)
     }
 }

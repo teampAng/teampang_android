@@ -64,11 +64,12 @@ dependencies {
     //https://developer.android.com/studio/write/java8-support?hl=ko
     coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:1.1.1'
 
-    //https://github.com/ApplikeySolutions/CosmoCalendar
-    implementation 'com.github.applikeysolutions:cosmocalendar:1.0.4'
     implementation "androidx.recyclerview:recyclerview:1.1.0"
 
     implementation 'com.github.prolificinteractive:material-calendarview:2.0.1'
+
+    //https://github.com/prolificinteractive/material-calendarview/issues/947
+    implementation 'com.jakewharton.threetenabp:threetenabp:1.2.1'
 
     //https://github.com/airbnb/lottie-android
     implementation 'com.airbnb.android:lottie:3.5.0'
