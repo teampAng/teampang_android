@@ -27,4 +27,15 @@
     <style name="MainFontB" parent="android:Widget.TextView">
         <item name="android:fontFamily">@font/spoqahansansneobold</item>
     </style>
+    <style name="CalendarTitle" parent="android:Widget.TextView">
+        <item name="android:fontFamily">@font/mainr</item>
+        <item name="android:textColor">@color/greyish_brown</item>
+    </style>
+    <style name="Sunday" parent="android:Widget.TextView">
+        <item name="android:fontFamily">@font/mainr</item>
+        <item name="android:textColor">@color/coral</item>
+        <item name="android:text">@string/sunday</item>
+    </style>
+
+    <color name="coral">#fb5046</color>
 </resources>
