@@ -55,7 +55,6 @@
             app:mcv_dateTextAppearance="@style/MainFontR"
             app:mcv_weekDayTextAppearance="@style/MainFontR"
             app:mcv_weekDayLabels="@array/weekdays_custom"/>
-
         <TextView
             android:id="@+id/tv2"
             android:layout_width="wrap_content"

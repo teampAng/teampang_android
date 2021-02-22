@@ -25,4 +25,6 @@
     <color name="white92">#ebf8f8f8</color>
     <color name="deep_sky_blue">#0a84ff</color>
     <color name="orangey_red">#ff4339</color>
+    <color name="silver">#e9eaeb</color>
+    <color name="pale_grey">#f8f9fa</color>
 </resources>
