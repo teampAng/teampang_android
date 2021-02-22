@@ -2,7 +2,7 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    app:startDestination="@id/myPageFrag">
+    app:startDestination="@id/settingFrag">
 
     <fragment
         android:id="@+id/mainWhenFrag"
@@ -133,5 +133,13 @@
         <action
             android:id="@+id/action_myPageFrag_to_myScheduleFrag"
             app:destination="@id/myScheduleFrag" />
+        <action
+            android:id="@+id/action_myPageFrag_to_settingFrag"
+            app:destination="@id/settingFrag" />
     </fragment>
+    <fragment
+        android:id="@+id/settingFrag"
+        android:name="com.alice.teampang.src.setting.SettingFrag"
+        android:label="SettingFrag"
+        tools:layout="@layout/frag_setting"/>
 </navigation>

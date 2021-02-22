@@ -29,7 +29,7 @@
         android:textColor="@color/real_black"
         android:letterSpacing="-0.01"
         android:lineSpacingExtra="4sp"
-        android:textSize="13sp" />
+        android:textSize="12sp" />
     <View
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
@@ -55,7 +55,7 @@
             android:layout_height="match_parent"
             android:background="@color/warm_grey" />
         <TextView
-            android:id="@+id/btn_ok"
+            android:id="@+id/btn_logout"
             android:layout_weight="1"
             android:layout_width="0dp"
             android:layout_height="44dp"
