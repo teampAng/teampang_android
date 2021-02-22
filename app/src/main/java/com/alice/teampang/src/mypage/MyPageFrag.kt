@@ -53,7 +53,7 @@ class MyPageFrag : BaseFrag(), View.OnClickListener {
             binding.btnMySchedule -> navController.navigate(R.id.action_myPageFrag_to_myScheduleFrag)
             binding.btnCoffee -> coffeeDialog()
             binding.btnContact -> contactDialog()
-            binding.btnSetting -> {} //앱 설정 화면으로
+            binding.btnSetting -> navController.navigate(R.id.action_myPageFrag_to_settingFrag)
         }
     }
 
