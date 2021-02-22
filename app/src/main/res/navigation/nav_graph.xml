@@ -2,7 +2,7 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    app:startDestination="@id/planCreateTimeFrag">
+    app:startDestination="@id/myPageFrag">
 
     <fragment
         android:id="@+id/mainWhenFrag"
@@ -124,5 +124,14 @@
         <argument
             android:name="times"
             app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/myPageFrag"
+        android:name="com.alice.teampang.src.mypage.MyPageFrag"
+        android:label="MyPageFrag"
+        tools:layout="@layout/frag_my_page">
+        <action
+            android:id="@+id/action_myPageFrag_to_myScheduleFrag"
+            app:destination="@id/myScheduleFrag" />
     </fragment>
 </navigation>
