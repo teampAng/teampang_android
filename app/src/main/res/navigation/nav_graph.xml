@@ -64,14 +64,18 @@
         android:id="@+id/mainFrag"
         android:name="com.alice.teampang.src.main.MainFrag"
         android:label="MainFrag"
-        tools:layout="@layout/frag_main"/>
-    <fragment
-        android:id="@+id/whenFrag"
-        android:name="com.alice.teampang.src.main.when.WhenFrag"
-        android:label="WhenFrag"
-        tools:layout="@layout/fragment_date">
+        tools:layout="@layout/frag_main">
         <action
-            android:id="@+id/action_whenFrag_to_planCreateNameFrag"
+            android:id="@+id/action_mainFrag_to_myPageFrag"
+            app:destination="@id/myPageFrag" />
+        <action
+            android:id="@+id/action_mainFrag_to_teamDetailBeforeFrag"
+            app:destination="@id/teamDetailBeforeFrag" />
+        <action
+            android:id="@+id/action_mainFrag_to_teamDetailAfterFrag"
+            app:destination="@id/teamDetailAfterFrag" />
+        <action
+            android:id="@+id/action_mainFrag_to_planCreateNameFrag"
             app:destination="@id/planCreateNameFrag" />
     </fragment>
 
@@ -82,6 +86,8 @@
         tools:layout="@layout/frag_login">
         <action
             android:id="@+id/action_loginFrag_to_signupFrag"
+            app:popUpToInclusive="true"
+            app:popUpTo="@id/loginFrag"
             app:destination="@id/signupFrag" />
     </fragment>
     <fragment
@@ -91,11 +97,13 @@
         tools:layout="@layout/frag_splash">
         <action
             android:id="@+id/action_splashFrag_to_loginFrag"
-            app:destination="@id/loginFrag"
             app:popUpTo="@id/splashFrag"
-            app:popUpToInclusive="true" />
+            app:popUpToInclusive="true"
+            app:destination="@id/loginFrag"/>
         <action
             android:id="@+id/action_splashFrag_to_mainFrag"
+            app:popUpTo="@id/splashFrag"
+            app:popUpToInclusive="true"
             app:destination="@id/mainFrag" />
     </fragment>
     <fragment
@@ -115,6 +123,8 @@
         tools:layout="@layout/frag_signup">
         <action
             android:id="@+id/action_signupFrag_to_signupSuccessFrag"
+            app:popUpTo="@id/signupFrag"
+            app:popUpToInclusive="true"
             app:destination="@id/signupSuccessFrag" />
     </fragment>
     <fragment
@@ -124,6 +134,8 @@
         tools:layout="@layout/frag_signup_success">
         <action
             android:id="@+id/action_signupSuccessFrag_to_mainFrag"
+            app:popUpTo="@id/signupSuccessFrag"
+            app:popUpToInclusive="true"
             app:destination="@id/mainFrag" />
     </fragment>
 
