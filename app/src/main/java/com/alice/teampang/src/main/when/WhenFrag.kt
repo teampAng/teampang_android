@@ -79,7 +79,7 @@ class WhenFrag :BaseFrag(),View.OnClickListener{
                 adapter.notifyDataSetChanged()
             }
             R.id.btn_after -> {
-                navController.navigate(R.id.action_WhenFrag_to_planCreateNameFrag)
+                navController.navigate(R.id.action_whenFrag_to_planCreateNameFrag)
             }
         }
     }
