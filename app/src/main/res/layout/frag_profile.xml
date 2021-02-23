@@ -77,6 +77,7 @@
     </LinearLayout>
 
     <LinearLayout
+        android:visibility="gone"
         android:id="@+id/univ_box1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -110,8 +111,8 @@
                 android:enabled="true"
                 android:lineSpacingExtra="5.1sp"
                 android:textSize="17sp"
-                android:textColorHint="@color/pinkish_grey"
-                android:backgroundTint="@color/primary"/>
+                android:textColorHint="@color/black"
+                android:backgroundTint="@color/pinkish_grey"/>
         </LinearLayout>
         <LinearLayout
             android:layout_weight="1"
@@ -139,11 +140,12 @@
                 android:enabled="true"
                 android:lineSpacingExtra="5.1sp"
                 android:textSize="17sp"
-                android:textColorHint="@color/pinkish_grey"
-                android:backgroundTint="@color/primary"/>
+                android:textColorHint="@color/black"
+                android:backgroundTint="@color/pinkish_grey"/>
         </LinearLayout>
     </LinearLayout>
     <LinearLayout
+        android:visibility="gone"
         android:id="@+id/univ_box2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -177,8 +179,8 @@
                 android:enabled="true"
                 android:lineSpacingExtra="5.1sp"
                 android:textSize="17sp"
-                android:textColorHint="@color/pinkish_grey"
-                android:backgroundTint="@color/primary"/>
+                android:textColorHint="@color/black"
+                android:backgroundTint="@color/pinkish_grey"/>
         </LinearLayout>
         <LinearLayout
             android:layout_weight="1"
@@ -206,8 +208,8 @@
                 android:enabled="true"
                 android:lineSpacingExtra="5.1sp"
                 android:textSize="17sp"
-                android:textColorHint="@color/pinkish_grey"
-                android:backgroundTint="@color/primary"/>
+                android:textColorHint="@color/black"
+                android:backgroundTint="@color/pinkish_grey"/>
         </LinearLayout>
     </LinearLayout>
 
