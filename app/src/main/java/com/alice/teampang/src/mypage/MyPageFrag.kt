@@ -49,7 +49,7 @@ class MyPageFrag : BaseFrag(), View.OnClickListener {
     override fun onClick(v: View) {
         when(v) {
             binding.btnBack -> navController.popBackStack()
-            binding.btnProfile -> {} //profile 화면으로
+            binding.btnProfile -> navController.navigate(R.id.action_myPageFrag_to_profileFrag)
             binding.btnMySchedule -> navController.navigate(R.id.action_myPageFrag_to_myScheduleFrag)
             binding.btnCoffee -> coffeeDialog()
             binding.btnContact -> contactDialog()

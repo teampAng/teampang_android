@@ -2,7 +2,7 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    app:startDestination="@id/settingFrag">
+    app:startDestination="@id/profileFrag">
 
     <fragment
         android:id="@+id/mainWhenFrag"
@@ -136,10 +136,27 @@
         <action
             android:id="@+id/action_myPageFrag_to_settingFrag"
             app:destination="@id/settingFrag" />
+        <action
+            android:id="@+id/action_myPageFrag_to_profileFrag"
+            app:destination="@id/profileFrag" />
     </fragment>
     <fragment
         android:id="@+id/settingFrag"
         android:name="com.alice.teampang.src.setting.SettingFrag"
         android:label="SettingFrag"
         tools:layout="@layout/frag_setting"/>
+    <fragment
+        android:id="@+id/profileFrag"
+        android:name="com.alice.teampang.src.profile.ProfileFrag"
+        android:label="ProfileFrag"
+        tools:layout="@layout/frag_profile">
+        <action
+            android:id="@+id/action_profileFrag_to_profileEditFrag"
+            app:destination="@id/profileEditFrag" />
+    </fragment>
+    <fragment
+        android:id="@+id/profileEditFrag"
+        android:name="com.alice.teampang.src.profile.ProfileEditFrag"
+        android:label="ProfileEditFrag"
+        tools:layout="@layout/frag_profile_edit"/>
 </navigation>
