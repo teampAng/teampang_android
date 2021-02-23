@@ -11,14 +11,14 @@ import androidx.fragment.app.FragmentTransaction
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.alice.teampang.R
-import com.alice.teampang.databinding.FragMain2Binding
+import com.alice.teampang.databinding.FragMainBinding
 import com.alice.teampang.src.BaseFrag
 import com.alice.teampang.src.main.`when`.WhenFrag
 import com.alice.teampang.src.main.how.HowFrag
 
 lateinit var navController: NavController
 private lateinit var myContext: Context
-private var _binding: FragMain2Binding? = null
+private var _binding: FragMainBinding? = null
 private val binding get() = _binding!!
 
 class MainFrag : BaseFrag() {
@@ -30,7 +30,7 @@ class MainFrag : BaseFrag() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragMain2Binding.inflate(inflater, container, false)
+        _binding = FragMainBinding.inflate(inflater, container, false)
         val view = binding.root
         myContext = requireContext()
 

@@ -61,10 +61,10 @@
 
     </fragment>
     <fragment
-        android:id="@+id/mainFrag2"
+        android:id="@+id/mainFrag"
         android:name="com.alice.teampang.src.main.MainFrag"
         android:label="MainFrag"
-        tools:layout="@layout/frag_main2"/>
+        tools:layout="@layout/frag_main"/>
     <fragment
         android:id="@+id/whenFrag"
         android:name="com.alice.teampang.src.main.when.WhenFrag"
@@ -95,8 +95,8 @@
             app:popUpTo="@id/splashFrag"
             app:popUpToInclusive="true" />
         <action
-            android:id="@+id/action_splashFrag_to_mainFrag2"
-            app:destination="@id/mainFrag2" />
+            android:id="@+id/action_splashFrag_to_mainFrag"
+            app:destination="@id/mainFrag" />
     </fragment>
     <fragment
         android:id="@+id/teamDetailAfterFrag"
@@ -114,9 +114,19 @@
         android:label="SignupFrag"
         tools:layout="@layout/frag_signup">
         <action
-            android:id="@+id/action_signupFrag_to_mainFrag2"
-            app:destination="@id/mainFrag2" />
+            android:id="@+id/action_signupFrag_to_signupSuccessFrag"
+            app:destination="@id/signupSuccessFrag" />
     </fragment>
+    <fragment
+        android:id="@+id/signupSuccessFrag"
+        android:name="com.alice.teampang.src.signup.SignupSuccessFrag"
+        android:label="SignupSuccessFrag"
+        tools:layout="@layout/frag_signup_success">
+        <action
+            android:id="@+id/action_signupSuccessFrag_to_mainFrag"
+            app:destination="@id/mainFrag" />
+    </fragment>
+
     <fragment
         android:id="@+id/myScheduleEditFrag"
         android:name="com.alice.teampang.src.my_schedule.MyScheduleEditFrag"
