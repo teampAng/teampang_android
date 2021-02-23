@@ -35,6 +35,15 @@ class GlobalApplication : Application() {
         const val ACCESS_TOKEN = "ACCESS-TOKEN"
         const val REFRESH_TOKEN = "REFRESH-TOKEN"
 
+        // USER PROFILE 키 값
+        const val USER_ID = "USER-ID"
+        const val USER_NICKNAME = "USER-NICKNAME "
+        const val USER_GENDER = "USER-GENDER"
+        const val UNIV_NAME = "UNIV-NAME"
+        const val UNIV_MAJOR = "UNIV-MAJOR"
+        const val UNIV_GRADE = "UNIV-GRADE"
+        const val UNIV_NUM = "UNIV-NUM"
+
         //날짜 형식
         var df = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
 

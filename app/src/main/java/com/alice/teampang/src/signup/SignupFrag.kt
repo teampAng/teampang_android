@@ -1,6 +1,5 @@
 package com.alice.teampang.src.signup
 
-import android.content.res.ColorStateList
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
@@ -16,20 +15,32 @@ import androidx.navigation.Navigation
 import com.alice.teampang.R
 import com.alice.teampang.databinding.FragSignupBinding
 import com.alice.teampang.src.BaseFrag
+import com.alice.teampang.src.GlobalApplication.Companion.UNIV_GRADE
+import com.alice.teampang.src.GlobalApplication.Companion.UNIV_MAJOR
+import com.alice.teampang.src.GlobalApplication.Companion.UNIV_NAME
+import com.alice.teampang.src.GlobalApplication.Companion.UNIV_NUM
+import com.alice.teampang.src.GlobalApplication.Companion.USER_GENDER
+import com.alice.teampang.src.GlobalApplication.Companion.USER_ID
+import com.alice.teampang.src.GlobalApplication.Companion.USER_NICKNAME
+import com.alice.teampang.src.GlobalApplication.Companion.prefs
+import com.alice.teampang.src.signup.interfaces.SignupFragView
+import com.alice.teampang.src.signup.model.*
 
-class SignupFrag : BaseFrag(), View.OnClickListener {
+class SignupFrag : BaseFrag(), SignupFragView, View.OnClickListener {
 
     lateinit var navController: NavController
 
     var nickname = ""
-    var gender = ""
-    var is_univ = ""
+    var gender = 0
     var univ = ""
     var univ_major = ""
-    var univ_num = ""
-    var univ_year = ""
+    var univ_num = -1
+    var univ_grade = 0
     var univ_o_cheked = false
     var univ_x_cheked = false
+
+
+    private lateinit var signUpBody: SignUpBody
 
     private var _binding: FragSignupBinding? = null
     private val binding get() = _binding!!
@@ -53,7 +64,6 @@ class SignupFrag : BaseFrag(), View.OnClickListener {
 
         editTextChanged()
 
-
         binding.btnBack.setOnClickListener(this)
         binding.ivMale.setOnClickListener(this)
         binding.ivFemale.setOnClickListener(this)
@@ -63,28 +73,28 @@ class SignupFrag : BaseFrag(), View.OnClickListener {
     }
 
     override fun onClick(v: View) {
-        when (v.id) {
-            R.id.btn_back -> navController.popBackStack()
-            R.id.iv_male -> {
-                if (gender.equals("여")) { //나중에 바꾸기
+        when (v) {
+            binding.btnBack -> navController.popBackStack()
+            binding.ivMale -> {
+                if (gender == 2) {
                     binding.ivFemale.setBackgroundResource(R.drawable.ic_unchecked_round)
                     binding.tvFemale.setTextColor(Color.parseColor("#bdbdbd"))
                 }
                 binding.ivMale.setBackgroundResource(R.drawable.ic_checked_round)
                 binding.tvMale.setTextColor(Color.parseColor("#5aa6f8"))
-                gender = "남"
+                gender = 1
             }
-            R.id.iv_female -> {
-                if (gender.equals("남")) { //나중에 바꾸기
+            binding.ivFemale -> {
+                if (gender == 1) {
                     binding.ivMale.setBackgroundResource(R.drawable.ic_unchecked_round)
                     binding.tvMale.setTextColor(Color.parseColor("#bdbdbd"))
                 }
                 binding.ivFemale.setBackgroundResource(R.drawable.ic_checked_round)
                 binding.tvFemale.setTextColor(Color.parseColor("#5aa6f8"))
-                gender = "여"
+                gender = 2
 
             }
-            R.id.btn_univ_o -> {
+            binding.btnUnivO -> {
                 binding.progressBar.progress = 200 / 3
                 if (!univ_o_cheked) {
                     if (univ_x_cheked) {
@@ -97,10 +107,10 @@ class SignupFrag : BaseFrag(), View.OnClickListener {
                     binding.univBox2.visibility = View.VISIBLE
                     univ_o_cheked = true
                     univ_x_cheked = false
-                    //대학생이에요 상태로 is_univ
                 }
+                isAllChecked()
             }
-            R.id.btn_univ_x -> {
+            binding.btnUnivX -> {
                 binding.progressBar.progress = 200 / 3
                 if (!univ_x_cheked) {
                     if (univ_o_cheked) {
@@ -113,16 +123,16 @@ class SignupFrag : BaseFrag(), View.OnClickListener {
                     binding.univBox2.visibility = View.GONE
                     univ_x_cheked = true
                     univ_o_cheked = false
-                    //대학생이 아니에요 상태로
                 }
+                isAllChecked()
             }
-            R.id.btn_finish -> {
+            binding.btnFinish -> {
                 when {
                     nickname == "" -> {
                         showCustomToast("닉네임을 입력해주세요")
                         //나중에 대학생/대학생 아니에요 선택했는지 확인하는 거 추가
                     }
-                    gender == "" -> {
+                    gender == 0 -> {
                         showCustomToast("성별을 선택해주세요")
                     }
                     univ_o_cheked -> {
@@ -133,31 +143,72 @@ class SignupFrag : BaseFrag(), View.OnClickListener {
                             univ_major == "" -> {
                                 showCustomToast("학과를 입력해주세요")
                             }
-                            univ_num == "" -> {
+                            univ_num == -1 -> {
                                 showCustomToast("학번을 입력해주세요")
                             }
-                            univ_year == "" -> {
+                            univ_grade == 0 -> {
                                 showCustomToast("학년을 입력해주세요")
                             }
                             else -> {
-                                //api 쏘기
-                                //닉네임 중복되면 블록 띄우기
+                                univ_num += 2000
+                                signUpBody = SignUpBody(nickname, gender,
+                                    University(univ, univ_num, univ_major, univ_grade))
+                                tryPostSignUp()
                                 binding.progressBar.progress = 100
                             }
                         }
                     }
                     univ_x_cheked -> {
-                        //api 쏘기
-                        //닉네임 중복되면 블록 띄우기
+                        signUpBody = SignUpBody(nickname, gender, null)
+                        tryPostSignUp()
                         binding.progressBar.progress = 100
                     }
                 }
-
-
             }
 
         }
     }
+
+    private fun tryPostSignUp() {
+        val signUpService = SignupService(this)
+        signUpService.postSignUp(signUpBody)
+    }
+
+    override fun signUpSuccess(signUpResponse: SignUpResponse) {
+        when (signUpResponse.status) {
+            201 -> {
+                //회원가입 성공, 신규 회원
+                prefs.setInt(USER_ID, signUpResponse.data.id)
+                prefs.setString(USER_NICKNAME, signUpResponse.data.nickname)
+                prefs.setInt(USER_GENDER, signUpResponse.data.gender)
+                if (signUpResponse.data.university != null) {
+                    prefs.setString(UNIV_NAME, signUpResponse.data.university!!.univ)
+                    prefs.setString(UNIV_MAJOR, signUpResponse.data.university!!.major)
+                    prefs.setInt(UNIV_GRADE, signUpResponse.data.university!!.grade)
+                    prefs.setInt(UNIV_NUM, signUpResponse.data.university!!.univNum)
+                }
+                navController.navigate(R.id.action_signupFrag_to_signupSuccessFrag)
+            }
+            400 -> {
+                //닉네임 중복
+                binding.nicknameCon1.visibility = View.GONE
+                binding.nicknameCon2.visibility = View.VISIBLE
+                binding.btnFinish.setBackgroundResource(R.drawable.btn_grey)
+                binding.tvFinish.setTextColor(Color.parseColor("#9d9d9d"))
+
+                showCustomToast(signUpResponse.message)
+            }
+            else -> {
+                //예상치 못한 서버 응답
+                showCustomToast(signUpResponse.message)
+            }
+        }
+    }
+
+    override fun signUpFailure(message: Throwable?) {
+        showCustomToast(message.toString())
+    }
+
 
     private fun editTextChanged() {
         //nickname 유효성 검사
@@ -178,6 +229,7 @@ class SignupFrag : BaseFrag(), View.OnClickListener {
                     binding.nickname.backgroundTintList =
                         ContextCompat.getColorStateList(requireContext(), R.color.primary)
                 }
+                isAllChecked()
             }
 
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
@@ -191,6 +243,7 @@ class SignupFrag : BaseFrag(), View.OnClickListener {
         binding.univ.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(p0: Editable?) {
                 univ = p0.toString().trim()
+                isAllChecked()
             }
 
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
@@ -204,6 +257,7 @@ class SignupFrag : BaseFrag(), View.OnClickListener {
         binding.univMajor.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(p0: Editable?) {
                 univ_major = p0.toString().trim()
+                isAllChecked()
             }
 
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
@@ -216,7 +270,9 @@ class SignupFrag : BaseFrag(), View.OnClickListener {
 
         binding.univNum.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(p0: Editable?) {
-                univ_num = p0.toString().trim()
+                val num = p0.toString().trim()
+                if (num != "") univ_num = num.toInt()
+                isAllChecked()
             }
 
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
@@ -227,9 +283,11 @@ class SignupFrag : BaseFrag(), View.OnClickListener {
 
         })
 
-        binding.univYear.addTextChangedListener(object : TextWatcher {
+        binding.univGrade.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(p0: Editable?) {
-                univ_year = p0.toString().trim()
+                val grade = p0.toString().trim()
+                if (grade != "") univ_grade = grade.toInt()
+                isAllChecked()
             }
 
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
@@ -239,14 +297,21 @@ class SignupFrag : BaseFrag(), View.OnClickListener {
             }
 
         })
+    }
 
-        //모든게 ""이 아니면 완료 버튼 백그라운드 + 글자 색 바꾸기
-        if (nickname != "" && gender != "" && is_univ != "" && univ != "" && univ_num != "" &&
-            univ_major != "" && univ_year != ""
+    private fun isAllChecked() {
+        //모든게 완료되면(대학생/비대학생) 완료 버튼 백그라운드 + 글자 색 바꾸기
+        if (nickname != "" && gender != 0 && univ_o_cheked && univ != "" && univ_num != -1 &&
+            univ_major != "" && univ_grade != 0
         ) {
             binding.btnFinish.setBackgroundResource(R.drawable.btn_blue)
-            binding.tvFinish.setTextColor(Color.parseColor("#FFF"))
-        } else {
+            binding.tvFinish.setTextColor(Color.parseColor("#FFFFFF"))
+        }
+        else if (nickname != "" && gender != 0 && univ_x_cheked) {
+            binding.btnFinish.setBackgroundResource(R.drawable.btn_blue)
+            binding.tvFinish.setTextColor(Color.parseColor("#FFFFFF"))
+        }
+        else {
             binding.btnFinish.setBackgroundResource(R.drawable.btn_grey)
             binding.tvFinish.setTextColor(Color.parseColor("#9d9d9d"))
         }
