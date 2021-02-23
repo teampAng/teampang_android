@@ -2,17 +2,7 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    app:startDestination="@id/profileFrag">
-
-    <fragment
-        android:id="@+id/mainWhenFrag"
-        android:name="com.alice.teampang.src.main.when.WhenFrag"
-        android:label="WhenFrag"
-        tools:layout="@layout/fragment_date">
-        <action
-            android:id="@+id/action_WhenFrag_to_planCreateNameFrag"
-            app:destination="@+id/planCreateNameFrag"/>
-    </fragment>
+    app:startDestination="@id/splashFrag">
 
 
     <fragment
@@ -75,13 +65,25 @@
         android:name="com.alice.teampang.src.main.MainFrag"
         android:label="MainFrag"
         tools:layout="@layout/frag_main2"/>
-
+    <fragment
+        android:id="@+id/whenFrag"
+        android:name="com.alice.teampang.src.main.when.WhenFrag"
+        android:label="WhenFrag"
+        tools:layout="@layout/fragment_date">
+        <action
+            android:id="@+id/action_whenFrag_to_planCreateNameFrag"
+            app:destination="@id/planCreateNameFrag" />
+    </fragment>
 
     <fragment
         android:id="@+id/loginFrag"
         android:name="com.alice.teampang.src.login.LoginFrag"
         android:label="LoginFrag"
-        tools:layout="@layout/frag_login"/>
+        tools:layout="@layout/frag_login">
+        <action
+            android:id="@+id/action_loginFrag_to_signupFrag"
+            app:destination="@id/signupFrag" />
+    </fragment>
     <fragment
         android:id="@+id/splashFrag"
         android:name="com.alice.teampang.src.splash.SplashFrag"
@@ -92,6 +94,9 @@
             app:destination="@id/loginFrag"
             app:popUpTo="@id/splashFrag"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_splashFrag_to_mainFrag2"
+            app:destination="@id/mainFrag2" />
     </fragment>
     <fragment
         android:id="@+id/teamDetailAfterFrag"
@@ -107,7 +112,11 @@
         android:id="@+id/signupFrag"
         android:name="com.alice.teampang.src.signup.SignupFrag"
         android:label="SignupFrag"
-        tools:layout="@layout/frag_signup"/>
+        tools:layout="@layout/frag_signup">
+        <action
+            android:id="@+id/action_signupFrag_to_mainFrag2"
+            app:destination="@id/mainFrag2" />
+    </fragment>
     <fragment
         android:id="@+id/myScheduleEditFrag"
         android:name="com.alice.teampang.src.my_schedule.MyScheduleEditFrag"
@@ -159,4 +168,5 @@
         android:name="com.alice.teampang.src.profile.ProfileEditFrag"
         android:label="ProfileEditFrag"
         tools:layout="@layout/frag_profile_edit"/>
+
 </navigation>

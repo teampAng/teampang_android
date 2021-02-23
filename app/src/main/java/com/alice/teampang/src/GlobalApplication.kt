@@ -24,8 +24,7 @@ class GlobalApplication : Application() {
         var MEDIA_TYPE_JPEG = MediaType.parse("image/jpeg")
 
         // 서버 주소
-        val BASE_URL = "http://15.164.161.25/" //"http://homealoneapi.ga/"
-        val KAKAO_BASE_URL = "https://dapi.kakao.com/"
+        val BASE_URL = "http://ec2-3-36-74-8.ap-northeast-2.compute.amazonaws.com:80"
 
         lateinit var prefs: PreferenceUtil
 
@@ -33,15 +32,15 @@ class GlobalApplication : Application() {
         val TAG = "TEMPLATE_APP"
 
         // JWT Token 값
-        const val X_ACCESS_TOKEN = "X-ACCESS-TOKEN"
+        const val ACCESS_TOKEN = "ACCESS-TOKEN"
+        const val REFRESH_TOKEN = "REFRESH-TOKEN"
 
         //날짜 형식
         var df = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
 
         private var retrofit: Retrofit? = null
-        private var retrofitKakao: Retrofit? = null
 
-        @JvmName("getRetrofit1")
+        @JvmName("getRetrofit")
         fun getRetrofit(): Retrofit? {
             if (retrofit == null) {
                 val gson = GsonBuilder()
@@ -60,25 +59,6 @@ class GlobalApplication : Application() {
                     .build()
             }
             return retrofit
-        }
-
-        fun getRetrofitKakaoLocal(): Retrofit? {
-            if (retrofitKakao == null) {
-                val gson = GsonBuilder()
-                    .setLenient()
-                    .create()
-                val client = OkHttpClient.Builder()
-                    .readTimeout(10000, TimeUnit.MILLISECONDS)
-                    .connectTimeout(10000, TimeUnit.MILLISECONDS)
-                    .writeTimeout(10000, TimeUnit.MILLISECONDS)
-                    .build()
-                retrofitKakao = Retrofit.Builder()
-                    .baseUrl(KAKAO_BASE_URL)
-                    .client(client)
-                    .addConverterFactory(GsonConverterFactory.create(gson))
-                    .build()
-            }
-            return retrofitKakao
         }
 
         fun kakaoLink(
