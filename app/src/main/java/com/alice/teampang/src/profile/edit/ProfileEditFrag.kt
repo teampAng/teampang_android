@@ -1,4 +1,4 @@
-package com.alice.teampang.src.profile
+package com.alice.teampang.src.profile.edit
 
 import android.content.Context
 import android.graphics.Color
@@ -17,20 +17,32 @@ import androidx.navigation.Navigation
 import com.alice.teampang.R
 import com.alice.teampang.databinding.FragProfileEditBinding
 import com.alice.teampang.src.BaseFrag
+import com.alice.teampang.src.GlobalApplication
+import com.alice.teampang.src.GlobalApplication.Companion.UNIV_GRADE
+import com.alice.teampang.src.GlobalApplication.Companion.UNIV_MAJOR
+import com.alice.teampang.src.GlobalApplication.Companion.UNIV_NAME
+import com.alice.teampang.src.GlobalApplication.Companion.UNIV_NUM
+import com.alice.teampang.src.GlobalApplication.Companion.USER_GENDER
+import com.alice.teampang.src.GlobalApplication.Companion.USER_ID
+import com.alice.teampang.src.GlobalApplication.Companion.USER_NICKNAME
+import com.alice.teampang.src.GlobalApplication.Companion.prefs
+import com.alice.teampang.src.profile.interfaces.ProfileEditFragView
+import com.alice.teampang.src.profile.model.*
 
-class ProfileEditFrag : BaseFrag(), View.OnClickListener {
+class ProfileEditFrag : BaseFrag(), ProfileEditFragView, View.OnClickListener {
 
-    lateinit var navController : NavController
+    lateinit var navController: NavController
 
-    var nickname = ""
-    var gender = ""
-    var is_univ = ""
-    var univ = ""
-    var univ_major = ""
-    var univ_num = ""
-    var univ_year = ""
+    var nickname: String? = ""
+    var gender = prefs.getInt(USER_GENDER, 0)
+    var univ: String? = ""
+    var univ_major: String? = ""
+    var univ_num: Int? = -1
+    var univ_grade: Int? = 0
     var univ_o_cheked = false
     var univ_x_cheked = false
+
+    private lateinit var patchProfileBody: PatchProfileBody
 
     private var _binding: FragProfileEditBinding? = null
     private val binding get() = _binding!!
@@ -101,37 +113,37 @@ class ProfileEditFrag : BaseFrag(), View.OnClickListener {
                 }
             }
             binding.btnFinish -> {
+                val pNickname = prefs.getString(USER_NICKNAME, null)
+                val pUniv = prefs.getString(UNIV_NAME, null)
+                val pUnivMajor = prefs.getString(UNIV_MAJOR, null)
+                val pUnivNum = prefs.getInt(UNIV_NUM, -1)
+                val pUnivGrade = prefs.getInt(UNIV_GRADE, -1)
                 when {
-                    nickname == "" -> {
-                        showCustomToast("닉네임을 입력해주세요")
-                        //나중에 대학생/대학생 아니에요 선택했는지 확인하는 거 추가
-                    }
-                    gender == "" -> {
-                        showCustomToast("성별을 선택해주세요")
-                    }
+                    nickname == "" -> nickname = pNickname
                     univ_o_cheked -> {
                         when {
-                            univ == "" -> {
-                                showCustomToast("대학교를 입력해주세요")
-                            }
-                            univ_major == "" -> {
-                                showCustomToast("학과를 입력해주세요")
-                            }
-                            univ_num == "" -> {
-                                showCustomToast("학번을 입력해주세요")
-                            }
-                            univ_year == "" -> {
-                                showCustomToast("학년을 입력해주세요")
-                            }
+                            univ == "" -> univ = pUniv
+                            univ_major == "" -> univ_major = pUnivMajor
+                            univ_num == -1 -> univ_num = pUnivNum
+                            univ_grade == 0 -> univ_grade = pUnivGrade
                             else -> {
-                                //api 쏘기
-                                //닉네임 중복되면 블록 띄우기
+                                if (nickname == pNickname && univ == pUniv && univ_major == pUnivMajor
+                                    && univ_num == pUnivNum && univ_grade == pUnivGrade
+                                ) {
+                                    showCustomToast("수정된 프로필이 없습니다.")
+                                } else {
+                                    patchProfileBody = PatchProfileBody(
+                                        nickname, gender,
+                                        University(univ, univ_num, univ_major, univ_grade)
+                                    )
+                                    tryPatchProfile()
+                                }
                             }
                         }
                     }
                     univ_x_cheked -> {
-                        //univ 정보다 null로 바꾸고 api 쏘기
-                        //닉네임 중복되면 블록 띄우기
+                        patchProfileBody = PatchProfileBody(nickname, null, null)
+                        tryPatchProfile()
                     }
                 }
             }
@@ -143,8 +155,68 @@ class ProfileEditFrag : BaseFrag(), View.OnClickListener {
         }
     }
 
+    private fun tryPatchProfile() {
+        val userId: Int = prefs.getInt(USER_ID, 0)
+        val patchProfileService = ProfileEditService(this)
+        patchProfileService.patchProfile(userId, patchProfileBody)
+    }
+
+    override fun patchProfileSuccess(patchProfileResponse: PatchProfileResponse) {
+        when (patchProfileResponse.status) {
+            200 -> {
+                //프로필 수정 성공
+                prefs.setInt(USER_ID, patchProfileResponse.data.id)
+                prefs.setString(USER_NICKNAME, patchProfileResponse.data.nickname)
+                prefs.setInt(USER_GENDER, patchProfileResponse.data.gender)
+                if (patchProfileResponse.data.university != null) {
+                    prefs.setString(
+                        UNIV_NAME,
+                        patchProfileResponse.data.university!!.univ
+                    )
+                    prefs.setString(
+                        UNIV_MAJOR,
+                        patchProfileResponse.data.university!!.major
+                    )
+                    prefs.setInt(
+                        UNIV_GRADE,
+                        patchProfileResponse.data.university!!.grade!!
+                    )
+                    prefs.setInt(
+                        UNIV_NUM,
+                        patchProfileResponse.data.university!!.univNum!!
+                    )
+                }
+                showCustomToast("프로필이 수정 되었습니다.")
+                navController.popBackStack()
+            }
+            400 -> {
+                //닉네임 중복 & 기타 예외처리 -> status 로 나눠주면 좋겠음
+                binding.nicknameCon1.visibility = View.GONE
+                binding.nicknameCon2.visibility = View.VISIBLE
+                binding.btnFinish.setBackgroundResource(R.drawable.btn_grey)
+                binding.tvFinish.setTextColor(Color.parseColor("#9d9d9d"))
+
+                showCustomToast(patchProfileResponse.message)
+            }
+            401 ->{
+                //토큰이 만료된 경우
+                showCustomToast(patchProfileResponse.message)
+            }
+            else -> {
+                //예상치 못한 서버 응답
+                showCustomToast(patchProfileResponse.message)
+            }
+        }
+    }
+
+    override fun patchProfileFailure(message: Throwable?) {
+        showCustomToast(message.toString())
+    }
+
+
     private fun hideKeyBoard() {
-        val imm = requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        val imm =
+            requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         imm.hideSoftInputFromWindow(binding.univMajor.windowToken, 0)
     }
 
@@ -155,7 +227,7 @@ class ProfileEditFrag : BaseFrag(), View.OnClickListener {
             @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
             override fun afterTextChanged(p0: Editable?) {
                 nickname = p0.toString().trim()
-                if (!nickname.matches(nicknameValidation)) {
+                if (!nickname?.matches(nicknameValidation)!!) {
                     binding.nicknameCon1.visibility = View.VISIBLE
                     binding.nicknameCon2.visibility = View.GONE
                     binding.nickname.backgroundTintList =
@@ -205,7 +277,8 @@ class ProfileEditFrag : BaseFrag(), View.OnClickListener {
 
         binding.univNum.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(p0: Editable?) {
-                univ_num = p0.toString().trim()
+                val num = p0.toString().trim()
+                if (num != "") univ_num = num.toInt()
             }
 
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
@@ -218,7 +291,8 @@ class ProfileEditFrag : BaseFrag(), View.OnClickListener {
 
         binding.univYear.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(p0: Editable?) {
-                univ_year = p0.toString().trim()
+                val grade = p0.toString().trim()
+                if (grade != "") univ_grade = grade.toInt()
             }
 
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
@@ -234,6 +308,5 @@ class ProfileEditFrag : BaseFrag(), View.OnClickListener {
         super.onDestroyView()
         _binding = null
     }
-
 }
 

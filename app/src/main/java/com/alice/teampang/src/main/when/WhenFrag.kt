@@ -72,7 +72,7 @@ class WhenFrag :BaseFrag(),View.OnClickListener{
     when (v) {
         binding.btnMypage -> navController.navigate(R.id.action_mainFrag_to_myPageFrag)
         binding.btnPlanCreate -> {
-            navController.navigate(R.id.action_whenFrag_to_planCreateNameFrag)
+            navController.navigate(R.id.action_mainFrag_to_planCreateNameFrag)
             //일정 생성 완료 후 돌아오는 화면에서 api를 쏘든가, 값 넘겨받아서 추가
 //                count++
 //                val data = Schedule(
