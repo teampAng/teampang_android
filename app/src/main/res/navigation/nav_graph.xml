@@ -187,7 +187,7 @@
     </fragment>
     <fragment
         android:id="@+id/profileEditFrag"
-        android:name="com.alice.teampang.src.profile.ProfileEditFrag"
+        android:name="com.alice.teampang.src.profile.edit.ProfileEditFrag"
         android:label="ProfileEditFrag"
         tools:layout="@layout/frag_profile_edit"/>
 
