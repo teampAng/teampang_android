@@ -31,8 +31,6 @@ import com.alice.teampang.src.profile.model.*
 
 class ProfileEditFrag : BaseFrag(), ProfileEditFragView, View.OnClickListener {
 
-    lateinit var navController: NavController
-
     var nickname: String? = ""
     var gender = prefs.getInt(USER_GENDER, 0)
     var univ: String? = ""
@@ -278,7 +276,7 @@ class ProfileEditFrag : BaseFrag(), ProfileEditFragView, View.OnClickListener {
         binding.univNum.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(p0: Editable?) {
                 val num = p0.toString().trim()
-                if (num != "") univ_num = num.toInt()
+                if (num != "") univ_num = num.toInt()+2000
             }
 
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {

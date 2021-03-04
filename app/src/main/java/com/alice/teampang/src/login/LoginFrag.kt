@@ -15,6 +15,7 @@ import com.alice.teampang.src.BaseFrag
 import com.alice.teampang.src.GlobalApplication.Companion.ACCESS_TOKEN
 import com.alice.teampang.src.GlobalApplication.Companion.REFRESH_TOKEN
 import com.alice.teampang.src.GlobalApplication.Companion.prefs
+import com.alice.teampang.src.error.model.ErrorResponse
 import com.alice.teampang.src.login.interfaces.LoginFragView
 import com.alice.teampang.src.login.model.KakaoTokenBody
 import com.alice.teampang.src.login.model.KakaoTokenResponse
@@ -24,8 +25,6 @@ import com.kakao.sdk.auth.model.OAuthToken
 import java.util.regex.Pattern
 
 class LoginFrag: BaseFrag(), LoginFragView, View.OnClickListener {
-
-    lateinit var navController : NavController
 
     private lateinit var kakaoTokenBody: KakaoTokenBody
 
@@ -84,6 +83,7 @@ class LoginFrag: BaseFrag(), LoginFragView, View.OnClickListener {
 
 
     private fun tryPostKakaoToken() {
+        prefs.setString(ACCESS_TOKEN, null)
         val loginService = LoginService(this)
         loginService.postKakaoToken(kakaoTokenBody)
     }
@@ -91,10 +91,11 @@ class LoginFrag: BaseFrag(), LoginFragView, View.OnClickListener {
     override fun kakaoTokenSuccess(kakaoTokenResponse: KakaoTokenResponse) {
         when (kakaoTokenResponse.status) {
             200 -> {
-                //로그인 성공, 신규 회원
+                //로그인 성공, 신규 회원 or 리프레쉬토큰 만료된 회원
                 prefs.setString(ACCESS_TOKEN, kakaoTokenResponse.data.access)
                 prefs.setString(REFRESH_TOKEN, kakaoTokenResponse.data.refresh)
-                navController.navigate(R.id.action_loginFrag_to_signupFrag)
+                navController.navigate(R.id.action_loginFrag_to_signupFrag) //신규회원
+                //리프레쉬토큰 만료된 회원은 프로필 get 으로 확인
             }
             401 -> {
                 //카카오 액세스 토큰이 없거나 유효하지 않음
@@ -136,7 +137,5 @@ class LoginFrag: BaseFrag(), LoginFragView, View.OnClickListener {
         super.onDestroyView()
         _binding = null
     }
-
-
 
 }

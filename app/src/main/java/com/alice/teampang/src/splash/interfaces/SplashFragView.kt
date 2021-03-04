@@ -4,7 +4,7 @@ import com.alice.teampang.src.splash.model.*
 
 interface SplashFragView {
 
-    fun getProfileSuccess(getProfileResponse: GetProfileResponse)
+    fun getProfileSuccess(getProfileResponse: GetProfileResponse?)
 
     fun getProfileFailure(message: Throwable?)
 }

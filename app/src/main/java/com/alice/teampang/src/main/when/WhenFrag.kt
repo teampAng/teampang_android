@@ -23,7 +23,6 @@ import com.alice.teampang.ui.adapter.CustomAdapter
 
 class WhenFrag :BaseFrag(),View.OnClickListener{
 
-    lateinit var navController: NavController
     private var _binding: FragmentDateBinding? = null
 
     private val binding get() = _binding!!

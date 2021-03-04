@@ -23,7 +23,7 @@ class SplashService(splashFragView: SplashFragView) {
             ) {
                 val getProfileResponse: GetProfileResponse? = response.body()
                 if (getProfileResponse == null) {
-                    mSplashFragView.getProfileFailure(null)
+                    mSplashFragView.getProfileSuccess(null)
                     return
                 }
                 mSplashFragView.getProfileSuccess(getProfileResponse)

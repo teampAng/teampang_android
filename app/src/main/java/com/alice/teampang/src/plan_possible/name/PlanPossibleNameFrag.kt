@@ -18,8 +18,6 @@ import com.alice.teampang.databinding.FragPlanPossibleNameBinding
 import com.alice.teampang.src.BaseFrag
 
 class PlanPossibleNameFrag : BaseFrag(), View.OnClickListener {
-    lateinit var navController : NavController
-
 
     private var _binding: FragPlanPossibleNameBinding? = null
     private val binding get() = _binding!!

@@ -20,8 +20,6 @@ import com.alice.teampang.src.my_schedule.model.Times
 
 class MyScheduleFrag : BaseFrag(), View.OnClickListener {
 
-    lateinit var navController: NavController
-
     private var _binding: FragMyScheduleBinding? = null
     private val binding get() = _binding!!
 

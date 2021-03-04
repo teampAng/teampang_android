@@ -12,8 +12,6 @@ import com.alice.teampang.src.BaseFrag
 
 class SignupSuccessFrag : BaseFrag(), View.OnClickListener {
 
-    lateinit var navController : NavController
-
     private var _binding: FragSignupSuccessBinding? = null
     private val binding get() = _binding!!
 

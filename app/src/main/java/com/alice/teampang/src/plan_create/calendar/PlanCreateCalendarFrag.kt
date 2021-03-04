@@ -20,8 +20,6 @@ import java.util.*
 
 class PlanCreateCalendarFrag : BaseFrag(), View.OnClickListener {
 
-    lateinit var navController: NavController
-
     private var _binding: FragPlanCreateCalendarBinding? = null
     private val binding get() = _binding!!
 

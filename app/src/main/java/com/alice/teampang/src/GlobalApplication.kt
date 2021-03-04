@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.util.Log
 import android.view.View
+import androidx.preference.PreferenceManager
 import com.alice.teampang.R
 import com.alice.teampang.config.XAccessTokenInterceptor
 import com.google.gson.GsonBuilder
@@ -12,10 +13,12 @@ import com.kakao.sdk.common.KakaoSdk
 import com.kakao.sdk.link.LinkClient
 import okhttp3.MediaType
 import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.time.format.DateTimeFormatter
 import java.util.concurrent.TimeUnit
+
 
 class GlobalApplication : Application() {
 
@@ -51,7 +54,12 @@ class GlobalApplication : Application() {
 
         @JvmName("getRetrofit")
         fun getRetrofit(): Retrofit? {
+
             if (retrofit == null) {
+                val loggingInterceptor = HttpLoggingInterceptor()
+                loggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
+
+                Log.d(TAG, "initMyAPI : $BASE_URL")
                 val gson = GsonBuilder()
                     .setLenient()
                     .create()
@@ -60,6 +68,7 @@ class GlobalApplication : Application() {
                     .connectTimeout(10000, TimeUnit.MILLISECONDS)
                     .writeTimeout(10000, TimeUnit.MILLISECONDS)
                     .addNetworkInterceptor(XAccessTokenInterceptor()) // JWT 자동 헤더 전송
+                    .addInterceptor(loggingInterceptor) //for test
                     .build()
                 retrofit = Retrofit.Builder()
                     .baseUrl(BASE_URL)
@@ -116,7 +125,7 @@ class GlobalApplication : Application() {
 
     class PreferenceUtil(context: Context) {
         private val prefs: SharedPreferences =
-            context.getSharedPreferences("prefs_name", Context.MODE_PRIVATE)
+            PreferenceManager.getDefaultSharedPreferences(context)
         var editor: SharedPreferences.Editor = prefs.edit()
 
         fun getString(key: String, defValue: String?): String? {
