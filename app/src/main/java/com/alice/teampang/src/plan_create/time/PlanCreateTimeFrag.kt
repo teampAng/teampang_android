@@ -14,8 +14,6 @@ import com.alice.teampang.src.BaseFrag
 
 class PlanCreateTimeFrag : BaseFrag(), View.OnClickListener {
 
-    lateinit var navController: NavController
-
     private lateinit var time_array: ArrayList<ImageView>
     private lateinit var box_array: ArrayList<LinearLayout>
 

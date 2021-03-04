@@ -20,7 +20,6 @@ import kotlin.collections.ArrayList
 
 class PlanPossibleSelectionFrag : BaseFrag(), View.OnClickListener {
 
-    lateinit var navController: NavController
     private lateinit var myContext: Context
     private var _binding: FragPlanPossibleSelectionBinding? = null
     private val binding get() = _binding!!

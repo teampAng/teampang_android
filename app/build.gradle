@@ -76,4 +76,10 @@ dependencies {
 
     //https://developer.android.com/kotlin/ktx?hl=ko fragment ktx
     implementation "androidx.fragment:fragment-ktx:1.3.0"
+
+    //preferenceManager
+    implementation "androidx.preference:preference-ktx:1.1.1"
+
+    //for test 나중에 지우기
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.12.5'
 }

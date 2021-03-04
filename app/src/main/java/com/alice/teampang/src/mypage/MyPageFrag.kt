@@ -17,8 +17,6 @@ import com.alice.teampang.src.BaseFrag
 
 class MyPageFrag : BaseFrag(), View.OnClickListener {
 
-    lateinit var navController : NavController
-
     private var _binding: FragMyPageBinding? = null
     private val binding get() = _binding!!
 

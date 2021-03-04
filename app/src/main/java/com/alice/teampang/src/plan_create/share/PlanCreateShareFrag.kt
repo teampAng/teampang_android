@@ -12,8 +12,6 @@ import com.alice.teampang.src.BaseFrag
 
 class PlanCreateShareFrag : BaseFrag(), View.OnClickListener {
 
-    lateinit var navController : NavController
-
     private var _binding: FragPlanCreateShareBinding? = null
     private val binding get() = _binding!!
 

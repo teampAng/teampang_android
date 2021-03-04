@@ -12,8 +12,6 @@ import com.alice.teampang.src.BaseFrag
 
 class ProfileFrag : BaseFrag(), View.OnClickListener {
 
-    lateinit var navController : NavController
-
     private var _binding: FragProfileBinding? = null
     private val binding get() = _binding!!
 

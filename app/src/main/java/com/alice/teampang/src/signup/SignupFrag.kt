@@ -28,8 +28,6 @@ import com.alice.teampang.src.signup.model.*
 
 class SignupFrag : BaseFrag(), SignupFragView, View.OnClickListener {
 
-    lateinit var navController: NavController
-
     var nickname = ""
     var gender = 0
     var univ = ""

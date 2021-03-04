@@ -27,8 +27,6 @@ import com.alice.teampang.src.my_schedule.model.Times
 
 class MyScheduleEditFrag : BaseFrag(), View.OnClickListener {
 
-    lateinit var navController: NavController
-
     var scheduleName: String? = null
     var day = "월"
     var startMinute = 0

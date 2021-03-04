@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     app:startDestination="@id/splashFrag">
-
+    <action android:id="@+id/action_global_loginFrag"
+        app:destination="@id/loginFrag"/>
 
     <fragment
         android:id="@+id/planCreateCalendarFrag"
