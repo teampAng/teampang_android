@@ -26,6 +26,7 @@ import com.alice.teampang.src.GlobalApplication.Companion.prefs
 import com.alice.teampang.src.error.model.ErrorResponse
 import com.alice.teampang.src.signup.interfaces.SignupFragView
 import com.alice.teampang.src.signup.model.*
+import org.threeten.bp.LocalDate
 
 class SignupFrag : BaseFrag(), SignupFragView, View.OnClickListener {
 
@@ -126,6 +127,7 @@ class SignupFrag : BaseFrag(), SignupFragView, View.OnClickListener {
                 isAllChecked()
             }
             binding.btnFinish -> {
+
                 when {
                     nickname == "" -> {
                         showCustomToast("닉네임을 입력해주세요")
@@ -136,24 +138,25 @@ class SignupFrag : BaseFrag(), SignupFragView, View.OnClickListener {
                     }
                     univ_o_cheked -> {
                         when {
-                            univ == "" -> {
-                                showCustomToast("대학교를 입력해주세요")
-                            }
-                            univ_major == "" -> {
-                                showCustomToast("학과를 입력해주세요")
-                            }
-                            univ_num == -1 -> {
-                                showCustomToast("학번을 입력해주세요")
-                            }
-                            univ_grade == 0 -> {
-                                showCustomToast("학년을 입력해주세요")
-                            }
+                            univ == "" -> showCustomToast("대학교를 입력해주세요")
+                            univ_major == "" -> showCustomToast("학과를 입력해주세요")
+                            univ_num == -1 -> showCustomToast("학번을 입력해주세요")
+                            univ_grade == 0 -> showCustomToast("학년을 입력해주세요")
+                            univ_grade < 0 -> showCustomToast("올바른 학번을 입력해주세요")
+                            univ_grade > 6 -> showCustomToast("학년은 최대 6학년까지 가능합니다")
                             else -> {
+                                val currentYear = LocalDate.now().year
                                 univ_num += 2000
-                                signUpBody = SignUpBody(nickname, gender,
-                                    University(univ, univ_num, univ_major, univ_grade))
-                                tryPostSignUp()
-                                binding.progressBar.progress = 100
+                                if (univ_num >= currentYear || univ_num <= 2000) {
+                                    showCustomToast("가능한 학번이 아닙니다.")
+                                } else {
+                                    signUpBody = SignUpBody(
+                                        nickname, gender,
+                                        University(univ, univ_num, univ_major, univ_grade)
+                                    )
+                                    tryPostSignUp()
+                                    binding.progressBar.progress = 100
+                                }
                             }
                         }
                     }
@@ -183,7 +186,7 @@ class SignupFrag : BaseFrag(), SignupFragView, View.OnClickListener {
                     prefs.setString(UNIV_NAME, signUpResponse.data.university!!.univ)
                     prefs.setString(UNIV_MAJOR, signUpResponse.data.university!!.major)
                     prefs.setInt(UNIV_GRADE, signUpResponse.data.university!!.grade)
-                    prefs.setInt(UNIV_NUM, signUpResponse.data.university!!.univNum)
+                    prefs.setInt(UNIV_NUM, signUpResponse.data.university!!.univNum-2000)
                 }
                 navController.navigate(R.id.action_signupFrag_to_signupSuccessFrag)
             }

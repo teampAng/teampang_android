@@ -29,15 +29,21 @@ import com.alice.teampang.src.GlobalApplication.Companion.prefs
 import com.alice.teampang.src.error.model.ErrorResponse
 import com.alice.teampang.src.profile.interfaces.ProfileEditFragView
 import com.alice.teampang.src.profile.model.*
+import org.threeten.bp.LocalDate
 
 class ProfileEditFrag : BaseFrag(), ProfileEditFragView, View.OnClickListener {
 
-    var nickname: String? = ""
+    val pNickname = prefs.getString(USER_NICKNAME, "")
+    val pUniv = prefs.getString(UNIV_NAME, "")
+    val pUnivMajor = prefs.getString(UNIV_MAJOR, "")
+    val pUnivNum = prefs.getInt(UNIV_NUM, 0)
+    val pUnivGrade = prefs.getInt(UNIV_GRADE, 0)
+    var nickname = pNickname
     var gender = prefs.getInt(USER_GENDER, 0)
-    var univ: String? = ""
-    var univ_major: String? = ""
-    var univ_num: Int? = -1
-    var univ_grade: Int? = 0
+    var univ = pUniv
+    var univ_major = pUnivMajor
+    var univ_num = pUnivNum+2000
+    var univ_grade = pUnivGrade
     var univ_o_cheked = false
     var univ_x_cheked = false
 
@@ -62,11 +68,31 @@ class ProfileEditFrag : BaseFrag(), ProfileEditFragView, View.OnClickListener {
 
         navController = Navigation.findNavController(view)
 
-        //스플래시화면에서 sharedPreference 에 저장했다가, 저장된 거 불러와서 뿌려주기
+        if (prefs.getString(UNIV_NAME, "") != "") {
+            //저장된 값이 대학생인 경우
+            univ_o_cheked = true
+            binding.univBox1.visibility = View.VISIBLE
+            binding.univBox2.visibility = View.VISIBLE
 
-        //저장된 값이 대학생인 경우
-        binding.univBox1.visibility = View.VISIBLE
-        binding.univBox2.visibility = View.VISIBLE
+            binding.btnUnivO.setTextColor(Color.parseColor("#5aa6f8"))
+            binding.btnUnivO.setBackgroundResource(R.drawable.btn_blue_line_round)
+
+            binding.nickname.hint = pNickname
+            binding.univ.hint = pUniv
+            binding.univNum.hint = "${pUnivNum}학번"
+            binding.univMajor.hint = pUnivMajor
+            binding.univGrade.hint = "${pUnivGrade}학년"
+
+            binding.nickname.setHintTextColor(Color.parseColor("#333333"))
+            binding.univ.setHintTextColor(Color.parseColor("#333333"))
+            binding.univNum.setHintTextColor(Color.parseColor("#333333"))
+            binding.univMajor.setHintTextColor(Color.parseColor("#333333"))
+            binding.univGrade.setHintTextColor(Color.parseColor("#333333"))
+        } else {
+            univ_x_cheked = true
+            binding.btnUnivX.setTextColor(Color.parseColor("#5aa6f8"))
+            binding.btnUnivX.setBackgroundResource(R.drawable.btn_blue_line_round)
+        }
 
         editTextChanged()
 
@@ -112,37 +138,42 @@ class ProfileEditFrag : BaseFrag(), ProfileEditFragView, View.OnClickListener {
                 }
             }
             binding.btnFinish -> {
-                val pNickname = prefs.getString(USER_NICKNAME, null)
-                val pUniv = prefs.getString(UNIV_NAME, null)
-                val pUnivMajor = prefs.getString(UNIV_MAJOR, null)
-                val pUnivNum = prefs.getInt(UNIV_NUM, -1)
-                val pUnivGrade = prefs.getInt(UNIV_GRADE, -1)
-                when {
-                    nickname == "" -> nickname = pNickname
-                    univ_o_cheked -> {
-                        when {
-                            univ == "" -> univ = pUniv
-                            univ_major == "" -> univ_major = pUnivMajor
-                            univ_num == -1 -> univ_num = pUnivNum
-                            univ_grade == 0 -> univ_grade = pUnivGrade
-                            else -> {
-                                if (nickname == pNickname && univ == pUniv && univ_major == pUnivMajor
-                                    && univ_num == pUnivNum && univ_grade == pUnivGrade
-                                ) {
-                                    showCustomToast("수정된 프로필이 없습니다.")
-                                } else {
-                                    patchProfileBody = PatchProfileBody(
-                                        nickname, gender,
-                                        University(univ, univ_num, univ_major, univ_grade)
-                                    )
-                                    tryPatchProfile()
-                                }
+                if (nickname == "") nickname = pNickname!!
+                else if (univ_o_cheked) {
+                    if (univ_grade < 0) showCustomToast("올바른 학번을 입력해주세요")
+                    else if (univ_grade > 6) showCustomToast("학년은 최대 6학년까지 가능합니다")
+                    else {
+                        if (nickname == pNickname && univ == pUniv && univ_major == pUnivMajor
+                            && univ_num == pUnivNum && univ_grade == pUnivGrade
+                        ) {
+                            showCustomToast("수정된 프로필이 없습니다.")
+                        } else {
+                            val currentYear = LocalDate.now().year
+                            if (univ_num >= currentYear || univ_num <= 2000) {
+                                showCustomToast("가능한 학번이 아닙니다.")
+                            } else {
+                                patchProfileBody = PatchProfileBody(
+                                    nickname, gender,
+                                    University(univ, univ_num, univ_major, univ_grade)
+                                )
+                                tryPatchProfile()
                             }
                         }
                     }
-                    univ_x_cheked -> {
-                        patchProfileBody = PatchProfileBody(nickname, null, null)
-                        tryPatchProfile()
+                }
+                else if (univ_x_cheked) {
+                    when {
+                        pUniv != "" -> {
+                            //대학생->비대학생
+                            patchProfileBody = PatchProfileBody(nickname, gender, null)
+                            tryPatchProfile()
+                        }
+                        nickname == pNickname -> showCustomToast("수정된 프로필이 없습니다.")
+                        else -> {
+                            //닉네임만 바꾼 경우
+                            patchProfileBody = PatchProfileBody(nickname, gender, null)
+                            tryPatchProfile()
+                        }
                     }
                 }
             }
@@ -182,7 +213,7 @@ class ProfileEditFrag : BaseFrag(), ProfileEditFragView, View.OnClickListener {
                     )
                     prefs.setInt(
                         UNIV_NUM,
-                        patchProfileResponse.data.university!!.univNum!!
+                        patchProfileResponse.data.university!!.univNum!!-2000
                     )
                 }
                 showCustomToast("프로필이 수정 되었습니다.")
@@ -288,7 +319,7 @@ class ProfileEditFrag : BaseFrag(), ProfileEditFragView, View.OnClickListener {
 
         })
 
-        binding.univYear.addTextChangedListener(object : TextWatcher {
+        binding.univGrade.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(p0: Editable?) {
                 val grade = p0.toString().trim()
                 if (grade != "") univ_grade = grade.toInt()
