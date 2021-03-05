@@ -48,7 +48,7 @@ class SplashFrag : BaseFrag(), SplashFragView {
             override fun onAnimationEnd(animation: Animator) {
                 val jwt: String? = prefs.getString(GlobalApplication.ACCESS_TOKEN, null)
                 if (jwt != null) tryGetProfile()
-                else navController.navigate(R.id.action_splashFrag_to_loginFrag)
+                else navController.navigate(R.id.action_splashFrag_to_loginFrag) //신규회원
             }
 
             override fun onAnimationCancel(animation: Animator) {}
@@ -81,7 +81,7 @@ class SplashFrag : BaseFrag(), SplashFragView {
                     navController.navigate(R.id.action_splashFrag_to_mainFrag)
                 }
                 404 -> {
-                    //프로필 존재x, 로그인 화면으로 넘기기
+                    //프로필 존재x, 회원가입 화면으로 넘기기
                     navController.navigate(R.id.action_splashFrag_to_loginFrag)
                 }
                 401 -> {
