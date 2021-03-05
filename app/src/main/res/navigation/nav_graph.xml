@@ -90,6 +90,9 @@
             app:popUpToInclusive="true"
             app:popUpTo="@id/loginFrag"
             app:destination="@id/signupFrag" />
+        <action
+            android:id="@+id/action_loginFrag_to_mainFrag"
+            app:destination="@id/mainFrag" />
     </fragment>
     <fragment
         android:id="@+id/splashFrag"
