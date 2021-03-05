@@ -8,17 +8,18 @@ import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.setFragmentResultListener
-import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.alice.teampang.R
 import com.alice.teampang.databinding.FragMyScheduleBinding
 import com.alice.teampang.src.BaseFrag
-import com.alice.teampang.src.my_schedule.model.MyScheduleData
+import com.alice.teampang.src.error.model.ErrorResponse
+import com.alice.teampang.src.my_schedule.interfaces.MyScheduleFragView
+import com.alice.teampang.src.my_schedule.model.*
 import com.alice.teampang.src.my_schedule.model.Times
+import com.alice.teampang.src.splash.SplashService
 
-class MyScheduleFrag : BaseFrag(), View.OnClickListener {
+class MyScheduleFrag : BaseFrag(), MyScheduleFragView, View.OnClickListener {
 
     private var _binding: FragMyScheduleBinding? = null
     private val binding get() = _binding!!
@@ -27,7 +28,7 @@ class MyScheduleFrag : BaseFrag(), View.OnClickListener {
     private lateinit var mName: String
     private var mPosition = 0
 
-    var dataList = ArrayList<MyScheduleData>()
+    var dataList = ArrayList<Data>()
     private lateinit var myScheduleAdapter: MyScheduleAdapter
 
 
@@ -48,9 +49,7 @@ class MyScheduleFrag : BaseFrag(), View.OnClickListener {
         navController = Navigation.findNavController(view)
         myScheduleAdapter = MyScheduleAdapter(requireContext())
 
-        //일정 get api
-        //성공하면 아래 코드
-        setRcvMySchedule()
+        tryMySchedule()
 
         myScheduleAdapter.setDeliverListTimes(object : MyScheduleAdapter.DeliverListTimes {
             override fun deliverListTimes(
@@ -76,25 +75,57 @@ class MyScheduleFrag : BaseFrag(), View.OnClickListener {
         }
     }
 
-    fun Fragment.setFragmentResult(
+    private fun Fragment.setFragmentResult(
         requestKey: String,
         result: Bundle
     ) = parentFragmentManager.setFragmentResult(requestKey, result)
 
-    private fun setRcvMySchedule() {
-        dataList.clear() //api 엮으면 필요없을 수도
-        binding.rvSchedule.layoutManager = LinearLayoutManager(requireContext())
-        binding.rvSchedule.adapter = myScheduleAdapter
-        val timesList: ArrayList<Times> = arrayListOf(
-            Times("MON", "08:00", "09:00"),
-            Times("MON", "08:00", "09:00"),
-            Times("MON", "08:00", "09:00")
-        )
+    private fun tryMySchedule() {
+        val myScheduleService = MyScheduleService(this)
+        myScheduleService.getMySchedule()
+    }
 
-        dataList.add(MyScheduleData(0, "알바", timesList))
-        dataList.add(MyScheduleData(1, "학원", timesList))
-        myScheduleAdapter.data = dataList
-        myScheduleAdapter.notifyDataSetChanged()
+    override fun myScheduleSuccess(myScheduleResponse: MyScheduleResponse) {
+        when (myScheduleResponse.status) {
+            200 -> {
+                binding.rvSchedule.layoutManager = LinearLayoutManager(requireContext())
+                binding.rvSchedule.adapter = myScheduleAdapter
+                val timesList = ArrayList<Times>()
+                for (i in myScheduleResponse.data.indices) {
+                    for (j in myScheduleResponse.data[i].times.indices) {
+                        timesList.add(
+                            j, Times(
+                                myScheduleResponse.data[i].times[j].startTime,
+                                myScheduleResponse.data[i].times[j].endTime,
+                                myScheduleResponse.data[i].times[j].day,
+                            )
+                        )
+                    }
+                    dataList.add(
+                        i, Data(
+                            myScheduleResponse.data[i].id,
+                            timesList,
+                            myScheduleResponse.data[i].name
+                        )
+                    )
+                    timesList.clear()
+                }
+                myScheduleAdapter.data = dataList
+                myScheduleAdapter.notifyDataSetChanged()
+            }
+            else -> showCustomToast(myScheduleResponse.message)
+        }
+    }
+
+    override fun myScheduleError(errorResponse: ErrorResponse) {
+        when (errorResponse.status) {
+            401 -> tryPostRefreshToken { tryMySchedule() }
+            else -> showCustomToast(errorResponse.message)
+        }
+    }
+
+    override fun myScheduleFailure(message: Throwable?) {
+        TODO("Not yet implemented")
     }
 
     private fun editDialog() {
@@ -131,5 +162,4 @@ class MyScheduleFrag : BaseFrag(), View.OnClickListener {
         super.onDestroyView()
         _binding = null
     }
-
 }

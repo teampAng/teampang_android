@@ -1,26 +1,18 @@
 package com.alice.teampang.src.my_schedule
 
 import android.content.Context
-import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.core.os.bundleOf
-import androidx.navigation.NavController
-import androidx.navigation.Navigation
-import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.alice.teampang.R
-import com.alice.teampang.databinding.FragMyScheduleBinding
 import com.alice.teampang.databinding.MyScheduleListBinding
-import com.alice.teampang.src.my_schedule.model.MyScheduleData
-import com.alice.teampang.src.my_schedule.model.Times
-import com.google.gson.Gson
+import com.alice.teampang.src.my_schedule.model.*
+
 
 
 class MyScheduleAdapter (private val context : Context) : RecyclerView.Adapter<MyScheduleAdapter.ProfileVH>() {
 
-    var data = listOf<MyScheduleData>()
+    var data = listOf<Data>()
     private val myScheduleTimeAdapter = MyScheduleTimeAdapter(context)
 
     interface DeliverListTimes {
@@ -55,7 +47,7 @@ class MyScheduleAdapter (private val context : Context) : RecyclerView.Adapter<M
     }
 
     class ProfileVH(val binding: MyScheduleListBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun onBind(data: MyScheduleData) {
+        fun onBind(data: Data) {
             binding.schedule = data
         }
     }
