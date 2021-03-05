@@ -141,7 +141,7 @@ class LoginFrag : BaseFrag(), LoginFragView, View.OnClickListener {
                     )
                     prefs.setInt(
                         GlobalApplication.UNIV_NUM,
-                        getProfileResponse.data.university!!.univNum
+                        getProfileResponse.data.university!!.univNum-2000
                     )
                 }
                 navController.navigate(R.id.action_loginFrag_to_mainFrag)

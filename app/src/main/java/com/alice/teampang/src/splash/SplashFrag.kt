@@ -76,7 +76,7 @@ class SplashFrag : BaseFrag(), SplashFragView {
                     prefs.setString(UNIV_NAME, getProfileResponse.data.university!!.univ)
                     prefs.setString(UNIV_MAJOR, getProfileResponse.data.university!!.major)
                     prefs.setInt(UNIV_GRADE, getProfileResponse.data.university!!.grade)
-                    prefs.setInt(UNIV_NUM, getProfileResponse.data.university!!.univNum)
+                    prefs.setInt(UNIV_NUM, getProfileResponse.data.university!!.univNum-2000)
                 }
                 navController.navigate(R.id.action_splashFrag_to_mainFrag)
             }

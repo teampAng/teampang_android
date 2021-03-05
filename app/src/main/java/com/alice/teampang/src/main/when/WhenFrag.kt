@@ -52,7 +52,7 @@ class WhenFrag :BaseFrag(),View.OnClickListener{
         view.findViewById<RecyclerView>(R.id.recyclerview_main_list).adapter = adapter
         view.findViewById<RecyclerView>(R.id.recyclerview_main_list).layoutManager =
             LinearLayoutManager(
-                myContext
+                requireContext()//에러떠서 바꿈
             )
         return view
     }

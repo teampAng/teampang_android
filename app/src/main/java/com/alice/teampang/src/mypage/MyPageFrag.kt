@@ -1,19 +1,20 @@
 package com.alice.teampang.src.mypage
 
-import android.content.Context
 import android.graphics.Color
-import android.graphics.Point
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.util.TypedValue
 import android.view.*
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
-import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.alice.teampang.R
 import com.alice.teampang.databinding.FragMyPageBinding
 import com.alice.teampang.src.BaseFrag
+import com.alice.teampang.src.GlobalApplication.Companion.UNIV_MAJOR
+import com.alice.teampang.src.GlobalApplication.Companion.UNIV_NAME
+import com.alice.teampang.src.GlobalApplication.Companion.USER_NICKNAME
+import com.alice.teampang.src.GlobalApplication.Companion.prefs
 
 class MyPageFrag : BaseFrag(), View.OnClickListener {
 
@@ -34,7 +35,9 @@ class MyPageFrag : BaseFrag(), View.OnClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        navController = Navigation.findNavController(view)
+        binding.name.text = prefs.getString(USER_NICKNAME, "")
+        val univInfo = prefs.getString(UNIV_NAME, "") + " " + prefs.getString(UNIV_MAJOR, "")
+        binding.univInfo.text = univInfo
 
         binding.btnBack.setOnClickListener(this)
         binding.btnProfile.setOnClickListener(this)
