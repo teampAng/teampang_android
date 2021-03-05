@@ -20,6 +20,7 @@ import com.alice.teampang.src.GlobalApplication.Companion.USER_ID
 import com.alice.teampang.src.GlobalApplication.Companion.USER_NICKNAME
 import com.alice.teampang.src.GlobalApplication.Companion.prefs
 import com.alice.teampang.src.MainActivity
+import com.alice.teampang.src.error.model.ErrorResponse
 import com.alice.teampang.src.splash.interfaces.SplashFragView
 import com.alice.teampang.src.splash.model.GetProfileResponse
 
@@ -64,41 +65,33 @@ class SplashFrag : BaseFrag(), SplashFragView {
     }
 
 
-    override fun getProfileSuccess(getProfileResponse: GetProfileResponse?) {
-        if (getProfileResponse != null) {
-            when (getProfileResponse.status) {
-                200 -> {
-                    //프로필 조회 성공, 기존 회원
-                    prefs.setInt(USER_ID, getProfileResponse.data.id)
-                    prefs.setString(USER_NICKNAME, getProfileResponse.data.nickname)
-                    prefs.setInt(USER_GENDER, getProfileResponse.data.gender)
-                    if (getProfileResponse.data.university != null) {
-                        prefs.setString(UNIV_NAME, getProfileResponse.data.university!!.univ)
-                        prefs.setString(UNIV_MAJOR, getProfileResponse.data.university!!.major)
-                        prefs.setInt(UNIV_GRADE, getProfileResponse.data.university!!.grade)
-                        prefs.setInt(UNIV_NUM, getProfileResponse.data.university!!.univNum)
-                    }
-                    navController.navigate(R.id.action_splashFrag_to_mainFrag)
+    override fun getProfileSuccess(getProfileResponse: GetProfileResponse) {
+        when (getProfileResponse.status) {
+            200 -> {
+                //프로필 조회 성공, 기존 회원
+                prefs.setInt(USER_ID, getProfileResponse.data.id)
+                prefs.setString(USER_NICKNAME, getProfileResponse.data.nickname)
+                prefs.setInt(USER_GENDER, getProfileResponse.data.gender)
+                if (getProfileResponse.data.university != null) {
+                    prefs.setString(UNIV_NAME, getProfileResponse.data.university!!.univ)
+                    prefs.setString(UNIV_MAJOR, getProfileResponse.data.university!!.major)
+                    prefs.setInt(UNIV_GRADE, getProfileResponse.data.university!!.grade)
+                    prefs.setInt(UNIV_NUM, getProfileResponse.data.university!!.univNum)
                 }
-                404 -> {
-                    //프로필 존재x, 회원가입 화면으로 넘기기
-                    navController.navigate(R.id.action_splashFrag_to_loginFrag)
-                }
-                401 -> {
-                    //유효하지 않은 액세스 토큰
-                    tryPostRefreshToken { tryGetProfile() }
-                }
-                else -> {
-                    //예상치 못한 서버 응답
-                    showCustomToast(getProfileResponse.message)
-                }
+                navController.navigate(R.id.action_splashFrag_to_mainFrag)
             }
-        } else {
-            val refreshToken: String? = prefs.getString(GlobalApplication.REFRESH_TOKEN, null)
-            if (refreshToken != null) {
-                Log.d("pref", refreshToken)
+            else -> showCustomToast(getProfileResponse.message)
+        }
+    }
+
+    override fun getProfileError(errorResponse: ErrorResponse) {
+        when (errorResponse.status) {
+            401 -> tryPostRefreshToken { tryGetProfile() }
+            404 -> {
+                //프로필 존재x, 회원가입 화면으로 넘기기
+                navController.navigate(R.id.action_splashFrag_to_loginFrag)
             }
-            tryPostRefreshToken { tryGetProfile() }
+            else -> showCustomToast(errorResponse.message)
         }
     }
 
