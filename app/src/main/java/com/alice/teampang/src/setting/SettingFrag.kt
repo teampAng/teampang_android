@@ -7,13 +7,19 @@ import android.util.TypedValue
 import android.view.*
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
-import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.alice.teampang.R
 import com.alice.teampang.databinding.FragSettingBinding
 import com.alice.teampang.src.BaseFrag
+import com.alice.teampang.src.GlobalApplication
+import com.alice.teampang.src.GlobalApplication.Companion.ACCESS_TOKEN
+import com.alice.teampang.src.GlobalApplication.Companion.prefs
+import com.alice.teampang.src.error.model.ErrorResponse
+import com.alice.teampang.src.setting.interfaces.SettingFragView
+import com.alice.teampang.src.setting.model.LogoutBody
+import com.alice.teampang.src.setting.model.LogoutResponse
 
-class SettingFrag : BaseFrag(), View.OnClickListener {
+class SettingFrag : BaseFrag(), SettingFragView, View.OnClickListener {
 
     private var _binding: FragSettingBinding? = null
     private val binding get() = _binding!!
@@ -47,6 +53,42 @@ class SettingFrag : BaseFrag(), View.OnClickListener {
         }
     }
 
+    private fun tryPostLogout() {
+        val refreshToken = prefs.getString(GlobalApplication.REFRESH_TOKEN, null)
+        val logoutBody = refreshToken?.let { LogoutBody(it) }
+        val settingService = SettingService(this)
+        if (logoutBody != null) {
+            settingService.postLogout(logoutBody)
+        } else {
+            //refreshToken 이 null
+            navController.navigate(R.id.action_settingFrag_to_loginFrag)
+        }
+    }
+
+    override fun logoutSuccess(logoutResponse: LogoutResponse) {
+        when (logoutResponse.status) {
+            200 -> {
+                //로그아웃 성공
+                prefs.setString(ACCESS_TOKEN, null)
+                showCustomToast("로그아웃 되었습니다")
+                navController.navigate(R.id.action_settingFrag_to_loginFrag)
+            }
+            else -> showCustomToast(logoutResponse.message)
+        }
+    }
+
+    override fun logoutError(errorResponse: ErrorResponse) {
+        when (errorResponse.status) {
+            401 -> navController.navigate(R.id.action_settingFrag_to_loginFrag)
+            else -> showCustomToast(errorResponse.message)
+        }
+    }
+
+    override fun logoutFailure(message: Throwable?) {
+        showCustomToast(message.toString())
+    }
+
+
     private fun logoutDialog() {
         val builder = AlertDialog.Builder(requireContext())
         val dialogView = layoutInflater.inflate(R.layout.dialog_logout, null)
@@ -65,7 +107,7 @@ class SettingFrag : BaseFrag(), View.OnClickListener {
         dialog.window?.attributes = params
 
         btn_logout.setOnClickListener {
-            //api 엮기
+            tryPostLogout()
             dialog.dismiss()
         }
 
@@ -105,6 +147,5 @@ class SettingFrag : BaseFrag(), View.OnClickListener {
         super.onDestroyView()
         _binding = null
     }
-
 }
 

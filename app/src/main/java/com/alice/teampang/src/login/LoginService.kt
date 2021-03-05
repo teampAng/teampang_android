@@ -19,7 +19,7 @@ class LoginService(loginFragView: LoginFragView) {
         val loginRetrofitInterface: LoginRetrofitInterface = getRetrofit()!!.create(
             LoginRetrofitInterface::class.java
         )
-        loginRetrofitInterface.postKakoToken(kakaoTokenBody)?.enqueue(object :
+        loginRetrofitInterface.postKakoToken(kakaoTokenBody).enqueue(object :
             Callback<KakaoTokenResponse?> {
             override fun onResponse(
                 call: Call<KakaoTokenResponse?>,
