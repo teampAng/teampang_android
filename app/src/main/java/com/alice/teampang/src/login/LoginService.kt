@@ -1,11 +1,13 @@
 package com.alice.teampang.src.login
 
 import com.alice.teampang.src.GlobalApplication.Companion.getRetrofit
+import com.alice.teampang.src.error.ErrorUtils
 import com.alice.teampang.src.login.interfaces.LoginFragView
 import com.alice.teampang.src.login.interfaces.LoginRetrofitInterface
 import com.alice.teampang.src.login.model.*
 import com.alice.teampang.src.splash.interfaces.SplashRetrofitInterface
 import com.alice.teampang.src.splash.model.GetProfileResponse
+import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -24,8 +26,10 @@ class LoginService(loginFragView: LoginFragView) {
                 response: Response<KakaoTokenResponse?>
             ) {
                 val kakaoTokenResponse: KakaoTokenResponse? = response.body()
+                val error: ResponseBody? = response.errorBody()
                 if (kakaoTokenResponse == null) {
-                    mLoginFragView.kakaoTokenFailure(null)
+                    if (error != null) mLoginFragView.kakaoTokenError(ErrorUtils.parseError(error))
+                    else mLoginFragView.kakaoTokenFailure(null)
                     return
                 }
                 mLoginFragView.kakaoTokenSuccess(kakaoTokenResponse)
@@ -48,8 +52,10 @@ class LoginService(loginFragView: LoginFragView) {
                 response: Response<GetProfileResponse?>
             ) {
                 val getProfileResponse: GetProfileResponse? = response.body()
+                val error: ResponseBody? = response.errorBody()
                 if (getProfileResponse == null) {
-                    mLoginFragView.getProfileSuccess(null)
+                    if (error != null) mLoginFragView.getProfileError(ErrorUtils.parseError(error))
+                    else mLoginFragView.getProfileFailure(null)
                     return
                 }
                 mLoginFragView.getProfileSuccess(getProfileResponse)

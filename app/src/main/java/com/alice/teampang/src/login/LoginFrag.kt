@@ -15,6 +15,7 @@ import com.alice.teampang.src.GlobalApplication
 import com.alice.teampang.src.GlobalApplication.Companion.ACCESS_TOKEN
 import com.alice.teampang.src.GlobalApplication.Companion.REFRESH_TOKEN
 import com.alice.teampang.src.GlobalApplication.Companion.prefs
+import com.alice.teampang.src.error.model.ErrorResponse
 import com.alice.teampang.src.login.interfaces.LoginFragView
 import com.alice.teampang.src.login.model.KakaoTokenBody
 import com.alice.teampang.src.login.model.KakaoTokenResponse
@@ -97,14 +98,14 @@ class LoginFrag : BaseFrag(), LoginFragView, View.OnClickListener {
                 //프로필 get 으로 회원 구분
                 tryGetProfile()
             }
-            401 -> {
-                //카카오 액세스 토큰이 없거나 유효하지 않음
-                showCustomToast("카카오 로그인에 실패하였습니다.")
-            }
-            else -> {
-                //예상치 못한 서버 응답
-                showCustomToast(kakaoTokenResponse.message)
-            }
+            else -> showCustomToast(kakaoTokenResponse.message)
+        }
+    }
+
+    override fun kakaoTokenError(errorResponse: ErrorResponse) {
+        when (errorResponse.status) {
+            401 -> showCustomToast("카카오 로그인에 실패하였습니다.") //카카오 액세스 토큰이 유효하지 x
+            else -> showCustomToast(errorResponse.message)
         }
     }
 
@@ -145,18 +146,18 @@ class LoginFrag : BaseFrag(), LoginFragView, View.OnClickListener {
                 }
                 navController.navigate(R.id.action_loginFrag_to_mainFrag)
             }
+            else -> showCustomToast(getProfileResponse.message)
+        }
+    }
+
+    override fun getProfileError(errorResponse: ErrorResponse) {
+        when (errorResponse.status) {
+            401 -> tryPostRefreshToken { tryGetProfile() }
             404 -> {
                 //프로필 존재x, 회원가입 화면으로 넘기기
                 navController.navigate(R.id.action_loginFrag_to_signupFrag) //신규회원
             }
-            401 -> {
-                //유효하지 않은 액세스 토큰
-                tryPostRefreshToken { tryGetProfile() }
-            }
-            else -> {
-                //예상치 못한 서버 응답
-                showCustomToast(getProfileResponse.message)
-            }
+            else -> showCustomToast(errorResponse.message)
         }
     }
 

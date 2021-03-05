@@ -26,6 +26,7 @@ import com.alice.teampang.src.GlobalApplication.Companion.USER_GENDER
 import com.alice.teampang.src.GlobalApplication.Companion.USER_ID
 import com.alice.teampang.src.GlobalApplication.Companion.USER_NICKNAME
 import com.alice.teampang.src.GlobalApplication.Companion.prefs
+import com.alice.teampang.src.error.model.ErrorResponse
 import com.alice.teampang.src.profile.interfaces.ProfileEditFragView
 import com.alice.teampang.src.profile.model.*
 
@@ -187,23 +188,23 @@ class ProfileEditFrag : BaseFrag(), ProfileEditFragView, View.OnClickListener {
                 showCustomToast("프로필이 수정 되었습니다.")
                 navController.popBackStack()
             }
+            else -> showCustomToast(patchProfileResponse.message)
+        }
+    }
+
+    override fun patchProfileError(errorResponse: ErrorResponse) {
+        when (errorResponse.status) {
             400 -> {
-                //닉네임 중복 & 기타 예외처리 -> status 로 나눠주면 좋겠음
+                //닉네임 중복 & 기타 예외처리 -> status 로 나눠줄 예정
                 binding.nicknameCon1.visibility = View.GONE
                 binding.nicknameCon2.visibility = View.VISIBLE
                 binding.btnFinish.setBackgroundResource(R.drawable.btn_grey)
                 binding.tvFinish.setTextColor(Color.parseColor("#9d9d9d"))
 
-                showCustomToast(patchProfileResponse.message)
+                showCustomToast(errorResponse.message)
             }
-            401 ->{
-                //토큰이 만료된 경우
-                showCustomToast(patchProfileResponse.message)
-            }
-            else -> {
-                //예상치 못한 서버 응답
-                showCustomToast(patchProfileResponse.message)
-            }
+            401 -> tryPostRefreshToken { tryPatchProfile() }
+            else -> showCustomToast(errorResponse.message)
         }
     }
 

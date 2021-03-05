@@ -1,9 +1,11 @@
 package com.alice.teampang.src.splash
 
 import com.alice.teampang.src.GlobalApplication.Companion.getRetrofit
+import com.alice.teampang.src.error.ErrorUtils
 import com.alice.teampang.src.splash.interfaces.SplashFragView
 import com.alice.teampang.src.splash.interfaces.SplashRetrofitInterface
 import com.alice.teampang.src.splash.model.GetProfileResponse
+import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -22,8 +24,10 @@ class SplashService(splashFragView: SplashFragView) {
                 response: Response<GetProfileResponse?>
             ) {
                 val getProfileResponse: GetProfileResponse? = response.body()
+                val error: ResponseBody? = response.errorBody()
                 if (getProfileResponse == null) {
-                    mSplashFragView.getProfileSuccess(null)
+                    if (error != null) mSplashFragView.getProfileError(ErrorUtils.parseError(error))
+                    else mSplashFragView.getProfileFailure(null)
                     return
                 }
                 mSplashFragView.getProfileSuccess(getProfileResponse)

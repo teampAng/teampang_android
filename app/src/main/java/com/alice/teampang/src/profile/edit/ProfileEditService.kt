@@ -1,9 +1,11 @@
 package com.alice.teampang.src.profile.edit
 
 import com.alice.teampang.src.GlobalApplication.Companion.getRetrofit
+import com.alice.teampang.src.error.ErrorUtils
 import com.alice.teampang.src.profile.interfaces.ProfileEditFragView
 import com.alice.teampang.src.profile.interfaces.ProfileEditRetrofitInterface
 import com.alice.teampang.src.profile.model.*
+import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -22,8 +24,10 @@ class ProfileEditService (profileEditFragView: ProfileEditFragView) {
                 response: Response<PatchProfileResponse?>
             ) {
                 val userInfoResponse: PatchProfileResponse? = response.body()
+                val error: ResponseBody? = response.errorBody()
                 if (userInfoResponse == null) {
-                    mProfileEditFragView.patchProfileFailure(null)
+                    if (error != null) mProfileEditFragView.patchProfileError(ErrorUtils.parseError(error))
+                    else mProfileEditFragView.patchProfileFailure(null)
                     return
                 }
                 mProfileEditFragView.patchProfileSuccess(userInfoResponse)

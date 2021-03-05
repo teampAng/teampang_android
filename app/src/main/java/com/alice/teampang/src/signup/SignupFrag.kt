@@ -23,6 +23,7 @@ import com.alice.teampang.src.GlobalApplication.Companion.USER_GENDER
 import com.alice.teampang.src.GlobalApplication.Companion.USER_ID
 import com.alice.teampang.src.GlobalApplication.Companion.USER_NICKNAME
 import com.alice.teampang.src.GlobalApplication.Companion.prefs
+import com.alice.teampang.src.error.model.ErrorResponse
 import com.alice.teampang.src.signup.interfaces.SignupFragView
 import com.alice.teampang.src.signup.model.*
 
@@ -163,7 +164,6 @@ class SignupFrag : BaseFrag(), SignupFragView, View.OnClickListener {
                     }
                 }
             }
-
         }
     }
 
@@ -187,26 +187,29 @@ class SignupFrag : BaseFrag(), SignupFragView, View.OnClickListener {
                 }
                 navController.navigate(R.id.action_signupFrag_to_signupSuccessFrag)
             }
+            else -> showCustomToast(signUpResponse.message)
+
+        }
+    }
+
+    override fun signUpError(errorResponse: ErrorResponse) {
+        when (errorResponse.status) {
             400 -> {
-                //닉네임 중복
+                //닉네임 중복 & 기타 예외처리 -> status 로 나눠줄 예정
                 binding.nicknameCon1.visibility = View.GONE
                 binding.nicknameCon2.visibility = View.VISIBLE
                 binding.btnFinish.setBackgroundResource(R.drawable.btn_grey)
                 binding.tvFinish.setTextColor(Color.parseColor("#9d9d9d"))
 
-                showCustomToast(signUpResponse.message)
+                showCustomToast(errorResponse.message)
             }
-            else -> {
-                //예상치 못한 서버 응답
-                showCustomToast(signUpResponse.message)
-            }
+            else -> showCustomToast(errorResponse.message)
         }
     }
 
     override fun signUpFailure(message: Throwable?) {
         showCustomToast(message.toString())
     }
-
 
     private fun editTextChanged() {
         //nickname 유효성 검사
