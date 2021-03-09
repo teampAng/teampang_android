@@ -10,9 +10,9 @@ import com.alice.teampang.src.my_schedule.model.*
 
 
 
-class MyScheduleAdapter (private val context : Context) : RecyclerView.Adapter<MyScheduleAdapter.ProfileVH>() {
+class MyScheduleAdapter (private val context : Context) : RecyclerView.Adapter<MyScheduleAdapter.ViewHolder>() {
 
-    var data = listOf<Data>()
+    var data = arrayListOf<Data>()
     private val myScheduleTimeAdapter = MyScheduleTimeAdapter(context)
 
     interface DeliverListTimes {
@@ -25,32 +25,33 @@ class MyScheduleAdapter (private val context : Context) : RecyclerView.Adapter<M
         this.deliverListTimes = deliverListTimes
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProfileVH {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding = MyScheduleListBinding.inflate(
             LayoutInflater.from(context), parent, false
         )
-        return ProfileVH(binding)
+        binding.rvTime.layoutManager = LinearLayoutManager(context)
+        binding.rvTime.adapter = myScheduleTimeAdapter
+
+        return ViewHolder(binding)
     }
 
     override fun getItemCount(): Int = data.size
 
-    override fun onBindViewHolder(holder: ProfileVH, position: Int) {
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.onBind(data[position])
-        holder.binding.rvTime.layoutManager = LinearLayoutManager(context)
-        holder.binding.rvTime.adapter = myScheduleTimeAdapter
-        myScheduleTimeAdapter.data = data[position].times
-        myScheduleTimeAdapter.notifyDataSetChanged()
         holder.binding.btnEdit.setOnClickListener {
-            //position에 따른 times 넘겨서 데이터 좌라락
+            //position 에 따른 times 넘겨서 데이터 좌라락
             deliverListTimes.deliverListTimes(data[position].name, data[position].times, position)
         }
     }
 
-    class ProfileVH(val binding: MyScheduleListBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class ViewHolder(val binding: MyScheduleListBinding) : RecyclerView.ViewHolder(binding.root) {
         fun onBind(data: Data) {
             binding.schedule = data
+            myScheduleTimeAdapter.data = data.times
+            binding.rvTime.setHasFixedSize(false)
+            binding.rvTime.layoutManager = LinearLayoutManager(context)
+            binding.rvTime.adapter = myScheduleTimeAdapter
         }
     }
-
-
 }

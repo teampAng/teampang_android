@@ -16,7 +16,8 @@ data class Data(
 )
 
 data class Times(
+    @SerializedName("day") var day: String,
     @SerializedName("start_time") var startTime: String,
-    @SerializedName("end_time") var endTime: String,
-    @SerializedName("day") var day: String
+    @SerializedName("end_time") var endTime: String
 )
+

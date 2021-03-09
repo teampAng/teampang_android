@@ -1,4 +1,4 @@
-package com.alice.teampang.src.my_schedule
+package com.alice.teampang.src.my_schedule.edit
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -17,15 +17,16 @@ import android.widget.NumberPicker
 import android.widget.TimePicker
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
-import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.alice.teampang.databinding.*
 import com.alice.teampang.src.BaseFrag
-import com.alice.teampang.src.my_schedule.model.Times
+import com.alice.teampang.src.error.model.ErrorResponse
+import com.alice.teampang.src.my_schedule.interfaces.MyScheduleEditFragView
+import com.alice.teampang.src.my_schedule.model.*
 
 
-class MyScheduleEditFrag : BaseFrag(), View.OnClickListener {
+class MyScheduleEditFrag : BaseFrag(), MyScheduleEditFragView, View.OnClickListener {
 
     var scheduleName: String? = null
     var day = "월"
@@ -37,7 +38,6 @@ class MyScheduleEditFrag : BaseFrag(), View.OnClickListener {
     var endTimeS = "10:00"
 
     private var timesArrayList = ArrayList<Times>()
-    lateinit var times: Times
     private lateinit var myScheduleEditAdapter: MyScheduleEditAdapter
 
     private var _binding: FragMyScheduleEditBinding? = null
@@ -57,7 +57,7 @@ class MyScheduleEditFrag : BaseFrag(), View.OnClickListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        
+
         navController = Navigation.findNavController(view)
         myScheduleEditAdapter = MyScheduleEditAdapter(requireContext())
 
@@ -67,8 +67,7 @@ class MyScheduleEditFrag : BaseFrag(), View.OnClickListener {
             binding.scheduleName.hint = scheduleName
             setRcvMyScheduleEdit()
         }
-
-
+        setRcvMyScheduleEdit()
 
         binding.scheduleName.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(p0: Editable?) {
@@ -86,7 +85,7 @@ class MyScheduleEditFrag : BaseFrag(), View.OnClickListener {
         binding.btnBack.setOnClickListener(this)
         binding.btnDay.setOnClickListener(this)
         binding.btnTime.setOnClickListener(this)
-        binding.btnEdit.setOnClickListener(this)
+        binding.btnAdd.setOnClickListener(this)
         binding.btnFinish.setOnClickListener(this)
     }
 
@@ -95,7 +94,7 @@ class MyScheduleEditFrag : BaseFrag(), View.OnClickListener {
             binding.btnBack -> navController.popBackStack()
             binding.btnDay -> dayOfWeekDialog()
             binding.btnTime -> timeDialog()
-            binding.btnEdit -> {
+            binding.btnAdd -> {
                 if (scheduleName == null) {
                     showCustomToast("일정 이름을 입력해주세요.")
                 } else {
@@ -107,19 +106,57 @@ class MyScheduleEditFrag : BaseFrag(), View.OnClickListener {
                 }
             }
             binding.btnFinish -> {
-                //일정 추가로 넘어온 경우 -> 일정 생성 api
-                //일정 수정으로 넘어온 경우 -> 일정 수정 api
-                navController.popBackStack()
+                if (arguments?.getBoolean("isAdd") == true) {
+                    //일정 추가로 넘어온 경우 -> 일정 생성 api
+                    tryPostMySchedule()
+                }
+                else if (arguments?.getBoolean("isAdd") == false) {
+                    //일정 수정으로 넘어온 경우 -> 일정 수정 api
+
+                }
             }
             binding.layout -> hideKeyBoard()
         }
     }
 
-    fun Fragment.setFragmentResultListener(
+    private fun Fragment.setFragmentResultListener(
         requestKey: String,
         listener: ((resultKey: String, bundle: Bundle) -> Unit)
     ) {
         parentFragmentManager.setFragmentResultListener(requestKey, this, listener)
+    }
+
+    private fun tryPostMySchedule() {
+        val myScheduleEditService = MyScheduleEditService(this)
+        if (scheduleName != null && timesArrayList.size > 0) {
+            val myScheduleBody = MyScheduleBody(scheduleName!!, timesArrayList)
+            myScheduleEditService.postMySchedule(myScheduleBody)
+        } else showCustomToast("일정을 입력해주세요")
+    }
+
+    override fun postMyScheduleSuccess(postScheduleResponse: PostScheduleResponse) {
+        when (postScheduleResponse.status) {
+            201 -> {
+                showCustomToast("새로운 일정이 생성되었습니다")
+                navController.popBackStack()
+            }
+            else -> {
+                showCustomToast(postScheduleResponse.message)
+            }
+        }
+    }
+
+    override fun postMyScheduleError(errorResponse: ErrorResponse) {
+        when (errorResponse.status) {
+            400 -> showCustomToast(errorResponse.message)
+            401 -> tryPostRefreshToken { tryPostMySchedule() }
+            409 -> showCustomToast(errorResponse.message)
+            else -> showCustomToast(errorResponse.message)
+        }
+    }
+
+    override fun postMyScheduleFailure(message: Throwable?) {
+        showCustomToast(message.toString())
     }
 
     private fun setRcvMyScheduleEdit() {
@@ -177,17 +214,17 @@ class MyScheduleEditFrag : BaseFrag(), View.OnClickListener {
                 //start hour 가 23일때는 end time 을 23:55 로 설정
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                     dbinding.endTime.hour = startHour
-                    dbinding.endTime.minute = 55/5
+                    dbinding.endTime.minute = 55 / 5
                 } else {
                     dbinding.endTime.setCurrentHour(startHour)
-                    dbinding.endTime.setCurrentMinute(55/5)
+                    dbinding.endTime.setCurrentMinute(55 / 5)
                 }
                 //start time 을 23:55 로 설정하면, start time 이 23:50 으로 바뀌게 설정
                 if (startMinute == 55) {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                        dbinding.startTime.minute = 50/5
+                        dbinding.startTime.minute = 50 / 5
                     } else {
-                        dbinding.startTime.setCurrentMinute(50/5)
+                        dbinding.startTime.setCurrentMinute(50 / 5)
                     }
                 }
             } else {
@@ -195,18 +232,18 @@ class MyScheduleEditFrag : BaseFrag(), View.OnClickListener {
                 if (startHour > endHour) {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                         dbinding.endTime.hour = startHour + 1
-                        dbinding.endTime.minute = startMinute/5
+                        dbinding.endTime.minute = startMinute / 5
                     } else {
                         dbinding.endTime.setCurrentHour(startHour + 1)
-                        dbinding.endTime.setCurrentMinute(startMinute/5)
+                        dbinding.endTime.setCurrentMinute(startMinute / 5)
                     }
                 } else if (startHour == endHour && startMinute >= endMinute) {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                         dbinding.endTime.hour = startHour + 1
-                        dbinding.endTime.minute = startMinute/5
+                        dbinding.endTime.minute = startMinute / 5
                     } else {
                         dbinding.endTime.setCurrentHour(startHour + 1)
-                        dbinding.endTime.setCurrentMinute(startMinute/5)
+                        dbinding.endTime.setCurrentMinute(startMinute / 5)
                     }
                 }
             }
@@ -230,8 +267,11 @@ class MyScheduleEditFrag : BaseFrag(), View.OnClickListener {
             var endMinS = ""
 
             fun timeToString(time: Int): String {
-                return if(time < 10) { "0$time" }
-                else { "$time" }
+                return if (time < 10) {
+                    "0$time"
+                } else {
+                    "$time"
+                }
             }
 
             startHourS = timeToString(startHour)
@@ -309,7 +349,8 @@ class MyScheduleEditFrag : BaseFrag(), View.OnClickListener {
     }
 
     private fun hideKeyBoard() {
-        val imm = requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        val imm =
+            requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         imm.hideSoftInputFromWindow(binding.scheduleName.windowToken, 0)
     }
 
@@ -317,5 +358,4 @@ class MyScheduleEditFrag : BaseFrag(), View.OnClickListener {
         super.onDestroyView()
         _binding = null
     }
-
 }

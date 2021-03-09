@@ -3,6 +3,7 @@ package com.alice.teampang.src.my_schedule
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
@@ -28,7 +29,7 @@ class MyScheduleFrag : BaseFrag(), MyScheduleFragView, View.OnClickListener {
     private lateinit var mName: String
     private var mPosition = 0
 
-    var dataList = ArrayList<Data>()
+    private val dataList = ArrayList<Data>()
     private lateinit var myScheduleAdapter: MyScheduleAdapter
 
 
@@ -65,13 +66,17 @@ class MyScheduleFrag : BaseFrag(), MyScheduleFragView, View.OnClickListener {
         })
 
         binding.btnBack.setOnClickListener(this)
-        binding.btnEdit.setOnClickListener(this)
+        binding.btnAdd.setOnClickListener(this)
     }
 
     override fun onClick(v: View) {
         when (v) {
             binding.btnBack -> navController.popBackStack()
-            binding.btnEdit -> navController.navigate(R.id.action_myScheduleFrag_to_myScheduleEditFrag)
+
+            binding.btnAdd -> {
+                val bundle = bundleOf("isAdd" to true)
+                navController.navigate(R.id.action_myScheduleFrag_to_myScheduleEditFrag, bundle)
+            }
         }
     }
 
@@ -86,32 +91,12 @@ class MyScheduleFrag : BaseFrag(), MyScheduleFragView, View.OnClickListener {
     }
 
     override fun myScheduleSuccess(myScheduleResponse: MyScheduleResponse) {
+        dataList.clear()
         when (myScheduleResponse.status) {
             200 -> {
                 binding.rvSchedule.layoutManager = LinearLayoutManager(requireContext())
+                myScheduleAdapter.data = myScheduleResponse.data
                 binding.rvSchedule.adapter = myScheduleAdapter
-                val timesList = ArrayList<Times>()
-                for (i in myScheduleResponse.data.indices) {
-                    for (j in myScheduleResponse.data[i].times.indices) {
-                        timesList.add(
-                            j, Times(
-                                myScheduleResponse.data[i].times[j].startTime,
-                                myScheduleResponse.data[i].times[j].endTime,
-                                myScheduleResponse.data[i].times[j].day,
-                            )
-                        )
-                    }
-                    dataList.add(
-                        i, Data(
-                            myScheduleResponse.data[i].id,
-                            timesList,
-                            myScheduleResponse.data[i].name
-                        )
-                    )
-                    timesList.clear()
-                }
-                myScheduleAdapter.data = dataList
-                myScheduleAdapter.notifyDataSetChanged()
             }
             else -> showCustomToast(myScheduleResponse.message)
         }
@@ -125,7 +110,7 @@ class MyScheduleFrag : BaseFrag(), MyScheduleFragView, View.OnClickListener {
     }
 
     override fun myScheduleFailure(message: Throwable?) {
-        TODO("Not yet implemented")
+        showCustomToast(message.toString())
     }
 
     private fun editDialog() {
@@ -143,7 +128,8 @@ class MyScheduleFrag : BaseFrag(), MyScheduleFragView, View.OnClickListener {
         btn_edit.setOnClickListener {
             dialog.dismiss()
             setFragmentResult("requestKey", bundleOf("times" to mTimesList, "name" to mName))
-            navController.navigate(R.id.action_myScheduleFrag_to_myScheduleEditFrag)
+            val bundle = bundleOf("isAdd" to false)
+            navController.navigate(R.id.action_myScheduleFrag_to_myScheduleEditFrag, bundle)
         }
 
         btn_delete.setOnClickListener {
