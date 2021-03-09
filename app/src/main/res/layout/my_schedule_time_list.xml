@@ -17,7 +17,6 @@
             android:layout_marginBottom="8dp"
             android:layout_marginEnd="8dp"
             android:lineSpacingExtra="4.2sp"
-            android:text="@{times.day}"
             android:textAppearance="@style/MainFontR"
             android:textColor="@color/black"
             android:textSize="14sp" />
@@ -27,7 +26,6 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
             android:lineSpacingExtra="4.2sp"
-            android:text="@{times.startTime + ` - ` + times.endTime}"
             android:textAppearance="@style/MainFontR"
             android:textColor="@color/black"
             android:textSize="14sp" />

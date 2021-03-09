@@ -147,7 +147,7 @@
 
     <fragment
         android:id="@+id/myScheduleEditFrag"
-        android:name="com.alice.teampang.src.my_schedule.MyScheduleEditFrag"
+        android:name="com.alice.teampang.src.my_schedule.edit.MyScheduleEditFrag"
         android:label="MyScheduleEditFrag"
         tools:layout="@layout/frag_my_schedule_edit"/>
     <fragment
@@ -159,8 +159,8 @@
             android:id="@+id/action_myScheduleFrag_to_myScheduleEditFrag"
             app:destination="@id/myScheduleEditFrag" />
         <argument
-            android:name="times"
-            app:argType="string" />
+            android:name="isAdd"
+            app:argType="boolean" />
     </fragment>
     <fragment
         android:id="@+id/myPageFrag"
