@@ -16,7 +16,7 @@ class MyScheduleAdapter (private val context : Context) : RecyclerView.Adapter<M
     private val myScheduleTimeAdapter = MyScheduleTimeAdapter(context)
 
     interface DeliverListTimes {
-        fun deliverListTimes(name: String, timesList: ArrayList<Times>, position: Int)
+        fun deliverListTimes(id: Int, name: String, timesList: ArrayList<Times>, position: Int)
     }
 
     private lateinit var deliverListTimes: DeliverListTimes
@@ -41,7 +41,7 @@ class MyScheduleAdapter (private val context : Context) : RecyclerView.Adapter<M
         holder.onBind(data[position])
         holder.binding.btnEdit.setOnClickListener {
             //position 에 따른 times 넘겨서 데이터 좌라락
-            deliverListTimes.deliverListTimes(data[position].name, data[position].times, position)
+            deliverListTimes.deliverListTimes(data[position].id, data[position].name, data[position].times, position)
         }
     }
 

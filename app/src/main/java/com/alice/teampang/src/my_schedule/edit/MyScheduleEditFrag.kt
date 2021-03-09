@@ -37,6 +37,7 @@ class MyScheduleEditFrag : BaseFrag(), MyScheduleEditFragView, View.OnClickListe
     var startTimeS = "09:00"
     var endTimeS = "10:00"
 
+    private var mId = 0
     private var timesArrayList = ArrayList<Times>()
     private lateinit var myScheduleEditAdapter: MyScheduleEditAdapter
 
@@ -61,7 +62,12 @@ class MyScheduleEditFrag : BaseFrag(), MyScheduleEditFragView, View.OnClickListe
         navController = Navigation.findNavController(view)
         myScheduleEditAdapter = MyScheduleEditAdapter(requireContext())
 
+        if (arguments?.getBoolean("isAdd") == false) {
+            binding.title.text = "내 개인 일정 수정"
+        }
+
         setFragmentResultListener("requestKey") { resultKey, bundle ->
+            mId = bundle.getInt("id", -1)
             timesArrayList = bundle.getSerializable("times") as ArrayList<Times>
             scheduleName = bundle.getString("name")
             binding.scheduleName.hint = scheduleName
@@ -112,7 +118,7 @@ class MyScheduleEditFrag : BaseFrag(), MyScheduleEditFragView, View.OnClickListe
                 }
                 else if (arguments?.getBoolean("isAdd") == false) {
                     //일정 수정으로 넘어온 경우 -> 일정 수정 api
-
+                    tryPutMySchedule()
                 }
             }
             binding.layout -> hideKeyBoard()
@@ -125,6 +131,8 @@ class MyScheduleEditFrag : BaseFrag(), MyScheduleEditFragView, View.OnClickListe
     ) {
         parentFragmentManager.setFragmentResultListener(requestKey, this, listener)
     }
+
+    //--------------------개인 일정 생성-----------------------//
 
     private fun tryPostMySchedule() {
         val myScheduleEditService = MyScheduleEditService(this)
@@ -158,6 +166,42 @@ class MyScheduleEditFrag : BaseFrag(), MyScheduleEditFragView, View.OnClickListe
     override fun postMyScheduleFailure(message: Throwable?) {
         showCustomToast(message.toString())
     }
+
+    //--------------------개인 일정 수정-----------------------//
+
+    private fun tryPutMySchedule() {
+        val myScheduleEditService = MyScheduleEditService(this)
+        if (scheduleName != null && timesArrayList.size > 0) {
+            val myScheduleBody = MyScheduleBody(scheduleName!!, timesArrayList)
+            myScheduleEditService.putMySchedule(mId, myScheduleBody)
+        } else showCustomToast("일정을 입력해주세요")
+    }
+
+    override fun putMyScheduleSuccess(putScheduleResponse: PostScheduleResponse) {
+        when (putScheduleResponse.status) {
+            200 -> {
+                showCustomToast("일정이 수정되었습니다")
+                navController.popBackStack()
+            }
+            else -> {
+                showCustomToast(putScheduleResponse.message)
+            }
+        }
+    }
+
+    override fun putMyScheduleError(errorResponse: ErrorResponse) {
+        when (errorResponse.status) {
+            400 -> showCustomToast(errorResponse.message)
+            401 -> tryPostRefreshToken { tryPutMySchedule() }
+            else -> showCustomToast(errorResponse.message)
+        }
+    }
+
+    override fun putMyScheduleFailure(message: Throwable?) {
+        showCustomToast(message.toString())
+    }
+
+
 
     private fun setRcvMyScheduleEdit() {
         binding.rvSchedule.layoutManager = LinearLayoutManager(requireContext())
