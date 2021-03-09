@@ -25,6 +25,7 @@ class MyScheduleFrag : BaseFrag(), MyScheduleFragView, View.OnClickListener {
     private var _binding: FragMyScheduleBinding? = null
     private val binding get() = _binding!!
 
+    private var mId = 0
     private lateinit var mTimesList: ArrayList<Times>
     private lateinit var mName: String
     private var mPosition = 0
@@ -54,10 +55,12 @@ class MyScheduleFrag : BaseFrag(), MyScheduleFragView, View.OnClickListener {
 
         myScheduleAdapter.setDeliverListTimes(object : MyScheduleAdapter.DeliverListTimes {
             override fun deliverListTimes(
+                id: Int,
                 name: String,
                 timesList: ArrayList<Times>,
                 position: Int
             ) {
+                mId = id
                 mTimesList = timesList
                 mName = name
                 mPosition = position
@@ -72,7 +75,6 @@ class MyScheduleFrag : BaseFrag(), MyScheduleFragView, View.OnClickListener {
     override fun onClick(v: View) {
         when (v) {
             binding.btnBack -> navController.popBackStack()
-
             binding.btnAdd -> {
                 val bundle = bundleOf("isAdd" to true)
                 navController.navigate(R.id.action_myScheduleFrag_to_myScheduleEditFrag, bundle)
@@ -127,7 +129,7 @@ class MyScheduleFrag : BaseFrag(), MyScheduleFragView, View.OnClickListener {
 
         btn_edit.setOnClickListener {
             dialog.dismiss()
-            setFragmentResult("requestKey", bundleOf("times" to mTimesList, "name" to mName))
+            setFragmentResult("requestKey", bundleOf("id" to mId, "times" to mTimesList, "name" to mName))
             val bundle = bundleOf("isAdd" to false)
             navController.navigate(R.id.action_myScheduleFrag_to_myScheduleEditFrag, bundle)
         }

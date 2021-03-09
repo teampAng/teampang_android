@@ -12,4 +12,6 @@ interface MyScheduleRetrofitInterface {
     @POST("/user/schedules")
     fun postMySchedule(@Body params: MyScheduleBody): Call<PostScheduleResponse>
 
+    @PUT("/user/schedules/{id}")
+    fun putMySchedule(@Path("id") id: Int, @Body params: MyScheduleBody): Call<PostScheduleResponse>
 }

@@ -9,4 +9,8 @@ interface MyScheduleEditFragView {
     fun postMyScheduleError(errorResponse: ErrorResponse)
     fun postMyScheduleFailure(message: Throwable?)
 
+    fun putMyScheduleSuccess(putScheduleResponse: PostScheduleResponse)
+    fun putMyScheduleError(errorResponse: ErrorResponse)
+    fun putMyScheduleFailure(message: Throwable?)
+
 }

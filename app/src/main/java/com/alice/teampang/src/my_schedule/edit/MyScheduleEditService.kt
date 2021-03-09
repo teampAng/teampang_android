@@ -39,6 +39,32 @@ class MyScheduleEditService(myScheduleEditFragView: MyScheduleEditFragView) {
             }
         })
     }
+
+    fun putMySchedule(id: Int, myScheduleBody: MyScheduleBody) {
+        val myScheduleRetrofitInterface: MyScheduleRetrofitInterface = getRetrofit()!!.create(
+            MyScheduleRetrofitInterface::class.java
+        )
+        myScheduleRetrofitInterface.putMySchedule(id, myScheduleBody).enqueue(object :
+            Callback<PostScheduleResponse?> {
+            override fun onResponse(
+                call: Call<PostScheduleResponse?>,
+                response: Response<PostScheduleResponse?>
+            ) {
+                val putScheduleResponse: PostScheduleResponse? = response.body()
+                val error: ResponseBody? = response.errorBody()
+                if (putScheduleResponse == null) {
+                    if (error != null) mMyScheduleEditFragView.putMyScheduleError(ErrorUtils.parseError(error))
+                    else mMyScheduleEditFragView.putMyScheduleFailure(null)
+                    return
+                }
+                mMyScheduleEditFragView.putMyScheduleSuccess(putScheduleResponse)
+            }
+
+            override fun onFailure(call: Call<PostScheduleResponse?>, t: Throwable) {
+                mMyScheduleEditFragView.putMyScheduleFailure(t)
+            }
+        })
+    }
 }
 
 
