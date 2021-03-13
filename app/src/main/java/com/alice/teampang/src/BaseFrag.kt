@@ -8,6 +8,8 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import com.alice.teampang.R
+import com.prolificinteractive.materialcalendarview.CalendarDay
+import com.prolificinteractive.materialcalendarview.MaterialCalendarView
 
 
 @SuppressLint("Registered")
@@ -43,4 +45,6 @@ open class BaseFrag : Fragment() {
         super.onStop()
         hideProgressDialog()
     }
+
+    open fun onDateSelected(widget: MaterialCalendarView, date: CalendarDay, selected: Boolean) {}
 }

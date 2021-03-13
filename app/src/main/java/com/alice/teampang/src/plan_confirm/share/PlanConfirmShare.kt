@@ -8,7 +8,6 @@ import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.alice.teampang.R
 import com.alice.teampang.databinding.FragPlanConfirmShareBinding
-import com.alice.teampang.databinding.FragPlanPossibleInvitationBinding
 import com.alice.teampang.src.BaseFrag
 
 class PlanConfirmShare:BaseFrag(), View.OnClickListener {

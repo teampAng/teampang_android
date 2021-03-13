@@ -7,8 +7,6 @@
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
 
-        <item name="colorSecondary">@color/tint_white</item>
-
         <item name="colorSecondary">@color/primary</item>
 
         <item name="colorSecondaryVariant">@color/teal_700</item>
@@ -26,5 +24,11 @@
 
     <style name="AppTheme.NumberPicker" parent="Theme.Teampang">
         <item name="colorControlNormal">@color/primary</item>
+    </style>
+    <style name="MainFontM" parent="android:Widget.TextView">
+        <item name="android:fontFamily">@font/spoqahansansneomedium</item>
+    </style>
+    <style name="MainFontB" parent="android:Widget.TextView">
+        <item name="android:fontFamily">@font/spoqahansansneobold</item>
     </style>
 </resources>

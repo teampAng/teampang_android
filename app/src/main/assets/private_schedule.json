@@ -1,0 +1,23 @@
+  [
+	{
+	  "id": "1",
+	  "name": "알바",
+	  "times": [
+		{
+		  "day": "MON",
+		  "start_time": "15:05:00",
+		  "end_time": "18:00:00"
+		},
+		{
+		  "day": "WED",
+		  "start_time": "15:30:00",
+		  "end_time": "18:00:00"
+		},
+		{
+		  "day": "FRI",
+		  "start_time": "15:10:00",
+		  "end_time": "18:00:00"
+		}
+	  ]
+	}
+  ]

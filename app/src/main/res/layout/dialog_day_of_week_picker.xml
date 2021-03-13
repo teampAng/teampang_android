@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="24dp"
+    android:gravity="center"
+    android:background="@drawable/white92_box"
+    android:orientation="vertical">
+    <TextView
+        android:id="@+id/btn_mon"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:gravity="center"
+        android:text="월요일"
+        android:textAppearance="@style/MainFontR"
+        android:textColor="@color/brownish_grey"
+        android:letterSpacing="0.02"
+        android:lineSpacingExtra="5sp"
+        android:textSize="17sp" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/warm_grey" />
+    <TextView
+        android:id="@+id/btn_tue"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:gravity="center"
+        android:text="화요일"
+        android:textAppearance="@style/MainFontR"
+        android:textColor="@color/brownish_grey"
+        android:letterSpacing="0.02"
+        android:lineSpacingExtra="5sp"
+        android:textSize="17sp" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/warm_grey" />
+    <TextView
+        android:id="@+id/btn_wed"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:gravity="center"
+        android:text="수요일"
+        android:textAppearance="@style/MainFontR"
+        android:textColor="@color/brownish_grey"
+        android:letterSpacing="0.02"
+        android:lineSpacingExtra="5sp"
+        android:textSize="17sp" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/warm_grey" />
+    <TextView
+        android:id="@+id/btn_thu"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:gravity="center"
+        android:text="목요일"
+        android:textAppearance="@style/MainFontR"
+        android:textColor="@color/brownish_grey"
+        android:letterSpacing="0.02"
+        android:lineSpacingExtra="5sp"
+        android:textSize="17sp" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/warm_grey" />
+    <TextView
+        android:id="@+id/btn_fri"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:gravity="center"
+        android:text="금요일"
+        android:textAppearance="@style/MainFontR"
+        android:textColor="@color/brownish_grey"
+        android:letterSpacing="0.02"
+        android:lineSpacingExtra="5sp"
+        android:textSize="17sp" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/warm_grey" />
+    <TextView
+        android:id="@+id/btn_sat"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:gravity="center"
+        android:text="토요일"
+        android:textAppearance="@style/MainFontR"
+        android:textColor="@color/brownish_grey"
+        android:letterSpacing="0.02"
+        android:lineSpacingExtra="5sp"
+        android:textSize="17sp" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/warm_grey" />
+    <TextView
+        android:id="@+id/btn_sun"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:gravity="center"
+        android:text="일요일"
+        android:textAppearance="@style/MainFontR"
+        android:textColor="@color/brownish_grey"
+        android:letterSpacing="0.02"
+        android:lineSpacingExtra="5sp"
+        android:textSize="17sp" />
+  
+
+</LinearLayout>

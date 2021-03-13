@@ -49,9 +49,9 @@ class PlanConfirmMinHour :BaseFrag(),View.OnClickListener{
         when(v.id) {
             R.id.plan_confirm_btn -> {
                 val picked = binding.planConfirmPicker.value
-                val action = PlanConfirmMinHourDirections.actionPlanConfirmMinHourToPlanConfirmDateFrag(picked)
-                Log.d("pickednumber1",picked.   toString())
-                navController.navigate(action)
+          //      val action = PlanConfirmMinHourDirections.actionPlanConfirmMinHourToPlanConfirmDateFrag(picked)
+           //     Log.d("pickednumber1",picked.   toString())
+        //        navController.navigate(action)
             }
         }
     }
