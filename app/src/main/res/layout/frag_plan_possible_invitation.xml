@@ -5,66 +5,65 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
+<TextView
+    android:id="@+id/invitation_text1"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    app:layout_constraintWidth_default="percent"
+    app:layout_constraintWidth_percent="0.818"
+    android:textSize="22sp"
+    android:textStyle="normal"
+    android:textColor="#333333"
+    android:lineSpacingExtra="6.6sp"
+    android:fontFamily="@font/spoqahansansneoregular"
+    app:layout_constraintStart_toStartOf="@id/start_guideline"
+    app:layout_constraintTop_toTopOf="@id/top_guideline"
+    android:text="임건님으로부터\n팀프앙SPRINT3 초대가 왔습니다."
+    />
+
     <TextView
+        android:id="@+id/invitation_text2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@id/start_guideline2"
+        app:layout_constraintTop_toBottomOf="@+id/invitation_text1"
+        android:layout_marginTop="31dp"
+        android:text="ZOOM 회의"
         android:textStyle="normal"
-        android:textSize="22sp"
+        android:textSize="17sp"
         android:textColor="#333333"
-        android:fontFamily="@font/spoqahansansneoregular"
-        android:lineSpacingExtra="6.6sp"
-        android:text="아래의 이름을 사용하실건가요?"
-        app:layout_constraintStart_toStartOf="@id/start_guideline"
-        app:layout_constraintTop_toTopOf="@id/top_guideline"
-        />
-
-    <!--Todo : font밑 text스타일 질문, 언더바 두께조절-->
-
-    <EditText
-        android:id="@+id/possibe_name_edit1"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:backgroundTint="@color/primary"
-        android:enabled="true"
-        android:lineSpacingExtra="7.2sp"
-        android:lines="1"
-        android:singleLine="true"
-        android:textColorHint="#333333"
-        android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="@id/end_guideline"
-        app:layout_constraintStart_toStartOf="@id/start_guideline"
-        app:layout_constraintTop_toTopOf="@id/top_guideline2" />
-
+        android:lineSpacingExtra="5.1sp"
+        android:fontFamily="@font/spoqahansansneomedium"/>
+    
     <TextView
-        android:id="@+id/possible_name_text2"
+        android:id="@+id/invitation_text3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textStyle="normal"
-        android:textSize="10sp"
-        android:fontFamily="@font/spoqahansansneoregular"
-        android:lineSpacingExtra="3sp"
-        android:textColor="@color/orange_red"
-        android:text="이름을 입력해주세요!"
-        android:layout_marginTop="9dp"
-        app:layout_constraintStart_toStartOf="@id/start_guideline"
-        app:layout_constraintTop_toBottomOf="@+id/possibe_name_edit1"/>
-
+        android:textSize="14sp"
+        android:textColor="#4f4f4f"
+        android:lineSpacingExtra="4.2sp"
+        android:text="13 Feb 2021, 14:00 PM"
+        android:layout_marginTop="2dp"
+        app:layout_constraintStart_toStartOf="@id/start_guideline3"
+        app:layout_constraintTop_toBottomOf="@id/invitation_text2"/>
+    
     <androidx.cardview.widget.CardView
-        android:id="@+id/possible_name_btn"
+        android:id="@+id/invitation_btn"
         android:layout_width="0dp"
         android:layout_height="44dp"
         app:layout_constraintWidth_default="percent"
         app:layout_constraintWidth_percent="0.915"
+        android:layout_marginTop="43dp"
         app:layout_constraintStart_toStartOf="@id/start_guideline"
-        app:layout_constraintTop_toBottomOf="@+id/possible_name_text2"
-        android:layout_marginTop="35dp"
+        app:layout_constraintTop_toBottomOf="@id/invitation_text3"
         android:backgroundTint="@color/primary"
         app:cardCornerRadius="7dp"
         >
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="다음"
+            android:text="수락"
             android:textColor="#ffffff"
             android:textSize="16sp"
             android:textStyle="normal"
@@ -72,40 +71,50 @@
             android:lineSpacingExtra="4.8sp"
             android:fontFamily="@font/spoqahansansneoregular"/>
     </androidx.cardview.widget.CardView>
+
+
+
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/start_guideline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.0426"/>
+        app:layout_constraintGuide_percent="0.0427"/>
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/end_guideline"
+        android:id="@+id/start_guideline2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.957"/>
+        app:layout_constraintGuide_percent="0.0533"/>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/start_guideline3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.05"/>
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/top_guideline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.342"/>
+        app:layout_constraintGuide_percent="0.315"/>
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/top_guideline2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.405"/>
+        app:layout_constraintGuide_percent="0.43"/>
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/top_guideline3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.4765"/>
+        app:layout_constraintGuide_percent="0.462"/>
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/top_guideline4"
@@ -113,6 +122,4 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.542"/>
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>
