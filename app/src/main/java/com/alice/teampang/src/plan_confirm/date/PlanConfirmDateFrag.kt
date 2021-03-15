@@ -299,6 +299,8 @@ class PlanConfirmDateFrag : BaseFrag(), OnDateSelectedListener {
                         val args2 = Bundle()
                         args2.putString("key", selection.titleOfSchedule)
                         dialog2.arguments = args2
+                        //dialog2.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+                        //dialog2.window?.requestFeature(Window.FEATURE_NO_TITLE)
                         dialog2.show(fragmentManager, "hi")
                         dialog2.setOnItemClickListener(object :
                             YesNoDialogFragment.DialClickListener {

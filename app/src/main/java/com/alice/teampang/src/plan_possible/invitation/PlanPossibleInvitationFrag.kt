@@ -4,6 +4,7 @@ import android.content.Context
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
@@ -16,9 +17,10 @@ import com.alice.teampang.R
 import com.alice.teampang.databinding.FragPlanPossibleInvitationBinding
 import com.alice.teampang.databinding.FragPlanPossibleNameBinding
 import com.alice.teampang.src.BaseFrag
+import com.kakao.sdk.common.util.Utility
 
 class PlanPossibleInvitationFrag : BaseFrag(), View.OnClickListener {
-
+    private lateinit var myContext: Context
     private var _binding: FragPlanPossibleInvitationBinding? = null
     private val binding get() = _binding!!
 
@@ -29,9 +31,12 @@ class PlanPossibleInvitationFrag : BaseFrag(), View.OnClickListener {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragPlanPossibleInvitationBinding.inflate(inflater, container, false)
+        myContext = requireContext()
         val view = binding.root
         binding.invitationText1.setText("임건님으로부터\n팀프앙SPRINT3 초대가 왔습니다.")
         binding.invitationText3.setText("13 Feb 2021, 14:00 PM")
+        var keyHash = Utility.getKeyHash(myContext)
+        Log.d("keyHash",keyHash)
         return view
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
