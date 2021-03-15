@@ -40,7 +40,7 @@ class GlobalApplication : Application() {
 
         // USER PROFILE 키 값
         const val USER_ID = "USER-ID"
-        const val USER_NICKNAME = "USER-NICKNAME "
+        const val USER_NICKNAME = "USER-NICKNAME"
         const val USER_GENDER = "USER-GENDER"
         const val UNIV_NAME = "UNIV-NAME"
         const val UNIV_MAJOR = "UNIV-MAJOR"
@@ -82,17 +82,17 @@ class GlobalApplication : Application() {
         fun kakaoLink(
             templateId: Long,
             userName: String,
-            timeDay: String,
-            timeHour: String,
-            timeMin: String,
+            inviteCode: String,
+            planName: String,
+            confirmedPlanList: String,
             v: View?
         ) {
             val tag = "link"
             val templateArgs = mapOf(
-                "user_name" to userName,
-                "time_day" to timeDay,
-                "time_hour" to timeHour,
-                "time_min" to timeMin
+                "userName" to userName,
+                "inviteCode" to inviteCode,
+                "planName" to planName,
+                "confirmedPlanList" to confirmedPlanList
             )
 
             LinkClient.instance.customTemplate(

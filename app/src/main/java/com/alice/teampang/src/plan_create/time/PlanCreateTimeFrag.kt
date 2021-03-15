@@ -55,7 +55,11 @@ class PlanCreateTimeFrag : BaseFrag(), View.OnClickListener {
     override fun onClick(v: View) {
         when (v) {
             binding.btnBack -> navController.popBackStack()
-            binding.btnNext -> navController.navigate(R.id.action_planCreateTimeFrag_to_planCreateShareFrag)
+            binding.btnNext -> {
+                if (start_time != -1 && end_time != -1) {
+                    navController.navigate(R.id.action_planCreateTimeFrag_to_planCreateShareFrag)
+                } else showCustomToast("일정 시간 범위를 선택해주세요")
+            }
             binding.btnAllGrey -> selectAll()
             binding.btnAllBlue -> deselectAll()
             binding.box0 -> onTimeClick(0)
@@ -90,9 +94,10 @@ class PlanCreateTimeFrag : BaseFrag(), View.OnClickListener {
         if (start_time == -1) {
             //선택하기 전
             start_time = i
+            end_time = start_time + 1
             time_array[i].visibility = View.VISIBLE
-            binding.tv2.text = "${start_time}시-${start_time+1}시, 1시간"
-        } else if (start_time != -1 && end_time == -1) {
+            binding.tv2.text = "${start_time}시-${end_time}시, 1시간"
+        } else if (start_time != -1 && end_time == start_time + 1) {
             //시작시각은 선택, 끝시각은 선택하기 전
             if (i > start_time) {
                 //끝시각으로 설정

@@ -24,6 +24,8 @@ class PlanCreateCalendarFrag : BaseFrag(), View.OnClickListener {
     private val binding get() = _binding!!
 
     private var dateList = ArrayList<LocalDate>()
+    private var startDate = ""
+    private var endDate = ""
 
     val color = 0
     private val transparent = 1
@@ -75,7 +77,11 @@ class PlanCreateCalendarFrag : BaseFrag(), View.OnClickListener {
     override fun onClick(v: View) {
         when (v.id) {
             R.id.btn_back -> navController.popBackStack()
-            R.id.btn_next -> navController.navigate(R.id.action_planCreateCalendarFrag_to_planCreateTimeFrag)
+            R.id.btn_next -> {
+                if (startDate != "" && endDate != "") {
+                    navController.navigate(R.id.action_planCreateCalendarFrag_to_planCreateTimeFrag)
+                } else showCustomToast("일정을 선택해주세요")
+            }
         }
     }
 
@@ -107,8 +113,8 @@ class PlanCreateCalendarFrag : BaseFrag(), View.OnClickListener {
                 removeList.clear()
             }
             //나중에 넘기기
-            val startDate: String = dateList[0].toString()
-            val endDate: String = dateList[dateList.size-1].toString()
+            startDate = dateList[0].toString()
+            endDate = dateList[dateList.size-1].toString()
             binding.tv2.text = "${getDate(0)} ~ ${getDate(dateList.size-1)}"
             setEvent(dateList, color)
         }
@@ -117,15 +123,21 @@ class PlanCreateCalendarFrag : BaseFrag(), View.OnClickListener {
             if (dateList.size > 0) {
                 setEvent(dateList, transparent)
                 dateList.clear()
+                startDate = ""
+                endDate = ""
             }
             dateList.add(date.date)
             if (selected) {
                 binding.tv2.text = getDate(0)
                 setEvent(dateList, color)
+                startDate = date.date.toString()
+                endDate = startDate
             } else {
                 setEvent(dateList, transparent)
                 //나중에 스트링리소스 정리할 때 바꾸기
                 binding.tv2.text = "일정을 선택해주세요"
+                startDate = ""
+                endDate = ""
             }
             dateList.clear()
         }

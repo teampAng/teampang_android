@@ -1,6 +1,7 @@
 package com.alice.teampang.src.splash
 
 import android.animation.Animator
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -56,6 +57,29 @@ class SplashFrag : BaseFrag(), SplashFragView {
             override fun onAnimationRepeat(animation: Animator) {}
         })
 
+    }
+
+    override fun onStart() {
+        super.onStart()
+        if (activity?.intent != null) {
+            if (activity?.intent!!.action == Intent.ACTION_VIEW) {
+                activity?.intent!!.data?.let {
+                    if (it.scheme.equals(getString(R.string.kakao_scheme), false)
+                        && it.host.equals("kakaolink", false)
+                    ) {
+                        var a = it.path
+                        var b = it.encodedPath
+                        var c = it.encodedQuery
+                        var d = it.encodedSchemeSpecificPart
+                        var inviteCode = it.query.toString().substring(13)
+                        var f = it.getQueryParameters("inviteCode")
+                        var g = it.queryParameterNames
+                        var path = it.getQueryParameter("inviteCode")
+                        Log.d("Test", "path: $path")
+                    }
+                }
+            }
+        }
     }
 
 

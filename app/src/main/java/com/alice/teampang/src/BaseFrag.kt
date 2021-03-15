@@ -3,6 +3,7 @@ package com.alice.teampang.src
 import android.annotation.SuppressLint
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -36,6 +37,17 @@ open class BaseFrag : Fragment(), TokenFragView {
         navController = Navigation.findNavController(view)
 
     }
+
+//    override fun onStart() {
+//        super.onStart()
+//        if (activity?.intent != null) {
+//            val uri: Uri? = requireActivity().intent.data
+//            if (uri != null) {
+//                Log.d("ehlsi", uri.toString())
+//                uri.getQueryParameter("inviteCode")?.let { Log.d("ehlsi", it) }
+//            }
+//        }
+//    }
 
     fun showCustomToast(message: String?) {
         if (message != null) {
