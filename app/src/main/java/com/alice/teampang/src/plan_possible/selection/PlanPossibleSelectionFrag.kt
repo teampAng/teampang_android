@@ -30,7 +30,6 @@ import java.lang.StringBuilder
 
 class PlanPossibleSelectionFrag() : BaseFrag(), View.OnClickListener, OnDateSelectedListener {
     private lateinit var mSelectedDay: CalendarDay
-    private lateinit var navController: NavController
     private lateinit var _binding: FragPlanPossibleSelection2Binding
     private val binding get() = _binding
     private var mDaySelectionMap: ArrayMap<CalendarDay, ArrayList<Selection>> = ArrayMap()
@@ -88,7 +87,7 @@ class PlanPossibleSelectionFrag() : BaseFrag(), View.OnClickListener, OnDateSele
             R.id.date_btn -> {
                 val data = getJsonFromAvailableSchedule(mDaySelectionMap)
                 Log.i(TAG, "data = $data")
-                // send data
+                navController.navigate(R.id.action_planPossibleSelectionFrag_to_planPossibleComplete)
             }
             R.id.btn_select_all -> toggleSelectAll()
         }
@@ -200,7 +199,7 @@ class PlanPossibleSelectionFrag() : BaseFrag(), View.OnClickListener, OnDateSele
         day: CalendarDay
     ): ArrayList<PersonalScheduleData>? {
         val list = ArrayList<PersonalScheduleData>()
-        for (schedule in mPersonalSchedule) { //list에 추가한 만큼 for문이 돈다
+        for (schedule in mPersonalSchedule) { //list에 추가한 만큼 for문이 돈다 지금은 3
             if (day.date.dayOfWeek == getDayOfWeek(schedule)) { //오늘의 요일 == schedule data의 요일과 일치하면
 //                return schedule //스케쥴을 리턴한다
                 list.add(schedule)
@@ -242,8 +241,7 @@ class PlanPossibleSelectionFrag() : BaseFrag(), View.OnClickListener, OnDateSele
             .commit()
         binding.cvCalendar.showOtherDates = MaterialCalendarView.SHOW_OUT_OF_RANGE //팀장이 정한 기간 외에는 다 false처리 2
         binding.cvCalendar.isDynamicHeightEnabled //width height을 오류안나게 (어떤달은 4주 어떤달은 5주이니)
-    // binding.cvCalendar.setDateTextAppearance(R.color.gray)
-
+        binding.cvCalendar.setDateTextAppearance(R.color.gray)
         mTeamScheduleDecorator = TeamScheduleDecorator(mTeamScheduleList, mDaySelectionMap, requireContext())
         mSelectedDayDecorator = SelectedDayDecorator(requireContext())
         binding.cvCalendar.addDecorators(mTeamScheduleDecorator, mSelectedDayDecorator)
@@ -361,6 +359,8 @@ class PlanPossibleSelectionFrag() : BaseFrag(), View.OnClickListener, OnDateSele
         for (day in mDaySelectionMap) {
             Log.d(TAG, "day = $day")
             for (i in 0 until SELECTION_HOURS) {
+                // 20210310_carsung 개인 일정도 availableChecked true 값을 가질 수 있어서 초기화 수행
+                day.value[i].availableChecked = false
                 if (day.value[i].isAvailableTime) {
                     day.value[i].availableChecked = check
                 }
@@ -404,5 +404,3 @@ class PlanPossibleSelectionFrag() : BaseFrag(), View.OnClickListener, OnDateSele
         const val SELECTION_HOURS = 24
     }
 }
-
-

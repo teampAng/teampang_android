@@ -45,7 +45,8 @@ class SelectionAdapter() : RecyclerView.Adapter<SelectionAdapter.SelectionViewHo
                     if (listener != null) {
 
                         // 체크가 가능한 시간대이면 체크 선택/해제 처리 후 프래그먼트에게 알린다.
-                        if (mList!![pos].isAvailableTime) {
+                        // 20210310_carsung 개인 스케줄이 있어도 선택할 수 있도록 조건 추가
+                        if (mList!![pos].isAvailableTime || mList!![pos].isPersonalSchedule) {
                             mList!![pos].availableChecked = !mList!![pos].availableChecked
                             listener!!.onItemClick(v, pos, mList!![pos].availableChecked)
                         }

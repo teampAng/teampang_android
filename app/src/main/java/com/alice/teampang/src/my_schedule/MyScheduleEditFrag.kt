@@ -27,7 +27,6 @@ import com.alice.teampang.src.my_schedule.model.Times
 
 class MyScheduleEditFrag : BaseFrag(), View.OnClickListener {
 
-    lateinit var navController: NavController
 
     var scheduleName: String? = null
     var day = "월"
@@ -97,7 +96,7 @@ class MyScheduleEditFrag : BaseFrag(), View.OnClickListener {
         binding.btnBack.setOnClickListener(this)
         binding.btnDay.setOnClickListener(this)
         binding.btnTime.setOnClickListener(this)
-        binding.btnEdit.setOnClickListener(this)
+        binding.btnAdd.setOnClickListener(this)
         binding.btnFinish.setOnClickListener(this)
     }
 
@@ -106,7 +105,7 @@ class MyScheduleEditFrag : BaseFrag(), View.OnClickListener {
             binding.btnBack -> navController.popBackStack()
             binding.btnDay -> dayOfWeekDialog()
             binding.btnTime -> timeDialog()
-            binding.btnEdit -> {
+            binding.btnAdd -> {
                 if (scheduleName == null) {
                     showCustomToast("일정 이름을 입력해주세요.")
                 } else {

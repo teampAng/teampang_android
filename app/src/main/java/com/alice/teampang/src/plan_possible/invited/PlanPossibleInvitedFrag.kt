@@ -19,7 +19,6 @@ import com.alice.teampang.databinding.FragPlanPossibleNameBinding
 import com.alice.teampang.src.BaseFrag
 
 class PlanPossibleInvitedFrag : BaseFrag(), View.OnClickListener {
-    lateinit var navController : NavController
 
 
     private var _binding: FragPlanPossibleInvitedBinding? = null
@@ -33,7 +32,6 @@ class PlanPossibleInvitedFrag : BaseFrag(), View.OnClickListener {
     ): View {
         _binding = FragPlanPossibleInvitedBinding.inflate(inflater, container, false)
         val view = binding.root
-
         return view
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

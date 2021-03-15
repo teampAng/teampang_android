@@ -44,26 +44,22 @@
             android:lineSpacingExtra="7.2sp"
             android:textSize="13sp"
             android:textColor="@color/black"/>
-        <com.applikeysolutions.cosmocalendar.view.CalendarView
-            android:id="@+id/calendar_view"
+
+        <com.prolificinteractive.materialcalendarview.MaterialCalendarView
+            android:id="@+id/calendarView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:currentDayTextColor="@color/primary"
-            app:firstDayOfTheWeek="sunday"
-            app:orientation="horizontal"
-            app:selectedDayBackgroundColor="@color/primary"
-            app:selectedDayBackgroundEndColor="@color/primary"
-            app:selectedDayBackgroundStartColor="@color/primary"
-            app:selectedDayTextColor="#FFFFFF"
-            app:selectionType="range"
-            app:weekendDayTextColor="#ef4550" />
-
+            app:mcv_selectionColor="@color/primary"
+            app:mcv_selectionMode="range"
+            app:mcv_headerTextAppearance="@style/CalendarTitle"
+            app:mcv_dateTextAppearance="@style/MainFontR"
+            app:mcv_weekDayTextAppearance="@style/MainFontR"
+            app:mcv_weekDayLabels="@array/weekdays_custom"/>
         <TextView
             android:id="@+id/tv2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="17dp"
-            android:layout_marginTop="50dp"
             android:text="일정을 선택해주세요"
             android:lineSpacingExtra="7.2sp"
             android:textSize="13sp"

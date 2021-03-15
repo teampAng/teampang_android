@@ -31,7 +31,8 @@
             android:layout_width="match_parent"
             android:layout_height="57dp"
             android:gravity="center"
-            android:text="ZOOM 링크 복사하기 "
+
+            android:text="ZOOM 링크 복사하기"
             android:textAppearance="@style/MainFontR"
             android:textColor="@color/bright_blue"
             android:letterSpacing="0.02"

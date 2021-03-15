@@ -1,28 +1,36 @@
 package com.alice.teampang.src.my_schedule
 
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.util.Log
+import android.view.*
+import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.setFragmentResultListener
-import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.alice.teampang.R
 import com.alice.teampang.databinding.FragMyScheduleBinding
 import com.alice.teampang.src.BaseFrag
-import com.alice.teampang.src.my_schedule.model.MyScheduleData
+import com.alice.teampang.src.error.model.ErrorResponse
+import com.alice.teampang.src.my_schedule.interfaces.MyScheduleFragView
+import com.alice.teampang.src.my_schedule.model.*
 import com.alice.teampang.src.my_schedule.model.Times
+import com.alice.teampang.src.splash.SplashService
 
-class MyScheduleFrag : BaseFrag(), View.OnClickListener {
-
-    lateinit var navController: NavController
+class MyScheduleFrag : BaseFrag(), MyScheduleFragView, View.OnClickListener {
 
     private var _binding: FragMyScheduleBinding? = null
     private val binding get() = _binding!!
 
+    private var mId = 0
+    private lateinit var mTimesList: ArrayList<Times>
+    private lateinit var mName: String
+    private var mPosition = 0
+
+    private val dataList = ArrayList<Data>()
     private lateinit var myScheduleAdapter: MyScheduleAdapter
 
 
@@ -42,53 +50,108 @@ class MyScheduleFrag : BaseFrag(), View.OnClickListener {
 
         navController = Navigation.findNavController(view)
         myScheduleAdapter = MyScheduleAdapter(requireContext())
-
-        setRcvMySchedule()
+        tryMySchedule()
 
         myScheduleAdapter.setDeliverListTimes(object : MyScheduleAdapter.DeliverListTimes {
-            override fun deliverListTimes(name: String, timesList: ArrayList<Times>) {
-                setFragmentResult("requestKey", bundleOf("times" to timesList, "name" to name))
-//                val frag = MyScheduleEditFrag()
-//                bundle.putSerializable("times", timesList)
-//                frag.arguments = bundle
-                navController.navigate(R.id.action_myScheduleFrag_to_myScheduleEditFrag)
+            override fun deliverListTimes(
+                id: Int,
+                name: String,
+                timesList: ArrayList<Times>,
+                position: Int
+            ) {
+                mId = id
+                mTimesList = timesList
+                mName = name
+                mPosition = position
+                editDialog()
+
             }
         })
 
         binding.btnBack.setOnClickListener(this)
-        binding.btnEdit.setOnClickListener(this)
+        binding.btnAdd.setOnClickListener(this)
+
     }
 
     override fun onClick(v: View) {
         when (v) {
             binding.btnBack -> navController.popBackStack()
-            binding.btnEdit -> navController.navigate(R.id.action_myScheduleFrag_to_myScheduleEditFrag)
+            binding.btnAdd -> {
+                val bundle = bundleOf("isAdd" to true)
+                navController.navigate(R.id.action_myScheduleFrag_to_myScheduleEditFrag, bundle)
+            }
         }
     }
 
-    fun Fragment.setFragmentResult(
+    private fun Fragment.setFragmentResult(
         requestKey: String,
         result: Bundle
     ) = parentFragmentManager.setFragmentResult(requestKey, result)
 
-    private fun setRcvMySchedule() {
-        binding.rvSchedule.layoutManager = LinearLayoutManager(requireContext())
-        binding.rvSchedule.adapter = myScheduleAdapter
-        val timesList: ArrayList<Times> = arrayListOf(
-            Times("MON", "08:00", "09:00"),
-            Times("MON", "08:00", "09:00"),
-            Times("MON", "08:00", "09:00")
-        )
-        myScheduleAdapter.data = listOf(
-            MyScheduleData(0, "알바", timesList),
-            MyScheduleData(1, "학원", timesList)
-        )
-        myScheduleAdapter.notifyDataSetChanged()
+    private fun tryMySchedule() {
+        val myScheduleService = MyScheduleService(this)
+        myScheduleService.getMySchedule()
+    }
+
+    override fun myScheduleSuccess(myScheduleResponse: MyScheduleResponse) {
+        dataList.clear()
+        when (myScheduleResponse.status) {
+            200 -> {
+                binding.rvSchedule.layoutManager = LinearLayoutManager(requireContext())
+                myScheduleAdapter.data = myScheduleResponse.data
+                binding.rvSchedule.adapter = myScheduleAdapter
+            }
+            else -> showCustomToast(myScheduleResponse.message)
+        }
+    }
+
+    override fun myScheduleError(errorResponse: ErrorResponse) {
+        when (errorResponse.status) {
+            401 -> tryPostRefreshToken { tryMySchedule() }
+            else -> showCustomToast(errorResponse.message)
+        }
+    }
+
+    override fun myScheduleFailure(message: Throwable?) {
+        showCustomToast(message.toString())
+    }
+
+    private fun editDialog() {
+        val builder = AlertDialog.Builder(requireContext())
+        val dialogView = layoutInflater.inflate(R.layout.dialog_my_schedule, null)
+        val btn_edit = dialogView.findViewById<TextView>(R.id.btn_edit)
+        val btn_delete = dialogView.findViewById<TextView>(R.id.btn_delete)
+        val btn_pop = dialogView.findViewById<TextView>(R.id.btn_pop)
+        val dialog: AlertDialog = builder.setView(dialogView).create()
+        dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        dialog.window?.requestFeature(Window.FEATURE_NO_TITLE)
+        dialog.window?.setGravity(Gravity.BOTTOM)
+        dialog.show()
+
+        btn_edit.setOnClickListener {
+            dialog.dismiss()
+            setFragmentResult("requestKey", bundleOf("id" to mId, "times" to mTimesList, "name" to mName))
+            val bundle = bundleOf("isAdd" to false)
+            navController.navigate(R.id.action_myScheduleFrag_to_myScheduleEditFrag, bundle)
+        }
+
+        btn_delete.setOnClickListener {
+            //일정 삭제 api 엮기
+            dataList.removeAt(mPosition)
+            myScheduleAdapter.notifyDataSetChanged()
+            dialog.dismiss()
+        }
+
+        btn_pop.setOnClickListener {
+            dialog.dismiss()
+        }
+
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
+
 
 }

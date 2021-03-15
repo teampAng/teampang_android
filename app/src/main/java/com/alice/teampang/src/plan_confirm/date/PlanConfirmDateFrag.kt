@@ -34,7 +34,6 @@ class PlanConfirmDateFrag : BaseFrag(), OnDateSelectedListener {
     private lateinit var mSelectedDay: CalendarDay
     private var _binding: FragPlanConfirmDateBinding? = null
     private val binding get() = _binding!!
-    private lateinit var navController: NavController
     private lateinit var myContext: Context
     private var mDaySelectionMap: ArrayMap<CalendarDay, ArrayList<Confirm>> = ArrayMap()
     private var mPersonalSchedule: ArrayList<ConfirmTimeData> = ArrayList()
@@ -216,7 +215,8 @@ class PlanConfirmDateFrag : BaseFrag(), OnDateSelectedListener {
             .setMaximumDate(lastDay)
             .commit()
 
-        //binding.confirmDateCalendar.showOtherDates = MaterialCalendarView.SHOW_OUT_OF_RANGE //팀장이 정한 기간 외에는 다 false처리 2
+        binding.confirmDateCalendar.showOtherDates = (MaterialCalendarView.SHOW_OUT_OF_RANGE
+                or MaterialCalendarView.SHOW_DECORATED_DISABLED)
         binding.confirmDateCalendar.isDynamicHeightEnabled //width height을 오류안나게 (어떤달은 4주 어떤달은 5주이니)
 
         mTeamScheduleDecorator = TeamScheduleDecorator2(
@@ -225,7 +225,7 @@ class PlanConfirmDateFrag : BaseFrag(), OnDateSelectedListener {
             requireContext()
         )
         mSelectedDayDecorator = SelectedDayDecorator2(requireContext(),ableList)
-   //     binding.confirmDateCalendar.setDateTextAppearance(R.color.gray)
+        binding.confirmDateCalendar.setDateTextAppearance(R.color.gray)
         mEnableDecorator = DayEnableDecorator(disabledList)
 
 

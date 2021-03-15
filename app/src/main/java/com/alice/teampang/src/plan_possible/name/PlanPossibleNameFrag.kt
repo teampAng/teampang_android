@@ -10,19 +10,19 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
+import androidx.core.os.bundleOf
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.alice.teampang.R
 import com.alice.teampang.databinding.FragPlanPossibleNameBinding
 import com.alice.teampang.src.BaseFrag
 
+private lateinit var membername : String
 class PlanPossibleNameFrag : BaseFrag(), View.OnClickListener {
-    lateinit var navController : NavController
 
     private var _binding: FragPlanPossibleNameBinding? = null
     private val binding get() = _binding!!
 
-    var membername = ""
     var bundle = Bundle()
 
     override fun onCreateView(
@@ -49,7 +49,7 @@ class PlanPossibleNameFrag : BaseFrag(), View.OnClickListener {
             }
 
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                membername = p0.toString()
+               membername = p0.toString()
 
             }
             //필요하면 정규식 활용
@@ -75,8 +75,8 @@ class PlanPossibleNameFrag : BaseFrag(), View.OnClickListener {
     override fun onClick(v: View) {
         when(v.id) {
             R.id.possible_name_btn -> {
-                    navController.navigate(R.id.action_planPossibleNameFrag_to_planPossibleInvitedFrag)
-
+                val name = bundleOf("membername" to membername)
+                    navController.navigate(R.id.action_planPossibleNameFrag_to_planPossibleInvitedFrag, name)
             }
             R.id.layout -> hideKeyBoard()
         }

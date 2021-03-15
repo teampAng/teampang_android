@@ -11,8 +11,6 @@ import com.alice.teampang.databinding.FragPlanConfirmShareBinding
 import com.alice.teampang.src.BaseFrag
 
 class PlanConfirmShare:BaseFrag(), View.OnClickListener {
-    lateinit var navController : NavController
-
 
     private var _binding: FragPlanConfirmShareBinding? = null
     private val binding get() = _binding!!

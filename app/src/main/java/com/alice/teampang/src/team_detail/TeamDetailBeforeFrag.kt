@@ -20,7 +20,6 @@ import com.alice.teampang.src.team_detail.model.TeamMemberData
 
 class TeamDetailBeforeFrag : BaseFrag(), View.OnClickListener {
 
-    lateinit var navController : NavController
 
     private var _binding: FragTeamDetailBeforeBinding? = null
     private val binding get() = _binding!!

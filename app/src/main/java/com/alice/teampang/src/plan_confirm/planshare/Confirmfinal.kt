@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -20,7 +21,6 @@ import com.alice.teampang.ui.adapter.CustomAdapter
 class Confirmfinal : BaseFrag(), View.OnClickListener {
     private var _binding: FragPlanConfirmFinalBinding? = null
     private val binding get() = _binding!!
-    private lateinit var navController: NavController
     private lateinit var adapter : FinalAdapter
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -49,11 +49,14 @@ class Confirmfinal : BaseFrag(), View.OnClickListener {
 //            LinearLayoutManager(
 //                context, LinearLayoutManager.VERTICAL,false
 //            )
+        binding.btnBack.setOnClickListener{
+            navController.popBackStack()
+        }
         return view
     }
 
     override fun onClick(v: View?) {
-        TODO("Not yet implemented")
+
     }
 
     companion object {

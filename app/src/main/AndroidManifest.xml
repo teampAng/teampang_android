@@ -11,6 +11,7 @@
     <application
         android:name=".src.GlobalApplication"
         android:allowBackup="true"
+        android:usesCleartextTraffic="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
@@ -18,7 +19,7 @@
         android:theme="@style/Theme.Teampang">
 
         <activity android:name=".src.MainActivity"
-            android:windowSoftInputMode="adjustResize|adjustPan">
+            android:windowSoftInputMode="adjustPan">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

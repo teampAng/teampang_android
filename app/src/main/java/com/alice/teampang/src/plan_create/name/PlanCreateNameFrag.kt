@@ -18,9 +18,6 @@ import com.alice.teampang.src.BaseFrag
 
 class PlanCreateNameFrag : BaseFrag(), View.OnClickListener {
 
-    lateinit var navController : NavController
-
-
     private var _binding: FragPlanCreateNameBinding? = null
     private val binding get() = _binding!!
 
@@ -66,9 +63,9 @@ class PlanCreateNameFrag : BaseFrag(), View.OnClickListener {
     }
 
     override fun onClick(v: View) {
-        when(v.id) {
-            R.id.btn_back -> navController.popBackStack()
-            R.id.btn_next -> {
+        when(v) {
+            binding.btnBack -> navController.popBackStack()
+            binding.btnNext -> {
                 if (planName != "") {
                     hideKeyBoard()
                     navController.navigate(R.id.action_planCreateNameFrag_to_planCreateCalendarFrag)
@@ -76,7 +73,7 @@ class PlanCreateNameFrag : BaseFrag(), View.OnClickListener {
                     showCustomToast("일정 이름을 입력해주세요.")
                 }
             }
-            R.id.layout -> hideKeyBoard()
+            binding.layout -> hideKeyBoard()
         }
     }
 

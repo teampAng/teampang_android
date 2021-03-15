@@ -3,7 +3,7 @@
     <data>
         <variable
             name="schedule"
-            type="com.alice.teampang.src.my_schedule.model.MyScheduleData" />
+            type="com.alice.teampang.src.my_schedule.model.Data" />
     </data>
     <LinearLayout
         android:layout_width="match_parent"

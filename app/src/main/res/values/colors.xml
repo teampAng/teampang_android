@@ -24,13 +24,21 @@
 
     <color name="greyish_brown">#4f4f4f</color>
 
+
     <color name="color12">#ededed</color>
+
+
 
     <color name="bright_blue">#007aff</color>
     <color name="white92">#ebf8f8f8</color>
     <color name="deep_sky_blue">#0a84ff</color>
     <color name="orangey_red">#ff4339</color>
+
     <color name="d_day_red">#ed6863</color>
     <color name="skyblue">#8ec5ff</color>
+
+
+    <color name="silver">#e9eaeb</color>
+    <color name="pale_grey">#f8f9fa</color>
 
 </resources>

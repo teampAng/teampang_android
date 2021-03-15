@@ -22,7 +22,6 @@ import com.alice.teampang.src.team_detail.model.TeamMemberData
 
 class TeamDetailAfterFrag : BaseFrag(), View.OnClickListener {
 
-    lateinit var navController: NavController
 
     private var _binding: FragTeamDetailAfterBinding? = null
     private val binding get() = _binding!!
