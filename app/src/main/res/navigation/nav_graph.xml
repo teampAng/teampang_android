@@ -33,6 +33,8 @@
         tools:layout="@layout/frag_plan_create_time">
         <action
             android:id="@+id/action_planCreateTimeFrag_to_planCreateShareFrag"
+            app:popUpToInclusive="true"
+            app:popUpTo="@id/planCreateNameFrag"
             app:destination="@id/planCreateShareFrag" />
     </fragment>
     <fragment

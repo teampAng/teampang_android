@@ -1,6 +1,7 @@
 package com.alice.teampang.src.plan_create.name
 
 import android.content.Context
+import android.graphics.Color
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -45,10 +46,18 @@ class PlanCreateNameFrag : BaseFrag(), View.OnClickListener {
 
         binding.tvEdit.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(p0: Editable?) {
+                planName = p0.toString()
+                if (planName != "") {
+                    binding.btnNext.setBackgroundResource(R.drawable.btn_blue)
+                    binding.tvNext.setTextColor(Color.parseColor("#FFFFFFFF"))
+                } else {
+                    binding.btnNext.setBackgroundResource(R.drawable.btn_grey)
+                    binding.tvNext.setTextColor(Color.parseColor("#9d9d9d"))
+                }
+
             }
 
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                planName = p0.toString()
             }
 
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
