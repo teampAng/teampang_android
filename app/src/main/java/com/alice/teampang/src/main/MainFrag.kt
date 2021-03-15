@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.fragment.app.FragmentTransaction
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
@@ -77,7 +78,10 @@ class MainFrag : BaseFrag() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        navController = Navigation.findNavController(view)
+        if (arguments?.getBoolean("isPlan") == true) {
+            val bundle = bundleOf("isPlan" to true)
+            navController.navigate(R.id.action_mainFrag_to_planPossibleInvitationFrag, bundle)
+        }
     }
 }
 

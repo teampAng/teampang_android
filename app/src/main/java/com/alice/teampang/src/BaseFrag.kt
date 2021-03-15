@@ -38,17 +38,6 @@ open class BaseFrag : Fragment(), TokenFragView {
 
     }
 
-//    override fun onStart() {
-//        super.onStart()
-//        if (activity?.intent != null) {
-//            val uri: Uri? = requireActivity().intent.data
-//            if (uri != null) {
-//                Log.d("ehlsi", uri.toString())
-//                uri.getQueryParameter("inviteCode")?.let { Log.d("ehlsi", it) }
-//            }
-//        }
-//    }
-
     fun showCustomToast(message: String?) {
         if (message != null) {
             Toast.makeText(activity, message, Toast.LENGTH_SHORT).show()

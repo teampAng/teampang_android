@@ -7,11 +7,13 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.navigation.Navigation
 import com.alice.teampang.R
 import com.alice.teampang.databinding.FragSplashBinding
 import com.alice.teampang.src.BaseFrag
 import com.alice.teampang.src.GlobalApplication
+import com.alice.teampang.src.GlobalApplication.Companion.INVITE_CODE
 import com.alice.teampang.src.GlobalApplication.Companion.UNIV_GRADE
 import com.alice.teampang.src.GlobalApplication.Companion.UNIV_MAJOR
 import com.alice.teampang.src.GlobalApplication.Companion.UNIV_NAME
@@ -61,21 +63,17 @@ class SplashFrag : BaseFrag(), SplashFragView {
 
     override fun onStart() {
         super.onStart()
+        //inviteCode 받아서 저장 -> main -> plan_possible
         if (activity?.intent != null) {
             if (activity?.intent!!.action == Intent.ACTION_VIEW) {
                 activity?.intent!!.data?.let {
                     if (it.scheme.equals(getString(R.string.kakao_scheme), false)
                         && it.host.equals("kakaolink", false)
                     ) {
-                        var a = it.path
-                        var b = it.encodedPath
-                        var c = it.encodedQuery
-                        var d = it.encodedSchemeSpecificPart
-                        var inviteCode = it.query.toString().substring(13)
-                        var f = it.getQueryParameters("inviteCode")
-                        var g = it.queryParameterNames
-                        var path = it.getQueryParameter("inviteCode")
-                        Log.d("Test", "path: $path")
+                        val inviteCode = it.query.toString().substring(13)
+                        prefs.setString(INVITE_CODE, inviteCode)
+                        val bundle = bundleOf("isPlan" to true)
+                        navController.navigate(R.id.action_splashFrag_to_mainFrag, bundle)
                     }
                 }
             }
