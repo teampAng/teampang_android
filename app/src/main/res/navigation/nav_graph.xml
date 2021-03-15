@@ -2,7 +2,7 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    app:startDestination="@id/planPossibleInvitationFrag">
+    app:startDestination="@id/splashFrag">
     <action android:id="@+id/action_global_loginFrag"
         app:destination="@id/loginFrag"/>
 
@@ -71,6 +71,12 @@
         <action
             android:id="@+id/action_mainFrag_to_planCreateNameFrag"
             app:destination="@id/planCreateNameFrag" />
+        <action
+            android:id="@+id/action_mainFrag_to_planPossibleInvitationFrag"
+            app:destination="@id/planPossibleInvitationFrag" />
+        <argument
+            android:name="isPlan"
+            app:argType="boolean" />
     </fragment>
 
     <fragment
@@ -104,6 +110,9 @@
             app:popUpTo="@id/splashFrag"
             app:popUpToInclusive="true"
             app:destination="@id/mainFrag" />
+        <argument
+            android:name="isPlan"
+            app:argType="boolean" />
     </fragment>
     <fragment
         android:id="@+id/teamDetailAfterFrag"
@@ -203,10 +212,6 @@
             android:id="@+id/action_planPossibleSelectionFrag_to_planPossibleComplete"
             app:destination="@id/planPossibleComplete" />
     </fragment>
-    <fragment
-        android:id="@+id/whenFrag"
-        android:name="com.alice.teampang.src.main.when.WhenFrag"
-        android:label="WhenFrag" />
     <fragment
         android:id="@+id/planPossibleInvitedFrag"
         android:name="com.alice.teampang.src.plan_possible.invited.PlanPossibleInvitedFrag"

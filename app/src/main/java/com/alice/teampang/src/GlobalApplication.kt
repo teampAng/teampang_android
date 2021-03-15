@@ -46,6 +46,7 @@ class GlobalApplication : Application() {
         const val UNIV_MAJOR = "UNIV-MAJOR"
         const val UNIV_GRADE = "UNIV-GRADE"
         const val UNIV_NUM = "UNIV-NUM"
+        const val INVITE_CODE = "INVITE-CODE"
 
         //날짜 형식
         var df = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
