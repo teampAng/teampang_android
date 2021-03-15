@@ -2,7 +2,7 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    app:startDestination="@id/splashFrag">
+    app:startDestination="@id/planPossibleInvitationFrag">
     <action android:id="@+id/action_global_loginFrag"
         app:destination="@id/loginFrag"/>
 
@@ -47,20 +47,11 @@
         android:name="com.alice.teampang.src.plan_possible.name.PlanPossibleNameFrag"
         android:label="PlanPossibleNameFrag"
         tools:layout="@layout/frag_plan_possible_name">
-
         <action
-            android:id="@+id/action_planPossibleNameFrag_to_planPossibleSelectionFrag"
-            app:destination="@id/planPossibleSelectionFrag" />
-
+            android:id="@+id/action_planPossibleNameFrag_to_planPossibleInvitedFrag"
+            app:destination="@id/planPossibleInvitedFrag" />
     </fragment>
 
-    <fragment
-        android:id="@+id/planPossibleSelectionFrag"
-        android:name="com.alice.teampang.src.plan_possible.selection.PlanPossibleSelectionFrag"
-        android:label="PlanPossibleNameFrag"
-        tools:layout="@layout/frag_plan_possible_selection">
-
-    </fragment>
     <fragment
         android:id="@+id/mainFrag"
         android:name="com.alice.teampang.src.main.MainFrag"
@@ -202,5 +193,49 @@
         android:name="com.alice.teampang.src.profile.edit.ProfileEditFrag"
         android:label="ProfileEditFrag"
         tools:layout="@layout/frag_profile_edit"/>
+    <fragment
+        android:id="@+id/planPossibleSelectionFrag"
+        android:name="com.alice.teampang.src.plan_possible.selection.PlanPossibleSelectionFrag"
+        android:label="PlanPossibleSelectionFrag" >
+        <action
+            android:id="@+id/action_planPossibleSelectionFrag_to_planPossibleComplete"
+            app:destination="@id/planPossibleComplete" />
+    </fragment>
+    <fragment
+        android:id="@+id/whenFrag"
+        android:name="com.alice.teampang.src.main.when.WhenFrag"
+        android:label="WhenFrag" />
+    <fragment
+        android:id="@+id/planPossibleInvitedFrag"
+        android:name="com.alice.teampang.src.plan_possible.invited.PlanPossibleInvitedFrag"
+        android:label="PlanPossibleInvitedFrag" >
+        <action
+            android:id="@+id/action_planPossibleInvitedFrag_to_planPossibleSelectionFrag"
+            app:destination="@id/planPossibleSelectionFrag" />
+    </fragment>
+    <fragment
+        android:id="@+id/planConfirmDateFrag"
+        android:name="com.alice.teampang.src.plan_confirm.date.PlanConfirmDateFrag"
+        android:label="PlanConfirmDateFrag" >
+        <action
+            android:id="@+id/action_planConfirmDateFrag_to_confirmfinal"
+            app:destination="@id/confirmfinal" />
+    </fragment>
+    <fragment
+        android:id="@+id/confirmfinal"
+        android:name="com.alice.teampang.src.plan_confirm.planshare.Confirmfinal"
+        android:label="Confirmfinal" />
+    <fragment
+        android:id="@+id/planPossibleComplete"
+        android:name="com.alice.teampang.src.plan_possible.complete.PlanPossibleCompleted"
+        android:label="PlanPossibleComplete" />
+    <fragment
+        android:id="@+id/planPossibleInvitationFrag"
+        android:name="com.alice.teampang.src.plan_possible.invitation.PlanPossibleInvitationFrag"
+        android:label="PlanPossibleInvitationFrag" >
+        <action
+            android:id="@+id/action_planPossibleInvitationFrag_to_planPossibleNameFrag"
+            app:destination="@id/planPossibleNameFrag" />
+    </fragment>
 
 </navigation>

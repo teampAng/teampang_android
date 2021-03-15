@@ -1,0 +1,278 @@
+package com.alice.teampang.src.plan_possible.selection
+
+
+import android.annotation.SuppressLint
+import android.content.Context
+import android.os.Bundle
+import android.util.ArrayMap
+import android.util.Log
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.Toast
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.alice.teampang.databinding.FragPlanPossibleSelectionBinding
+import com.alice.teampang.src.BaseFrag
+import com.prolificinteractive.materialcalendarview.CalendarDay
+import com.prolificinteractive.materialcalendarview.MaterialCalendarView
+import kotlin.collections.ArrayList
+import org.threeten.bp.DayOfWeek
+import org.threeten.bp.LocalDate
+
+class PlanPossibleSelectionFrag() : BaseFrag(), View.OnClickListener {
+    private lateinit var mSelectedDay: CalendarDay
+    lateinit var navController: NavController
+    private lateinit var myContext: Context
+    private var _binding: FragPlanPossibleSelectionBinding? = null
+    private val binding get() = _binding!!
+    //전체 정보
+    private var mDaySelectionMap: ArrayMap<CalendarDay, ArrayList<Selection>> = ArrayMap() //key : CalendarDay, value : ArrayList<Selection>
+    //개인 일정
+    private var mScheduleList: ArrayList<PersonalScheduleData>? = null
+    //날짜를 담을때 사용
+    private var mHourList: ArrayList<CalendarDay> = ArrayList()
+    private var startdate = "2021-04-05" //팀장이 정한 시작 기간을 다음과 같이 서버에서 가져와줌
+    private var finishdate = "2021-04-10" //팀장이 정한 끝 기간
+    private val mStartPosition = 15 //서버에서 주어지는 숫자 팀장이 15~20시까지 시간 선택을 하게끔 설정
+    private var mEndPosition = 20
+
+    var arr = startdate.split("-").toTypedArray()
+    var arr2 = finishdate.split("-").toTypedArray()
+
+    lateinit var mAdapter: SelectionAdapter
+    lateinit var mTeamFirstDate: LocalDate
+    lateinit var mTeamLastDate: LocalDate
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        _binding = FragPlanPossibleSelectionBinding.inflate(inflater, container, false)
+        val view = binding.root
+
+        if (container != null) {
+            myContext = container.context
+        }
+
+        init()
+        materialInit()
+        materialFunction()
+
+        checkAllAvailableSelections()
+
+        return view
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        navController = Navigation.findNavController(view)
+
+        // binding.cvBtn.setOnClickListener(this)
+    }
+
+    override fun onClick(v: View) {
+        when (v.id) {
+            //R.id.cv_btn -> navController.popBackStack()
+        }
+    }
+
+    private fun init() {
+        setTeamSchedule()
+        setPersonalSchedule()
+        createCalendarDaySelectionMap()
+    }
+
+    private fun createCalendarDaySelectionMap() {
+        var nextDate = mTeamFirstDate
+
+        while (!nextDate.isEqual(mTeamLastDate.plusDays(1))) {
+            //while (!4/5 == 4/9) 즉 현재 1씩 증가하는 nextdate와 lastdate가 같게 되면 false로 루프 빠져나옴 (for문으로 추후 변경 부등호 써서)
+
+            val selections = ArrayList<Selection>()
+
+            // 24시간의 Selection을 생성
+            for (i in 0 until SELECTION_HOURS) {
+                selections.add(Selection(i)) //24개의 각각의 id를 가진 selection 생성
+            }
+
+            val day = CalendarDay.from(nextDate)
+            // 날짜별로 selections를 매핑
+            mDaySelectionMap[day] = selections
+            //map[2021-02-19] = 24개의 selections를 대입
+            //map의 [day] 번째 key에 selections(value)가 쭉 들어감
+
+            // 1. 먼저 개인 스케줄을 Selection에 대입
+            // 개인 스케쥴에서 오늘의 요일을 확인하고 스케줄을 가져온다.
+            val personalScheduleData =
+                getPersonScheduleOfDay(day)
+
+            // 개인 스케쥴의 데이터를 Selection에 삽입
+            if (personalScheduleData != null) {
+                val startTime = personalScheduleData.getStartTime()
+                val endTime = personalScheduleData.getEndTime()
+                for (i in startTime..endTime) { //예 15~20시
+                    //자바에서 selections.get(i) = selections[i]
+                    selections[i].isPersonalSchedule =  true  //해당하는 시간의 개인일정을 true로
+                    selections[i].titleOfSchedule =
+                        personalScheduleData.scheduleName     //starttime ~ endtime 번째의 selections의 개인일정 이름값을 넣어줌
+                    Log.i(TAG, "selection[$i] : ${selections[i].titleOfSchedule}")
+                }
+            }
+
+            // 2. 팀장이 정한 시간에 개인 스케줄을 제외하고 isAvailableTime으로 할당
+            //selections에 팀장이 정한 시간 셋팅
+            for (i in mStartPosition..mEndPosition) {
+                Log.d(TAG, "team leader time set $i")
+                selections[i].isTeamSchedule = true
+
+                // 개인 스케줄이 있으면 체크하지 못하도록 isAvailableTime false 처리
+                if (!selections[i].isPersonalSchedule) {
+                    selections[i].isAvailableTime = true
+                    Log.d(TAG, "available time set $i")
+                }
+            }
+            nextDate = nextDate.plusDays(1) //맨 마지막 nextDate를 1씩 증가시킨후 다시 loop반복
+            Log.d(TAG, "nextDate = $nextDate")
+        }
+    }
+
+    //mScheduleList에 추가한 값을 해당하는 date에 맞춰서 가져옴
+    private fun getPersonScheduleOfDay(day: CalendarDay): PersonalScheduleData? {
+        for (schedule in mScheduleList!!) { //list에 추가한 만큼 for문 돌림
+            if (day.date.dayOfWeek == getDayOfWeek(schedule)) {
+                return schedule //schedule : PersonalScheduleData (각 날짜에 해당하는 개인일정 return)
+            }
+        }
+        return null
+    }
+
+    private fun materialInit() {
+        val firstDay = CalendarDay.from(arr[0].toInt(), arr[1].toInt(), arr[2].toInt())
+        val lastDay = CalendarDay.from(arr2[0].toInt(), arr2[1].toInt(), arr2[2].toInt())
+        binding.cvCalendar.selectionMode =
+            MaterialCalendarView.SELECTION_MODE_MULTIPLE //날짜를 복수클릭 가능하게 만들어줌
+        binding.cvCalendar.state().edit() //달력 기본 셋팅
+            .isCacheCalendarPositionEnabled(false) //기본셋팅에 필요한 요소 설명 하기 어려워서 그냥 추가하라고 되어있음
+            .setMinimumDate(firstDay) //팀장이 정한날 외에는 false
+            .setMaximumDate(lastDay)
+            .commit()
+        binding.cvCalendar.showOtherDates =
+            MaterialCalendarView.SHOW_OUT_OF_RANGE //팀장이 정한 기간 외에는 다 false처리 2
+        binding.cvCalendar.isDynamicHeightEnabled //width height을 오류안나게 (어떤달은 4주 어떤달은 5주이니)
+
+        // 날짜가 모두 선택 되도록
+//        binding.cvCalendar!!.selectRange(firstDay, lastDay)
+    }
+
+    private fun materialFunction() {
+        binding.cvCalendar.setOnDateChangedListener { widget, date, selected ->
+            //날짜가 변하는걸 감지해주는 리스너
+            //date값을 CalendarDay 형식으로 뽑을 수 있으며
+            //boolean으로 선택되었는지를 뽑아줄 수 있음
+            mSelectedDay = date
+            if (selected) {
+                configureRecyclerView(date) //선택하면 해당 date에 해당하는 recyclerview 생성
+                if (mHourList!!.size != 0) {  //담아준 날짜가 0이 아닐 경우(선택이 아무것도 되지 않았을 경우를 의미)
+                    binding.selectionRecyclerview.visibility = View.VISIBLE //생성한 recyclerview를 보여줌
+                }
+            } else {
+                if (mHourList!!.contains(date)) {
+                    mHourList!!.remove(date)
+                }
+                if (mHourList!!.size == 0) {
+                    binding.selectionRecyclerview.visibility = View.INVISIBLE
+                } else {
+                    configureRecyclerView(date)
+                }
+                Log.i("선택", "ㅎㅎ" + selected + date.toString() + " " + mHourList!!.size)
+            }
+
+            // 맨 처음 항목으로 스크롤
+            // Todo 맨 position을 계산하도록 수정 예정
+            binding.selectionRecyclerview.scrollToPosition(mStartPosition)
+        }
+    }
+
+    private fun configureRecyclerView(date: CalendarDay) {
+        // RecyclerView 자체의 크기가 변하지 않는 것을 알고 있을 때
+        // 이 옵션을 설정하면 성능이 개선
+        binding.selectionRecyclerview.setHasFixedSize(true)
+
+        // To do
+        // map으로 CalendarDay와 Selection을 맵핑하고 해당되는 CalendarDay의 Selection으로 어댑터를 초기화 한다.
+        mHourList!!.add(date)
+
+        // 날짜에 해당하는 ArrayList<Selection>으로 어댑터 초기화
+        mAdapter = mDaySelectionMap[date]?.let { SelectionAdapter(it) }!!
+        binding.selectionRecyclerview.adapter = mAdapter
+        binding.selectionRecyclerview.layoutManager = LinearLayoutManager(
+            myContext,
+            LinearLayoutManager.HORIZONTAL,
+            false
+        )
+
+        mAdapter.setOnItemClickListener(object : SelectionAdapter.ItemClickListener {
+            override fun onItemClick(v: View?, position: Int, check: Boolean) {
+                Toast.makeText(context, "$position item checked, $check", Toast.LENGTH_LONG).show()
+                val selection: Selection = mDaySelectionMap[mSelectedDay]!![position]
+                selection.availableChecked = check
+                mAdapter.notifyItemChanged(position)
+            }
+        })
+    }
+
+    private fun setPersonalSchedule() { //개인일정을 서버에서 가져와서 리스트에 담아주었음
+        mScheduleList = ArrayList<PersonalScheduleData>()
+        mScheduleList!!.add(PersonalScheduleData("월", "알바", "15:00:00", "18:10:00"))
+        mScheduleList!!.add(PersonalScheduleData("화", "스터디", "15:00:00", "16:50:00"))
+        mScheduleList!!.add(PersonalScheduleData("수", "모임", "17:00:00", "19:01:00"))
+    }
+
+    private fun setTeamSchedule() {
+        mTeamFirstDate = LocalDate.of(arr[0].toInt(), arr[1].toInt(), arr[2].toInt())
+        mTeamLastDate = LocalDate.of(arr2[0].toInt(), arr2[1].toInt(), arr2[2].toInt())
+    }
+
+    //화면 on시 가능한 날짜 모두 체크 되게끔 하는 기능
+    private fun checkAllAvailableSelections() {
+        var nextDate = mTeamFirstDate
+        while (!nextDate.isEqual(mTeamLastDate.plusDays(1))) {
+            val day = CalendarDay.from(nextDate)
+            val selections = mDaySelectionMap[day]
+
+            for (i in 0 until SELECTION_HOURS) {
+                // 팀장이 정한 시간 중 개인 스케줄이 아니면 모두 체크
+                if (selections!![i].isAvailableTime) {
+                    selections[i].availableChecked = true
+                }
+            }
+            nextDate = nextDate.plusDays(1)
+        }
+    }
+
+    //"월"이면 Monday로 "화"면 TUESDAY로 return
+    private fun getDayOfWeek(schedule: PersonalScheduleData): DayOfWeek? {
+        var dow: DayOfWeek? = null
+        when (schedule.day) {
+            "월" -> dow = DayOfWeek.MONDAY
+            "화" -> dow = DayOfWeek.TUESDAY
+            "수" -> dow = DayOfWeek.WEDNESDAY
+            "목" -> dow = DayOfWeek.THURSDAY
+            "금" -> dow = DayOfWeek.FRIDAY
+            "토" -> dow = DayOfWeek.SATURDAY
+            "일" -> dow = DayOfWeek.SUNDAY
+        }
+        return dow
+    }
+
+    companion object {
+        const val TAG = "SelectionFragment"
+        const val SELECTION_HOURS = 24
+    }
+}
+
+
