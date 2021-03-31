@@ -9,6 +9,9 @@ interface MyScheduleRetrofitInterface {
     @GET("user/schedules")
     fun getMySchedule(): Call<MyScheduleResponse>
 
+    @DELETE("user/schedules/{id}")
+    fun deleteMySchedule(@Path("id") id: Int): Call<MyScheduleResponse>
+
     @POST("/user/schedules")
     fun postMySchedule(@Body params: MyScheduleBody): Call<PostScheduleResponse>
 

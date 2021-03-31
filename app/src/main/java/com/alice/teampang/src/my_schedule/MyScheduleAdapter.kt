@@ -9,8 +9,8 @@ import com.alice.teampang.databinding.MyScheduleListBinding
 import com.alice.teampang.src.my_schedule.model.*
 
 
-
-class MyScheduleAdapter (private val context : Context) : RecyclerView.Adapter<MyScheduleAdapter.ViewHolder>() {
+class MyScheduleAdapter(private val context: Context) :
+    RecyclerView.Adapter<MyScheduleAdapter.ViewHolder>() {
 
     var data = arrayListOf<Data>()
     private val myScheduleTimeAdapter = MyScheduleTimeAdapter(context)
@@ -38,14 +38,20 @@ class MyScheduleAdapter (private val context : Context) : RecyclerView.Adapter<M
     override fun getItemCount(): Int = data.size
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.onBind(data[position])
+        data[position].let { holder.onBind(it) }
         holder.binding.btnEdit.setOnClickListener {
             //position 에 따른 times 넘겨서 데이터 좌라락
-            deliverListTimes.deliverListTimes(data[position].id, data[position].name, data[position].times, position)
+            deliverListTimes.deliverListTimes(
+                data[position].id,
+                data[position].name,
+                data[position].times,
+                position
+            )
         }
     }
 
-    inner class ViewHolder(val binding: MyScheduleListBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class ViewHolder(val binding: MyScheduleListBinding) :
+        RecyclerView.ViewHolder(binding.root) {
         fun onBind(data: Data) {
             binding.schedule = data
             myScheduleTimeAdapter.data = data.times
