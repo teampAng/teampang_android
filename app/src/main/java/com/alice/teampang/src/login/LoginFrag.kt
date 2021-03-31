@@ -185,14 +185,14 @@ class LoginFrag : BaseFrag(), LoginFragView, View.OnClickListener {
         Linkify.addLinks(
             binding.tvCondition1,
             pattern1,
-            "https://gun0912.tistory.com/66",
+            "https://www.teampang.app/term-of-service",
             null,
             mTransform
         )
         Linkify.addLinks(
             binding.tvCondition2,
             pattern2,
-            "https://gun0912.tistory.com/66",
+            "https://www.teampang.app/privacy-policy",
             null,
             mTransform
         )
