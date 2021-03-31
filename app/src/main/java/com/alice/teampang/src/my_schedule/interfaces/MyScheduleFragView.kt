@@ -9,8 +9,8 @@ interface MyScheduleFragView {
     fun myScheduleError(errorResponse: ErrorResponse)
     fun myScheduleFailure(message: Throwable?)
 
-//    fun kakaoTokenSuccess(kakaoTokenResponse: KakaoTokenResponse)
-//    fun kakaoTokenError(errorResponse: ErrorResponse)
-//    fun kakaoTokenFailure(message: Throwable?)
+    fun deleteScheduleSuccess()
+    fun deleteScheduleError(errorResponse: ErrorResponse)
+    fun deleteScheduleFailure(message: Throwable?)
 
 }

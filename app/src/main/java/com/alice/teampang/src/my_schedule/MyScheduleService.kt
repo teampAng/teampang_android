@@ -1,5 +1,6 @@
 package com.alice.teampang.src.my_schedule
 
+import android.widget.Toast
 import com.alice.teampang.src.GlobalApplication.Companion.getRetrofit
 import com.alice.teampang.src.error.ErrorUtils
 import com.alice.teampang.src.my_schedule.model.*
@@ -26,7 +27,11 @@ class MyScheduleService(myScheduleFragView: MyScheduleFragView) {
                 val myScheduleResponse: MyScheduleResponse? = response.body()
                 val error: ResponseBody? = response.errorBody()
                 if (myScheduleResponse == null) {
-                    if (error != null) mMyScheduleFragView.myScheduleError(ErrorUtils.parseError(error))
+                    if (error != null) mMyScheduleFragView.myScheduleError(
+                        ErrorUtils.parseError(
+                            error
+                        )
+                    )
                     else mMyScheduleFragView.myScheduleFailure(null)
                     return
                 }
@@ -35,6 +40,35 @@ class MyScheduleService(myScheduleFragView: MyScheduleFragView) {
 
             override fun onFailure(call: Call<MyScheduleResponse?>, t: Throwable) {
                 mMyScheduleFragView.myScheduleFailure(t)
+            }
+        })
+    }
+
+    fun deleteMySchedule(id: Int) {
+        val myScheduleRetrofitInterface: MyScheduleRetrofitInterface = getRetrofit()!!.create(
+            MyScheduleRetrofitInterface::class.java
+        )
+        myScheduleRetrofitInterface.deleteMySchedule(id).enqueue(object :
+            Callback<MyScheduleResponse?> {
+            override fun onResponse(
+                call: Call<MyScheduleResponse?>,
+                response: Response<MyScheduleResponse?>
+            ) {
+                val error: ResponseBody? = response.errorBody()
+                val code: Int = response.code()
+                if (code == 204) {
+                    mMyScheduleFragView.deleteScheduleSuccess()
+                } else {
+                    if (error != null) mMyScheduleFragView.deleteScheduleError(
+                        ErrorUtils.parseError(error)
+                    )
+                    else mMyScheduleFragView.deleteScheduleFailure(null)
+                    return
+                }
+            }
+
+            override fun onFailure(call: Call<MyScheduleResponse?>, t: Throwable) {
+                mMyScheduleFragView.deleteScheduleFailure(t)
             }
         })
     }

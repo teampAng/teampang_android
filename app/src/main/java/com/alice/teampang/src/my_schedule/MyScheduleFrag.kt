@@ -30,7 +30,7 @@ class MyScheduleFrag : BaseFrag(), MyScheduleFragView, View.OnClickListener {
     private lateinit var mName: String
     private var mPosition = 0
 
-    private val dataList = ArrayList<Data>()
+    private var dataList = ArrayList<Data>()
     private lateinit var myScheduleAdapter: MyScheduleAdapter
 
 
@@ -87,6 +87,8 @@ class MyScheduleFrag : BaseFrag(), MyScheduleFragView, View.OnClickListener {
         result: Bundle
     ) = parentFragmentManager.setFragmentResult(requestKey, result)
 
+
+    //--------------------------개인 일정 GET----------------------------
     private fun tryMySchedule() {
         val myScheduleService = MyScheduleService(this)
         myScheduleService.getMySchedule()
@@ -96,9 +98,12 @@ class MyScheduleFrag : BaseFrag(), MyScheduleFragView, View.OnClickListener {
         dataList.clear()
         when (myScheduleResponse.status) {
             200 -> {
-                binding.rvSchedule.layoutManager = LinearLayoutManager(requireContext())
-                myScheduleAdapter.data = myScheduleResponse.data
-                binding.rvSchedule.adapter = myScheduleAdapter
+                if (myScheduleResponse.data != null) {
+                    binding.rvSchedule.layoutManager = LinearLayoutManager(requireContext())
+                    dataList = myScheduleResponse.data
+                    myScheduleAdapter.data = dataList
+                    binding.rvSchedule.adapter = myScheduleAdapter
+                }
             }
             else -> showCustomToast(myScheduleResponse.message)
         }
@@ -113,6 +118,28 @@ class MyScheduleFrag : BaseFrag(), MyScheduleFragView, View.OnClickListener {
 
     override fun myScheduleFailure(message: Throwable?) {
         showCustomToast(message.toString())
+    }
+
+    //--------------------------개인 일정 DELETE----------------------------
+    private fun tryDeleteSchedule() {
+        val myScheduleService = MyScheduleService(this)
+        myScheduleService.deleteMySchedule(mId)
+    }
+
+    override fun deleteScheduleSuccess() {
+        dataList.removeAt(mPosition)
+        myScheduleAdapter.notifyDataSetChanged()
+    }
+
+    override fun deleteScheduleError(errorResponse: ErrorResponse) {
+        when (errorResponse.status) {
+            401 -> tryPostRefreshToken { tryMySchedule() }
+            else -> showCustomToast(errorResponse.message)
+        }
+    }
+
+    override fun deleteScheduleFailure(message: Throwable?) {
+        showCustomToast("개인일정 삭제에 실패하였습니다")
     }
 
     private fun editDialog() {
@@ -135,9 +162,7 @@ class MyScheduleFrag : BaseFrag(), MyScheduleFragView, View.OnClickListener {
         }
 
         btn_delete.setOnClickListener {
-            //일정 삭제 api 엮기
-            dataList.removeAt(mPosition)
-            myScheduleAdapter.notifyDataSetChanged()
+            tryDeleteSchedule()
             dialog.dismiss()
         }
 
