@@ -11,11 +11,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
-import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.alice.teampang.R
 import com.alice.teampang.databinding.FragPlanCreateNameBinding
 import com.alice.teampang.src.BaseFrag
+import com.alice.teampang.src.GlobalApplication.Companion.PLAN_NAME
+import com.alice.teampang.src.GlobalApplication.Companion.prefs
 
 class PlanCreateNameFrag : BaseFrag(), View.OnClickListener {
 
@@ -76,6 +77,7 @@ class PlanCreateNameFrag : BaseFrag(), View.OnClickListener {
             binding.btnNext -> {
                 if (planName != "") {
                     hideKeyBoard()
+                    prefs.setString(PLAN_NAME, planName)
                     navController.navigate(R.id.action_planCreateNameFrag_to_planCreateCalendarFrag)
                 } else {
                     showCustomToast("일정 이름을 입력해주세요.")
@@ -85,7 +87,7 @@ class PlanCreateNameFrag : BaseFrag(), View.OnClickListener {
         }
     }
 
-    fun hideKeyBoard() {
+    private fun hideKeyBoard() {
         val imm = requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         imm.hideSoftInputFromWindow(binding.tvEdit.windowToken, 0)
     }

@@ -5,16 +5,15 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.alice.teampang.R
 import com.alice.teampang.databinding.FragPlanCreateCalendarBinding
 import com.alice.teampang.src.BaseFrag
+import com.alice.teampang.src.GlobalApplication.Companion.END_DATE
+import com.alice.teampang.src.GlobalApplication.Companion.START_DATE
+import com.alice.teampang.src.GlobalApplication.Companion.prefs
 import com.prolificinteractive.materialcalendarview.CalendarDay
-import com.prolificinteractive.materialcalendarview.DayViewDecorator
-import com.prolificinteractive.materialcalendarview.DayViewFacade
 import org.threeten.bp.LocalDate
-import java.time.format.DateTimeFormatter
 import java.util.*
 
 
@@ -79,6 +78,8 @@ class PlanCreateCalendarFrag : BaseFrag(), View.OnClickListener {
             R.id.btn_back -> navController.popBackStack()
             R.id.btn_next -> {
                 if (startDate != "" && endDate != "") {
+                    prefs.setString(START_DATE, startDate)
+                    prefs.setString(END_DATE, endDate)
                     navController.navigate(R.id.action_planCreateCalendarFrag_to_planCreateTimeFrag)
                 } else showCustomToast("일정을 선택해주세요")
             }
