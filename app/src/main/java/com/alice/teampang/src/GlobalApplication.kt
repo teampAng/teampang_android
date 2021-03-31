@@ -46,6 +46,12 @@ class GlobalApplication : Application() {
         const val UNIV_MAJOR = "UNIV-MAJOR"
         const val UNIV_GRADE = "UNIV-GRADE"
         const val UNIV_NUM = "UNIV-NUM"
+
+        // 일정 생성 관련 키 값
+        const val PLAN_NAME = "PLAN-NAME"
+        const val START_DATE = "START-DATE"
+        const val END_DATE = "END-DATE"
+        const val PLAN_ID = "PLAN-ID"
         const val INVITE_CODE = "INVITE-CODE"
 
         //날짜 형식

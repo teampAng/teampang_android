@@ -133,7 +133,7 @@ class MyScheduleFrag : BaseFrag(), MyScheduleFragView, View.OnClickListener {
 
     override fun deleteScheduleError(errorResponse: ErrorResponse) {
         when (errorResponse.status) {
-            401 -> tryPostRefreshToken { tryMySchedule() }
+            401 -> tryPostRefreshToken { tryDeleteSchedule() }
             else -> showCustomToast(errorResponse.message)
         }
     }

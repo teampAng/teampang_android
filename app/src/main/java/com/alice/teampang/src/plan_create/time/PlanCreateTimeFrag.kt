@@ -6,13 +6,22 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
-import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.alice.teampang.R
 import com.alice.teampang.databinding.FragPlanCreateTimeBinding
 import com.alice.teampang.src.BaseFrag
+import com.alice.teampang.src.GlobalApplication.Companion.END_DATE
+import com.alice.teampang.src.GlobalApplication.Companion.PLAN_ID
+import com.alice.teampang.src.GlobalApplication.Companion.PLAN_NAME
+import com.alice.teampang.src.GlobalApplication.Companion.START_DATE
+import com.alice.teampang.src.GlobalApplication.Companion.prefs
+import com.alice.teampang.src.error.model.ErrorResponse
+import com.alice.teampang.src.plan_create.PlanCreateService
+import com.alice.teampang.src.plan_create.interfaces.PlanCreateFragView
+import com.alice.teampang.src.plan_create.model.PlanBody
+import com.alice.teampang.src.plan_create.model.PlanResponse
 
-class PlanCreateTimeFrag : BaseFrag(), View.OnClickListener {
+class PlanCreateTimeFrag : BaseFrag(), PlanCreateFragView, View.OnClickListener {
 
     private lateinit var time_array: ArrayList<ImageView>
     private lateinit var box_array: ArrayList<LinearLayout>
@@ -20,7 +29,6 @@ class PlanCreateTimeFrag : BaseFrag(), View.OnClickListener {
     private var _binding: FragPlanCreateTimeBinding? = null
     private val binding get() = _binding!!
 
-    //나중에 넘기기
     private var start_time: Int = -1
     private var end_time: Int = -1
 
@@ -57,7 +65,7 @@ class PlanCreateTimeFrag : BaseFrag(), View.OnClickListener {
             binding.btnBack -> navController.popBackStack()
             binding.btnNext -> {
                 if (start_time != -1 && end_time != -1) {
-                    navController.navigate(R.id.action_planCreateTimeFrag_to_planCreateShareFrag)
+                    tryPostPlan()
                 } else showCustomToast("일정 시간 범위를 선택해주세요")
             }
             binding.btnAllGrey -> selectAll()
@@ -109,7 +117,9 @@ class PlanCreateTimeFrag : BaseFrag(), View.OnClickListener {
             } else if (i == start_time) {
                 //시작시각 다시 선택하면 선택 해제
                 start_time = -1
+                end_time = -1
                 time_array[i].visibility = View.INVISIBLE
+                binding.tv2.text = "시작 시각을 선택해주세요"
             } else {
                 end_time = i + 1
                 for (j in 0 until end_time) {
@@ -122,8 +132,8 @@ class PlanCreateTimeFrag : BaseFrag(), View.OnClickListener {
                     //24시간 모두 선택한 경우
                     start_time = 0
                     end_time = 24
-                }
-                binding.tv2.text = "${start_time}시-${end_time}시, ${end_time - start_time + 24}시간"
+                    binding.tv2.text = "0시-24시, 24시간"
+                } else binding.tv2.text = "${start_time}시-${end_time}시, ${end_time - start_time + 24}시간"
             }
         } else if (start_time != -1 && end_time != -1) {
             //시작시각과 끝시각 설정되어있을 때
@@ -134,8 +144,8 @@ class PlanCreateTimeFrag : BaseFrag(), View.OnClickListener {
             binding.btnAllGrey.visibility = View.VISIBLE
             time_array[i].visibility = View.VISIBLE
             start_time = i
-            end_time = -1
-            binding.tv2.text = "${start_time}시-${start_time+1}시, 1시간"
+            end_time = start_time + 1
+            binding.tv2.text = "${start_time}시-${end_time}시, 1시간"
         }
     }
 
@@ -160,6 +170,42 @@ class PlanCreateTimeFrag : BaseFrag(), View.OnClickListener {
         }
         //나중에 스트링 리소스로 바꾸기
         binding.tv2.text = "시작 시각을 선택해주세요"
+    }
+
+    private fun tryPostPlan() {
+        val planName = prefs.getString(PLAN_NAME, null)
+        val startDate = prefs.getString(START_DATE, null)
+        val endDate = prefs.getString(END_DATE, null)
+        val startTime = if (start_time == 24) "23:59"
+            else "${start_time}:00"
+        val endTime = if (end_time == 24) "23:59"
+        else "${start_time}:00"
+        if (planName != null && startDate != null && endDate != null) {
+            val postPlanBody = PlanBody(planName, startDate, endDate, startTime, endTime)
+            val planCreateService = PlanCreateService(this)
+            planCreateService.postPlan(postPlanBody)
+        }
+    }
+
+    override fun postPlanSuccess(planResponse: PlanResponse) {
+        when (planResponse.status) {
+            201 -> {
+                prefs.setInt(PLAN_ID, planResponse.data.id)
+                navController.navigate(R.id.action_planCreateTimeFrag_to_planCreateShareFrag)
+            }
+            else -> showCustomToast(planResponse.message)
+        }
+    }
+
+    override fun postPlanError(errorResponse: ErrorResponse) {
+        when (errorResponse.status) {
+            401 -> tryPostRefreshToken { tryPostPlan() }
+            else -> showCustomToast(errorResponse.message)
+        }
+    }
+
+    override fun postPlanFailure(message: Throwable?) {
+        showCustomToast(message.toString())
     }
 
     private fun makeArray() {
@@ -219,6 +265,7 @@ class PlanCreateTimeFrag : BaseFrag(), View.OnClickListener {
         super.onDestroyView()
         _binding = null
     }
+
 }
 
 
