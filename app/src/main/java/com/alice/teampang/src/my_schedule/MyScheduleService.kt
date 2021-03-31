@@ -54,7 +54,6 @@ class MyScheduleService(myScheduleFragView: MyScheduleFragView) {
                 call: Call<MyScheduleResponse?>,
                 response: Response<MyScheduleResponse?>
             ) {
-                val myScheduleResponse: MyScheduleResponse? = response.body()
                 val error: ResponseBody? = response.errorBody()
                 val code: Int = response.code()
                 if (code == 204) {
