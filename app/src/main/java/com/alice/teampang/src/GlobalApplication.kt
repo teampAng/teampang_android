@@ -27,7 +27,7 @@ class GlobalApplication : Application() {
         var MEDIA_TYPE_JPEG = MediaType.parse("image/jpeg")
 
         // 서버 주소
-        val BASE_URL = "http://ec2-3-36-74-8.ap-northeast-2.compute.amazonaws.com:80"
+        val BASE_URL = "http://ec2-13-209-91-113.ap-northeast-2.compute.amazonaws.com:80"
 
         lateinit var prefs: PreferenceUtil
 
