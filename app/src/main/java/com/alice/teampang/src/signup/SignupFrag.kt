@@ -195,16 +195,18 @@ class SignupFrag : BaseFrag(), SignupFragView, View.OnClickListener {
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     override fun signUpError(errorResponse: ErrorResponse) {
         when (errorResponse.status) {
-            400 -> {
-                //닉네임 중복 & 기타 예외처리 -> status 로 나눠줄 예정
+            400 -> showCustomToast(errorResponse.message)
+            401 -> tryPostRefreshToken { tryPostSignUp() }
+            409 -> {
                 binding.nicknameCon1.visibility = View.GONE
                 binding.nicknameCon2.visibility = View.VISIBLE
+                binding.nickname.backgroundTintList =
+                    ContextCompat.getColorStateList(requireContext(), R.color.orangey_red)
                 binding.btnFinish.setBackgroundResource(R.drawable.btn_grey)
                 binding.tvFinish.setTextColor(Color.parseColor("#9d9d9d"))
-
-                showCustomToast(errorResponse.message)
             }
             else -> showCustomToast(errorResponse.message)
         }
