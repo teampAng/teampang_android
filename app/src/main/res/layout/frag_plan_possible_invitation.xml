@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+
+<TextView
+    android:id="@+id/invitation_text1"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    app:layout_constraintWidth_default="percent"
+    app:layout_constraintWidth_percent="0.818"
+    android:textSize="22sp"
+    android:textStyle="normal"
+    android:textColor="#333333"
+    android:lineSpacingExtra="6.6sp"
+    android:fontFamily="@font/spoqahansansneoregular"
+    app:layout_constraintStart_toStartOf="@id/start_guideline"
+    app:layout_constraintTop_toTopOf="@id/top_guideline"
+    android:text="임건님으로부터\n팀프앙SPRINT3 초대가 왔습니다."
+    />
+
+    <TextView
+        android:id="@+id/invitation_text2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@id/start_guideline2"
+        app:layout_constraintTop_toBottomOf="@+id/invitation_text1"
+        android:layout_marginTop="31dp"
+        android:text="ZOOM 회의"
+        android:textStyle="normal"
+        android:textSize="17sp"
+        android:textColor="#333333"
+        android:lineSpacingExtra="5.1sp"
+        android:fontFamily="@font/spoqahansansneomedium"/>
+    
+    <TextView
+        android:id="@+id/invitation_text3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textStyle="normal"
+        android:textSize="14sp"
+        android:textColor="#4f4f4f"
+        android:lineSpacingExtra="4.2sp"
+        android:text="13 Feb 2021, 14:00 PM"
+        android:layout_marginTop="2dp"
+        app:layout_constraintStart_toStartOf="@id/start_guideline3"
+        app:layout_constraintTop_toBottomOf="@id/invitation_text2"/>
+    
+    <androidx.cardview.widget.CardView
+        android:id="@+id/invitation_btn"
+        android:layout_width="0dp"
+        android:layout_height="44dp"
+        app:layout_constraintWidth_default="percent"
+        app:layout_constraintWidth_percent="0.915"
+        android:layout_marginTop="43dp"
+        app:layout_constraintStart_toStartOf="@id/start_guideline"
+        app:layout_constraintTop_toBottomOf="@id/invitation_text3"
+        android:backgroundTint="@color/primary"
+        app:cardCornerRadius="7dp"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="수락"
+            android:textColor="#ffffff"
+            android:textSize="16sp"
+            android:textStyle="normal"
+            android:layout_gravity="center"
+            android:lineSpacingExtra="4.8sp"
+            android:fontFamily="@font/spoqahansansneoregular"/>
+    </androidx.cardview.widget.CardView>
+
+
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/start_guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.0427"/>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/start_guideline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.0533"/>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/start_guideline3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.05"/>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/top_guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.315"/>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/top_guideline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.43"/>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/top_guideline3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.462"/>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/top_guideline4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.542"/>
+</androidx.constraintlayout.widget.ConstraintLayout>

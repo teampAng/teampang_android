@@ -1,3 +1,16 @@
 <resources>
     <string name="app_name">Teampang</string>
+    <string name="kakao_key">2f1364ac457bb5d65d8e06e5d09df5d1</string>
+    <string name="kakao_scheme">kakao2f1364ac457bb5d65d8e06e5d09df5d1</string>
+    <string name="splash_loading">Loading…</string>
+    <string name="sunday"><font color="#fb5046">S</font></string>
+    <array name="weekdays_custom">
+        <item>M</item>
+        <item>T</item>
+        <item>W</item>
+        <item>T</item>
+        <item>F</item>
+        <item>S</item>
+        <item>@string/sunday</item>
+    </array>
 </resources>

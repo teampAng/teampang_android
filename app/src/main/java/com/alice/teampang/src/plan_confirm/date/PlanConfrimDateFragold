@@ -1,0 +1,337 @@
+package com.alice.teampang.src.plan_confirm.date
+
+import android.annotation.SuppressLint
+import android.content.Context
+import android.os.Bundle
+import android.util.ArrayMap
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.alice.teampang.R
+import com.alice.teampang.databinding.FragPlanConfirmDateBinding
+import com.alice.teampang.src.BaseFrag
+import com.alice.teampang.src.plan_possible.selection.PlanPossibleSelectionFrag.Companion.SELECTION_HOURS
+import com.alice.teampang.src.plan_confirm.date.Dialog.YesNoDialogFragment
+import com.prolificinteractive.materialcalendarview.CalendarDay
+import com.prolificinteractive.materialcalendarview.MaterialCalendarView
+import com.prolificinteractive.materialcalendarview.OnDateSelectedListener
+import org.threeten.bp.LocalDate
+import org.threeten.bp.format.DateTimeFormatter
+
+class PlanConfirmDateFrag : BaseFrag(), View.OnClickListener, OnDateSelectedListener {
+
+    private lateinit var mSelectedDay: CalendarDay
+    private var _binding: FragPlanConfirmDateBinding? = null
+    private val binding get() = _binding!!
+    private lateinit var navController: NavController
+    private lateinit var myContext: Context
+    private var mDaySelectionMap: ArrayMap<CalendarDay, ArrayList<Confirm>> = ArrayMap()
+    private var mPersonalSchedule: ArrayList<ConfirmTimeData> = ArrayList()
+    private var mTeamScheduleList: MutableSet<CalendarDay> = hashSetOf()
+    private var mTeamScheduleList2: ArrayList<CalendarDay> = ArrayList()
+    private var mAdapter: ConfirmAdapter? = null
+    private var startdate = "2021-04-05" //팀장이 정한 시작 기간을 다음과 같이 서버에서 가져와줌
+    private var finishdate = "2021-04-10" //팀장이 정한 끝 기간
+    private val mStartPosition = 15 //서버에서 주어지는 숫자 팀장이 15~20시까지 시간 선택을 하게끔 설정
+    private var arr = startdate.split("-").toTypedArray()
+    private var arr2 = finishdate.split("-").toTypedArray()
+    private lateinit var mTeamFirstDate: LocalDate
+    private lateinit var mTeamLastDate: LocalDate
+    private lateinit var mSelectedDayDecorator: SelectedDayDecorator2
+    private lateinit var mTeamScheduleDecorator: TeamScheduleDecorator2
+    private lateinit var mEnableDecorator: DayEnableDecorator
+    private lateinit var mPrimeDecorator : PrimeDayDisableDecorator2
+    private var enabledDates: ArrayList<CalendarDay> = ArrayList()
+    private var yesNoDialogFragment : YesNoDialogFragment = YesNoDialogFragment()
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        _binding = FragPlanConfirmDateBinding.inflate(inflater, container, false)
+        val view = binding.root
+
+        if (container != null) {
+            myContext = container.context
+        }
+        init()
+        settings()
+        return view
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        navController = Navigation.findNavController(view)
+
+    }
+
+    private fun init() {
+        setdisabledate()
+        setmTeamScheduleList()
+        createCalendarData()
+        initMaterialCalendar()
+        titleCustom()
+        //  displaydisableday()
+        //   checkAllAvailableSelections(true)
+    }
+
+    private fun settings(){
+        binding.confirmText1.setText("선택불가")
+        binding.confirmText2.setText("선택가능")
+        binding.confirmText3.setText("선택")
+        binding.confirmText4.setText("한명불가")
+    }
+
+    private fun titleCustom() {
+        binding.confirmDateCalendar.setTitleFormatter { "${it.month}월" }
+        binding.confirmDateCalendar.setOnMonthChangedListener { widget, date ->
+            binding.confirmDateCalendar.setTitleFormatter { "${it.month}월" }
+        }
+        val weekgroup  = arrayOf("S", "M", "T", "W", "T", "F", "S") //월~일을 바꿔주는코드 적용 완료
+        binding.confirmDateCalendar.setWeekDayLabels(weekgroup)
+    }
+
+    private fun createCalendarData() {
+        setTeamSchedule()
+        setPersonalSchedule()
+
+        var nextDate = mTeamFirstDate
+        while (!nextDate.isEqual(mTeamLastDate.plusDays(1))) {
+            val selections = ArrayList<Confirm>()
+
+            //마찬가지로 24개의 selection필요
+            for (i in 0 until SELECTION_HOURS) {
+                selections.add(Confirm(i))
+            }
+
+            val day = CalendarDay.from(nextDate)
+            mTeamScheduleList2.add(day)
+
+            // 날짜별로 selections를 매핑
+            mDaySelectionMap[day] = selections
+
+            //해당 날짜에 대한 schedule 값들을 변수에 넣음
+            val personalScheduleData = getenabledates(day)
+            //입력한 스케쥴의 데이터를 Selection에 삽입
+            if (personalScheduleData.isNotEmpty()) {
+                for (list in personalScheduleData) {
+                    val time = list.getStartTime()
+                    selections[time].titleOfSchedule = list.unavailable_member
+                    selections[time].isAvailableTime = true
+
+                    if (list.unavailable_member == "") {
+                        selections[time].membernone = true
+                    }
+                    else {
+                        selections[time].membernotnone = true
+                    }
+                }
+            }
+
+            nextDate = nextDate.plusDays(1)
+        }
+    }
+
+
+    //우리가 입력한 날짜를 selections에 삽입한다.
+    private fun getenabledates(day: CalendarDay)
+            : ArrayList<ConfirmTimeData> {
+        val list = ArrayList<ConfirmTimeData>()
+        for (schedule in mPersonalSchedule) { //list에 추가한 만큼 for문이 돈다
+            if (day.date == getDayOf(schedule)) { //오늘의 요일 == schedule data의 요일과 일치하면
+                //  return schedule //스케쥴을 리턴한다
+                list.add(schedule)
+            }
+        }
+        return list
+    }
+    //    private fun displaydisableday(){
+//        for(i in mTeamScheduleList){
+//            if(mTeamScheduleList2 in mTeamScheduleList){
+//                mTeamScheduleList2.remove(mTeamScheduleList)
+//            }
+//
+//         Log.d("mTeamScheduleList2",mTeamScheduleList2.toString())        }
+//    }
+    private fun getDayOf(schdule: ConfirmTimeData): LocalDate? {
+        //String값을 Localdate로
+        val date = LocalDate.parse(schdule.date, DateTimeFormatter.ISO_DATE)
+        return date
+    }
+
+    private fun setdisabledate(){
+        val string1 = "2021-04-08"
+        val string2 = "2021-04-09"
+        val string3 = "2021-04-10"
+        val date1 = LocalDate.parse(string1, DateTimeFormatter.ISO_DATE)
+        val date2 = LocalDate.parse(string2, DateTimeFormatter.ISO_DATE)
+        val date3 = LocalDate.parse(string3, DateTimeFormatter.ISO_DATE)
+        enabledDates.add(CalendarDay.from(date1))
+        enabledDates.add(CalendarDay.from(date2))
+        enabledDates.add(CalendarDay.from(date3))
+    }
+    private fun setmTeamScheduleList(){
+        for(schedule in mPersonalSchedule){
+            val x = LocalDate.parse(schedule.date, DateTimeFormatter.ISO_DATE)
+            mTeamScheduleList.add(CalendarDay.from(x))
+        }
+    }
+    private fun setPersonalSchedule() {
+        mPersonalSchedule.add(ConfirmTimeData("2021-04-05", "17:00", ""))
+        mPersonalSchedule.add(ConfirmTimeData("2021-04-05", "18:00", ""))
+        mPersonalSchedule.add(ConfirmTimeData("2021-04-05", "19:00", ""))
+        mPersonalSchedule.add(ConfirmTimeData("2021-04-05", "20:00", "me"))
+        mPersonalSchedule.add(ConfirmTimeData("2021-04-06", "17:00", "me"))
+        mPersonalSchedule.add(ConfirmTimeData("2021-04-06", "18:00", ""))
+        mPersonalSchedule.add(ConfirmTimeData("2021-04-06", "19:00", ""))
+        mPersonalSchedule.add(ConfirmTimeData("2021-04-06", "20:00", "me"))
+        mPersonalSchedule.add(ConfirmTimeData("2021-04-07", "17:00", ""))
+        mPersonalSchedule.add(ConfirmTimeData("2021-04-07", "18:00", ""))
+        mPersonalSchedule.add(ConfirmTimeData("2021-04-07", "19:00", ""))
+        mPersonalSchedule.add(ConfirmTimeData("2021-04-07", "20:00", "me"))
+    }
+
+    private fun setTeamSchedule() {
+        mTeamFirstDate = LocalDate.of(arr[0].toInt(), arr[1].toInt(), arr[2].toInt())
+        mTeamLastDate = LocalDate.of(arr2[0].toInt(), arr2[1].toInt(), arr2[2].toInt())
+    }
+
+    private fun initMaterialCalendar() {
+        val firstDay = CalendarDay.from(arr[0].toInt(), arr[1].toInt(), arr[2].toInt())
+        val lastDay = CalendarDay.from(arr2[0].toInt(), arr2[1].toInt(), arr2[2].toInt())
+        binding.confirmDateCalendar.selectionMode =
+            MaterialCalendarView.SELECTION_MODE_SINGLE //날짜를 복수클릭 가능하게 만들어줌
+        binding.confirmDateCalendar.state().edit() //달력 기본 셋팅
+            .isCacheCalendarPositionEnabled(false) //기본셋팅에 필요한 요소 설명 하기 어려워서 그냥 추가하라고 되어있음
+            .setMinimumDate(firstDay) //팀장이 정한날 외에는 false
+            .setMaximumDate(lastDay)
+            .commit()
+
+        binding.confirmDateCalendar.showOtherDates = MaterialCalendarView.SHOW_OUT_OF_RANGE //팀장이 정한 기간 외에는 다 false처리 2
+        binding.confirmDateCalendar.isDynamicHeightEnabled //width height을 오류안나게 (어떤달은 4주 어떤달은 5주이니)
+
+        mTeamScheduleDecorator = TeamScheduleDecorator2(mTeamScheduleList, mDaySelectionMap, requireContext())
+        mSelectedDayDecorator = SelectedDayDecorator2(requireContext())
+        binding.confirmDateCalendar.setDateTextAppearance(R.color.gray)
+        mEnableDecorator = DayEnableDecorator(enabledDates)
+        // mPrimeDecorator = PrimeDayDisableDecorator2()
+        //  binding.confirmDateCalendar.addDecorators(mTeamScheduleDecorator, mSelectedDayDecorator, mEnableDecorator)
+        binding.confirmDateCalendar.addDecorators(mTeamScheduleDecorator, mSelectedDayDecorator,mEnableDecorator)
+        // OnDateSelected() callback을 받기 위한 Listener 설정
+        binding.confirmDateCalendar.setOnDateChangedListener(this)
+
+    }
+
+    @SuppressLint("SetTextI18n")
+    override fun onDateSelected(
+        widget: MaterialCalendarView,
+        date: CalendarDay,
+        selected: Boolean
+    ) {
+        mSelectedDay = date
+
+        if (selected) {
+            configureRecyclerView(date)  //선택하면 해당 date에 해당하는 recyclerview 생성
+            binding.confirmDateRecyclerview.visibility = View.VISIBLE
+            binding.confirmText.text = "시간 선택 - ${date.month}월 ${date.day}일"
+        } else {
+            binding.confirmDateRecyclerview.visibility = View.INVISIBLE
+            binding.confirmText.text = ""
+        }
+
+        // 맨 처음 항목으로 스크롤
+        // Todo 맨 position을 계산하도록 수정 예정
+        binding.confirmDateRecyclerview.scrollToPosition(mStartPosition - 1)
+        mSelectedDayDecorator.setDate(date.date)
+        // Decorator 내용이 변경되면 반드시 호출해야 함.
+        widget.invalidateDecorators()
+    }
+
+    private fun configureRecyclerView(date: CalendarDay) {
+        binding.confirmDateRecyclerview.setHasFixedSize(true)
+
+        // 날짜에 해당하는 ArrayList<Selection>으로 어댑터 초기화
+        mAdapter = ConfirmAdapter(context, mDaySelectionMap[date]!!)
+        binding.confirmDateRecyclerview.adapter=mAdapter
+        binding.confirmDateRecyclerview.layoutManager= LinearLayoutManager(
+            context,
+            LinearLayoutManager.HORIZONTAL,
+            false
+        )
+
+        mAdapter!!.setOnItemClickListener(object : ConfirmAdapter.ItemClickListener {
+            override fun onMemberNoneClick(v: View?, position: Int, check: Boolean) {
+                //Toast.makeText(context, "$position item checked, $ check", Toast.LENGTH_LONG).show()
+                val selection: Confirm = mDaySelectionMap[mSelectedDay]!![position]
+                if(selection.membernone) {
+                    selection.membernone = true
+                }
+                else if(!selection.membernone){
+                    selection.membernone = false
+                }
+                mAdapter!!.notifyItemChanged(position)
+            }
+
+            override fun onMemberNotNoneClick(v: View?, position: Int, check: Boolean) {
+                val selection: Confirm = mDaySelectionMap[mSelectedDay]!![position]
+
+                //!일때 ->dialog
+                activity?.supportFragmentManager?.let { fragmentManager ->
+                    val dialog2 = YesNoDialogFragment()
+                    if (!selection.membernone){
+                        dialog2.show(fragmentManager, "hi")
+                        dialog2.setOnItemClickListener(object :
+                            YesNoDialogFragment.DialClickListener {
+                            override fun DialMemberClick(check: Boolean) {
+//                            selection.membernone = !selection.membernone   //콜백 리스너 활용해서 yes를 누를시에 해당변수가 true로
+                                selection.membernone = true
+                                mAdapter!!.notifyItemChanged(position)
+                            }
+                        })
+                    } else {
+                        selection.membernone = false    //membernone이 false일때 느낌표가 들어가게 해야해서
+                        //but false일때 이미지가 정의되어 있지 않아 느낌표가 들어가지 못함.
+                        mAdapter!!.notifyItemChanged(position)
+                    }
+                }
+            }
+        })
+    }
+    override fun onClick(v: View?) {
+
+    }
+}
+
+/*
+{
+	"date": "2011-08-12"
+	"detail": [
+	{
+		"time": "13:00"
+		"unavailable_member": null
+	},
+	{
+		"time": "13:00"
+		"unavailable_member": null
+	},
+	]
+},
+{
+	"date": "2011-08-12"
+	"detail": [
+	{
+		"time": "13:00"
+		"unavailable_member": null
+	},
+	{
+		"time": "13:00"
+		"unavailable_member": null
+	},
+	]
+}
+ */

@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:startDestination="@id/splashFrag">
+    <action android:id="@+id/action_global_loginFrag"
+        app:destination="@id/loginFrag"/>
+
+    <fragment
+        android:id="@+id/planCreateCalendarFrag"
+        android:name="com.alice.teampang.src.plan_create.calendar.PlanCreateCalendarFrag"
+        android:label="PlanCreateCalendarFrag"
+        tools:layout="@layout/frag_plan_create_calendar">
+
+        <action
+            android:id="@+id/action_planCreateCalendarFrag_to_planCreateTimeFrag"
+            app:destination="@id/planCreateTimeFrag" />
+    </fragment>
+    <fragment
+        android:id="@+id/planCreateNameFrag"
+        android:name="com.alice.teampang.src.plan_create.name.PlanCreateNameFrag"
+        android:label="PlanCreateNameFrag"
+        tools:layout="@layout/frag_plan_create_name">
+        <action
+            android:id="@+id/action_planCreateNameFrag_to_planCreateCalendarFrag"
+            app:destination="@id/planCreateCalendarFrag" />
+
+    </fragment>
+    <fragment
+        android:id="@+id/planCreateTimeFrag"
+        android:name="com.alice.teampang.src.plan_create.time.PlanCreateTimeFrag"
+        android:label="PlanCreateTimeFrag"
+        tools:layout="@layout/frag_plan_create_time">
+        <action
+            android:id="@+id/action_planCreateTimeFrag_to_planCreateShareFrag"
+            app:popUpToInclusive="true"
+            app:popUpTo="@id/planCreateNameFrag"
+            app:destination="@id/planCreateShareFrag" />
+    </fragment>
+    <fragment
+        android:id="@+id/planCreateShareFrag"
+        android:name="com.alice.teampang.src.plan_create.share.PlanCreateShareFrag"
+        android:label="PlanCreateShareFrag"
+        tools:layout="@layout/frag_plan_create_share"/>
+
+
+    <fragment
+        android:id="@+id/planPossibleNameFrag"
+        android:name="com.alice.teampang.src.plan_possible.name.PlanPossibleNameFrag"
+        android:label="PlanPossibleNameFrag"
+        tools:layout="@layout/frag_plan_possible_name">
+        <action
+            android:id="@+id/action_planPossibleNameFrag_to_planPossibleInvitedFrag"
+            app:destination="@id/planPossibleInvitedFrag" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/mainFrag"
+        android:name="com.alice.teampang.src.main.MainFrag"
+        android:label="MainFrag"
+        tools:layout="@layout/frag_main">
+        <action
+            android:id="@+id/action_mainFrag_to_myPageFrag"
+            app:destination="@id/myPageFrag" />
+        <action
+            android:id="@+id/action_mainFrag_to_teamDetailBeforeFrag"
+            app:destination="@id/teamDetailBeforeFrag" />
+        <action
+            android:id="@+id/action_mainFrag_to_teamDetailAfterFrag"
+            app:destination="@id/teamDetailAfterFrag" />
+        <action
+            android:id="@+id/action_mainFrag_to_planCreateNameFrag"
+            app:destination="@id/planCreateNameFrag" />
+        <action
+            android:id="@+id/action_mainFrag_to_planPossibleInvitationFrag"
+            app:destination="@id/planPossibleInvitationFrag" />
+        <argument
+            android:name="isPlan"
+            app:argType="boolean" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/loginFrag"
+        android:name="com.alice.teampang.src.login.LoginFrag"
+        android:label="LoginFrag"
+        tools:layout="@layout/frag_login">
+        <action
+            android:id="@+id/action_loginFrag_to_signupFrag"
+            app:popUpToInclusive="true"
+            app:popUpTo="@id/loginFrag"
+            app:destination="@id/signupFrag" />
+        <action
+            android:id="@+id/action_loginFrag_to_mainFrag"
+            app:popUpToInclusive="true"
+            app:popUpTo="@id/loginFrag"
+            app:destination="@id/mainFrag" />
+    </fragment>
+    <fragment
+        android:id="@+id/splashFrag"
+        android:name="com.alice.teampang.src.splash.SplashFrag"
+        android:label="SplashFrag"
+        tools:layout="@layout/frag_splash">
+        <action
+            android:id="@+id/action_splashFrag_to_loginFrag"
+            app:popUpTo="@id/splashFrag"
+            app:popUpToInclusive="true"
+            app:destination="@id/loginFrag"/>
+        <action
+            android:id="@+id/action_splashFrag_to_mainFrag"
+            app:popUpTo="@id/splashFrag"
+            app:popUpToInclusive="true"
+            app:destination="@id/mainFrag" />
+        <argument
+            android:name="isPlan"
+            app:argType="boolean" />
+    </fragment>
+    <fragment
+        android:id="@+id/teamDetailAfterFrag"
+        android:name="com.alice.teampang.src.team_detail.TeamDetailAfterFrag"
+        android:label="TeamDetailAfterFrag"
+        tools:layout="@layout/frag_team_detail_after"/>
+    <fragment
+        android:id="@+id/teamDetailBeforeFrag"
+        android:name="com.alice.teampang.src.team_detail.TeamDetailBeforeFrag"
+        android:label="TeamDetailBeforeFrag"
+        tools:layout="@layout/frag_team_detail_before"/>
+    <fragment
+        android:id="@+id/signupFrag"
+        android:name="com.alice.teampang.src.signup.SignupFrag"
+        android:label="SignupFrag"
+        tools:layout="@layout/frag_signup">
+        <action
+            android:id="@+id/action_signupFrag_to_signupSuccessFrag"
+            app:popUpTo="@id/signupFrag"
+            app:popUpToInclusive="true"
+            app:destination="@id/signupSuccessFrag" />
+    </fragment>
+    <fragment
+        android:id="@+id/signupSuccessFrag"
+        android:name="com.alice.teampang.src.signup.SignupSuccessFrag"
+        android:label="SignupSuccessFrag"
+        tools:layout="@layout/frag_signup_success">
+        <action
+            android:id="@+id/action_signupSuccessFrag_to_mainFrag"
+            app:popUpTo="@id/signupSuccessFrag"
+            app:popUpToInclusive="true"
+            app:destination="@id/mainFrag" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/myScheduleEditFrag"
+        android:name="com.alice.teampang.src.my_schedule.edit.MyScheduleEditFrag"
+        android:label="MyScheduleEditFrag"
+        tools:layout="@layout/frag_my_schedule_edit"/>
+    <fragment
+        android:id="@+id/myScheduleFrag"
+        android:name="com.alice.teampang.src.my_schedule.MyScheduleFrag"
+        android:label="MyScheduleFrag"
+        tools:layout="@layout/frag_my_schedule">
+        <action
+            android:id="@+id/action_myScheduleFrag_to_myScheduleEditFrag"
+            app:destination="@id/myScheduleEditFrag" />
+        <argument
+            android:name="isAdd"
+            app:argType="boolean" />
+    </fragment>
+    <fragment
+        android:id="@+id/myPageFrag"
+        android:name="com.alice.teampang.src.mypage.MyPageFrag"
+        android:label="MyPageFrag"
+        tools:layout="@layout/frag_my_page">
+        <action
+            android:id="@+id/action_myPageFrag_to_myScheduleFrag"
+            app:destination="@id/myScheduleFrag" />
+        <action
+            android:id="@+id/action_myPageFrag_to_settingFrag"
+            app:destination="@id/settingFrag" />
+        <action
+            android:id="@+id/action_myPageFrag_to_profileFrag"
+            app:destination="@id/profileFrag" />
+    </fragment>
+    <fragment
+        android:id="@+id/settingFrag"
+        android:name="com.alice.teampang.src.setting.SettingFrag"
+        android:label="SettingFrag"
+        tools:layout="@layout/frag_setting">
+        <action
+            android:id="@+id/action_settingFrag_to_loginFrag"
+            app:popUpTo="@id/settingFrag"
+            app:popUpToInclusive="true"
+            app:destination="@id/loginFrag" />
+    </fragment>
+    <fragment
+        android:id="@+id/profileFrag"
+        android:name="com.alice.teampang.src.profile.ProfileFrag"
+        android:label="ProfileFrag"
+        tools:layout="@layout/frag_profile">
+        <action
+            android:id="@+id/action_profileFrag_to_profileEditFrag"
+            app:destination="@id/profileEditFrag" />
+    </fragment>
+    <fragment
+        android:id="@+id/profileEditFrag"
+        android:name="com.alice.teampang.src.profile.edit.ProfileEditFrag"
+        android:label="ProfileEditFrag"
+        tools:layout="@layout/frag_profile_edit"/>
+    <fragment
+        android:id="@+id/planPossibleSelectionFrag"
+        android:name="com.alice.teampang.src.plan_possible.selection.PlanPossibleSelectionFrag"
+        android:label="PlanPossibleSelectionFrag" >
+        <action
+            android:id="@+id/action_planPossibleSelectionFrag_to_planPossibleComplete"
+            app:destination="@id/planPossibleComplete" />
+    </fragment>
+    <fragment
+        android:id="@+id/planPossibleInvitedFrag"
+        android:name="com.alice.teampang.src.plan_possible.invited.PlanPossibleInvitedFrag"
+        android:label="PlanPossibleInvitedFrag" >
+        <action
+            android:id="@+id/action_planPossibleInvitedFrag_to_planPossibleSelectionFrag"
+            app:destination="@id/planPossibleSelectionFrag" />
+    </fragment>
+    <fragment
+        android:id="@+id/planConfirmDateFrag"
+        android:name="com.alice.teampang.src.plan_confirm.date.PlanConfirmDateFrag"
+        android:label="PlanConfirmDateFrag" >
+        <action
+            android:id="@+id/action_planConfirmDateFrag_to_confirmfinal"
+            app:destination="@id/confirmfinal" />
+    </fragment>
+    <fragment
+        android:id="@+id/confirmfinal"
+        android:name="com.alice.teampang.src.plan_confirm.planshare.Confirmfinal"
+        android:label="Confirmfinal" />
+    <fragment
+        android:id="@+id/planPossibleComplete"
+        android:name="com.alice.teampang.src.plan_possible.complete.PlanPossibleCompleted"
+        android:label="PlanPossibleComplete" />
+    <fragment
+        android:id="@+id/planPossibleInvitationFrag"
+        android:name="com.alice.teampang.src.plan_possible.invitation.PlanPossibleInvitationFrag"
+        android:label="PlanPossibleInvitationFrag" >
+        <action
+            android:id="@+id/action_planPossibleInvitationFrag_to_planPossibleNameFrag"
+            app:destination="@id/planPossibleNameFrag" />
+    </fragment>
+
+</navigation>
