@@ -1,10 +1,13 @@
 package com.alice.teampang.src.plan_confirm.date.Dialog
 
 import android.annotation.SuppressLint
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.Window
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.fragment.app.DialogFragment
@@ -23,9 +26,9 @@ class YesNoDialogFragment() : DialogFragment(),
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.dialog_layout, container, false)
-        //어느 다이어로그에서 왔는지
-//        val bundle = arguments
-//        val notice = bundle.getParcelable<FavoriteNotice>(EXTRA_NOTICE_SAVE)
+        dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        dialog?.window?.requestFeature(Window.FEATURE_NO_TITLE)
+
         val yes_text = view.findViewById<CardView>(R.id.dialog_tv_yes)
         val no_text = view.findViewById<TextView>(R.id.dialog_tv_no)
         val mArgs = arguments

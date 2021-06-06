@@ -6,7 +6,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.alice.teampang.databinding.MyScheduleListBinding
-import com.alice.teampang.src.my_schedule.model.*
+import com.alice.teampang.model.Data
+import com.alice.teampang.model.Times
 
 
 

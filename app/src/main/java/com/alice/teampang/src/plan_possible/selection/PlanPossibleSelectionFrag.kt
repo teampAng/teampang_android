@@ -10,12 +10,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
-import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.alice.teampang.R
 import com.alice.teampang.databinding.FragPlanPossibleSelection2Binding
-import com.alice.teampang.src.BaseFrag
+import com.alice.teampang.base.BaseFrag
 import com.prolificinteractive.materialcalendarview.CalendarDay
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView
 import com.prolificinteractive.materialcalendarview.OnDateSelectedListener
@@ -24,6 +23,7 @@ import org.json.JSONObject
 import org.threeten.bp.DayOfWeek
 import org.threeten.bp.LocalDate
 import java.io.BufferedReader
+import java.io.IOException
 import java.io.InputStream
 import java.io.InputStreamReader
 import java.lang.StringBuilder
@@ -41,7 +41,7 @@ class PlanPossibleSelectionFrag() : BaseFrag(), View.OnClickListener, OnDateSele
     private var mEndPosition = 20
     private var arr = startdate.split("-").toTypedArray()
     private var arr2 = finishdate.split("-").toTypedArray()
-
+    private var name3 : String? = ""
     private var mAdapter: SelectionAdapter? = null
     private lateinit var mTeamFirstDate: LocalDate
     private lateinit var mTeamLastDate: LocalDate
@@ -59,7 +59,6 @@ class PlanPossibleSelectionFrag() : BaseFrag(), View.OnClickListener, OnDateSele
         savedInstanceState: Bundle?
     ): View {
         _binding = FragPlanPossibleSelection2Binding.inflate(inflater, container, false)
-
         titleCustom()
         textSettings()
         init()
@@ -86,6 +85,7 @@ class PlanPossibleSelectionFrag() : BaseFrag(), View.OnClickListener, OnDateSele
         when (v.id) {
             R.id.date_btn -> {
                 val data = getJsonFromAvailableSchedule(mDaySelectionMap)
+                name3 = arguments?.getString("membername2")
                 Log.i(TAG, "data = $data")
                 navController.navigate(R.id.action_planPossibleSelectionFrag_to_planPossibleComplete)
             }
@@ -128,7 +128,11 @@ class PlanPossibleSelectionFrag() : BaseFrag(), View.OnClickListener, OnDateSele
         // 개인 스케줄 설정
         setPersonalSchedule()
 
-        val personalScheduleList = getPersonalSchedulesFromJson(getJson())
+        val personalScheduleList = try {
+            getPersonalSchedulesFromJson(getJson())
+        }catch (e: IOException ){
+            e.printStackTrace()
+        }
 
         // 가져온 팀 스케줄과 개인 스케줄로 available 한 시간 설정
         var nextDate = mTeamFirstDate
@@ -195,7 +199,7 @@ class PlanPossibleSelectionFrag() : BaseFrag(), View.OnClickListener, OnDateSele
     //개인 스케쥴에서 오늘의 요일을 확인하고 스케줄을 가져온다.
 
     private fun getPersonScheduleOfTheDay(
-        personalScheduleList: ArrayList<PersonalScheduleData>,
+        personalScheduleList: Any,
         day: CalendarDay
     ): ArrayList<PersonalScheduleData>? {
         val list = ArrayList<PersonalScheduleData>()
@@ -403,4 +407,5 @@ class PlanPossibleSelectionFrag() : BaseFrag(), View.OnClickListener, OnDateSele
         const val TAG = "SelectionFragment"
         const val SELECTION_HOURS = 24
     }
+
 }

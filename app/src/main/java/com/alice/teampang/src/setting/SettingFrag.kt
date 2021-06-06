@@ -10,14 +10,13 @@ import androidx.appcompat.app.AlertDialog
 import androidx.navigation.Navigation
 import com.alice.teampang.R
 import com.alice.teampang.databinding.FragSettingBinding
-import com.alice.teampang.src.BaseFrag
-import com.alice.teampang.src.GlobalApplication
-import com.alice.teampang.src.GlobalApplication.Companion.ACCESS_TOKEN
-import com.alice.teampang.src.GlobalApplication.Companion.prefs
+import com.alice.teampang.base.BaseFrag
+import com.alice.teampang.application.GlobalApplication
+import com.alice.teampang.application.GlobalApplication.Companion.ACCESS_TOKEN
+import com.alice.teampang.application.GlobalApplication.Companion.prefs
 import com.alice.teampang.src.error.model.ErrorResponse
-import com.alice.teampang.src.setting.interfaces.SettingFragView
-import com.alice.teampang.src.setting.model.LogoutBody
-import com.alice.teampang.src.setting.model.LogoutResponse
+import com.alice.teampang.model.LogoutBody
+import com.alice.teampang.model.LogoutResponse
 
 class SettingFrag : BaseFrag(), SettingFragView, View.OnClickListener {
 

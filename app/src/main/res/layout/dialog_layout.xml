@@ -5,7 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:gravity="center"
     android:orientation="vertical"
-    >
+    android:background="@drawable/alert_white_border">
             <ImageView
                 android:layout_width="46dp"
                 android:layout_height="46dp"

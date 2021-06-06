@@ -5,16 +5,13 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.navigation.NavController
+import androidx.core.os.bundleOf
 import androidx.navigation.Navigation
 import com.alice.teampang.R
 import com.alice.teampang.databinding.FragPlanCreateCalendarBinding
-import com.alice.teampang.src.BaseFrag
+import com.alice.teampang.base.BaseFrag
 import com.prolificinteractive.materialcalendarview.CalendarDay
-import com.prolificinteractive.materialcalendarview.DayViewDecorator
-import com.prolificinteractive.materialcalendarview.DayViewFacade
 import org.threeten.bp.LocalDate
-import java.time.format.DateTimeFormatter
 import java.util.*
 
 
@@ -60,11 +57,11 @@ class PlanCreateCalendarFrag : BaseFrag(), View.OnClickListener {
         //최소 최대 날짜 지정
         val cal = Calendar.getInstance()
         cal.set(year, month + 1, 1)
-        val maxDay: Int = cal.getActualMaximum(Calendar.DAY_OF_MONTH)
+        val maxDay: Int = cal.getActualMaximum(Calendar.DAY_OF_MONTH) //현재 달의 말일
 
         binding.calendarView.state().edit()
             .setMinimumDate(CalendarDay.from(year, month, 1))
-            .setMaximumDate(CalendarDay.from(year, month + 2, maxDay))
+            .setMaximumDate(CalendarDay.from(year, month + 2, maxDay)) //현재달 +2달까지 보여줌
             .commit()
 
         setDisabledDates()
@@ -79,7 +76,9 @@ class PlanCreateCalendarFrag : BaseFrag(), View.OnClickListener {
             R.id.btn_back -> navController.popBackStack()
             R.id.btn_next -> {
                 if (startDate != "" && endDate != "") {
-                    navController.navigate(R.id.action_planCreateCalendarFrag_to_planCreateTimeFrag)
+                    val name2 = arguments?.getString("planname")
+                    val datas = bundleOf("startDate" to startDate, "endDate" to endDate, "planname2" to name2)
+                    navController.navigate(R.id.action_planCreateCalendarFrag_to_planCreateTimeFrag,datas)
                 } else showCustomToast("일정을 선택해주세요")
             }
         }
@@ -97,7 +96,7 @@ class PlanCreateCalendarFrag : BaseFrag(), View.OnClickListener {
 
     private fun rangeCalendar() {
         binding.calendarView.setOnRangeSelectedListener { widget, dates ->
-            for (i in dates.indices) {
+            for (i in dates.indices) { //indices?
                 dateList.add(dates[i].date)
             }
             if (dateList.size > 28) {
@@ -106,7 +105,7 @@ class PlanCreateCalendarFrag : BaseFrag(), View.OnClickListener {
                 Log.d("why", dateList.toString())
                 for (i in 28 until dateList.size) {
                     Log.d("why", dateList[28].toString())
-                    removeList.add(dateList[28])
+                    removeList.add(dateList[28])  //28번째 (29)를 제거하면 range가 스탑되니?
                     dateList.removeAt(28)
                 }
                 setEvent(removeList, transparent)
@@ -144,7 +143,7 @@ class PlanCreateCalendarFrag : BaseFrag(), View.OnClickListener {
         binding.calendarView.invalidateDecorators()
     }
 
-    private fun setDisabledDates() {
+    private fun setDisabledDates() { //확인
         val disabledList = ArrayList<LocalDate>()
         for (i in 1 until day) {
             disabledList.add(LocalDate.of(year, month, i))

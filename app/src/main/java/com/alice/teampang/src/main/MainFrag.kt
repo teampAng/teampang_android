@@ -10,12 +10,12 @@ import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.fragment.app.FragmentTransaction
 import androidx.navigation.NavController
-import androidx.navigation.Navigation
 import com.alice.teampang.R
 import com.alice.teampang.databinding.FragMainBinding
-import com.alice.teampang.src.BaseFrag
+import com.alice.teampang.base.BaseFrag
 import com.alice.teampang.src.main.`when`.WhenFrag
 import com.alice.teampang.src.main.how.HowFrag
+import com.alice.teampang.src.main.where.WhereFrag
 
 lateinit var navController: NavController
 private lateinit var myContext: Context
@@ -31,10 +31,13 @@ class MainFrag : BaseFrag() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+
         _binding = FragMainBinding.inflate(inflater, container, false)
         val view = binding.root
         myContext = requireContext()
-
+        val fragmentTransaction = fragmentManager!!.beginTransaction()
+        fragmentTransaction.replace(R.id.framelayout, WhenFrag()).commit()
+        binding.bottomNavigationView.selectedItemId = R.id.bottom_date
         binding.bottomNavigationView.setOnNavigationItemSelectedListener { it ->
             val transaction: FragmentTransaction = fragmentManager!!.beginTransaction()
             when (it.itemId) {
@@ -46,7 +49,7 @@ class MainFrag : BaseFrag() {
                         ).commit()
                         test = "plan"
                     }
-                    false
+                    true
                 }
                 R.id.bottom_date -> {
                     if (!test.equals("date")) {
@@ -56,17 +59,17 @@ class MainFrag : BaseFrag() {
                         ).commit()
                         test = "date"
                     }
-                    false
+                    true
                 }
                 R.id.bottom_location -> {
                     if (!test.equals("location")) {
                         transaction.replace(    //fragment가 해당 layout으로 대체됨
                             R.id.framelayout,
-                            WhenFrag()
+                            WhereFrag()
                         ).commit()
                         test = "location"
                     }
-                    false
+                    true
                 }
                 else -> {
                     false

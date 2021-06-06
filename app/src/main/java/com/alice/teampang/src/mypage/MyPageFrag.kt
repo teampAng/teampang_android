@@ -7,14 +7,13 @@ import android.util.TypedValue
 import android.view.*
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
-import androidx.navigation.Navigation
 import com.alice.teampang.R
 import com.alice.teampang.databinding.FragMyPageBinding
-import com.alice.teampang.src.BaseFrag
-import com.alice.teampang.src.GlobalApplication.Companion.UNIV_MAJOR
-import com.alice.teampang.src.GlobalApplication.Companion.UNIV_NAME
-import com.alice.teampang.src.GlobalApplication.Companion.USER_NICKNAME
-import com.alice.teampang.src.GlobalApplication.Companion.prefs
+import com.alice.teampang.base.BaseFrag
+import com.alice.teampang.application.GlobalApplication.Companion.UNIV_MAJOR
+import com.alice.teampang.application.GlobalApplication.Companion.UNIV_NAME
+import com.alice.teampang.application.GlobalApplication.Companion.USER_NICKNAME
+import com.alice.teampang.application.GlobalApplication.Companion.prefs
 
 class MyPageFrag : BaseFrag(), View.OnClickListener {
 

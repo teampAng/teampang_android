@@ -28,5 +28,6 @@
         app:itemTextColor="@color/menu_selector_color"
         app:itemBackground="@android:color/white"
         app:labelVisibilityMode="labeled"
+        
         />
 </androidx.constraintlayout.widget.ConstraintLayout>

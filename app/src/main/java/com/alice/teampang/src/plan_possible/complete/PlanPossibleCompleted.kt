@@ -4,12 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.alice.teampang.R
 import com.alice.teampang.databinding.FragPlanPossibleCompleteBinding
-import com.alice.teampang.databinding.FragPlanPossibleInvitationBinding
-import com.alice.teampang.src.BaseFrag
+import com.alice.teampang.base.BaseFrag
 
 class PlanPossibleCompleted : BaseFrag(), View.OnClickListener {
 
@@ -39,7 +37,7 @@ class PlanPossibleCompleted : BaseFrag(), View.OnClickListener {
     override fun onClick(v: View) {
         when(v.id) {
             R.id.plan_complete_btn -> {
-//                navController.navigate(R.id.action_planPossibleInvitationFrag_to_planPossibleNameFrag)
+             navController.navigate(R.id.action_planPossibleComplete_to_mainFrag)
             }
         }
     }

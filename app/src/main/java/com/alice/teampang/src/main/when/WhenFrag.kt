@@ -2,34 +2,34 @@ package com.alice.teampang.src.main.`when`
 
 
 import android.annotation.SuppressLint
-import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.alice.teampang.R
 import com.alice.teampang.databinding.FragmentDateBinding
-import com.alice.teampang.src.BaseFrag
+import com.alice.teampang.base.BaseFrag
+import com.alice.teampang.src.error.model.ErrorResponse
+import com.alice.teampang.model.ConfirmedTimes
+import com.alice.teampang.model.Results
+import com.alice.teampang.model.WhenResponse
 import com.alice.teampang.ui.adapter.CustomAdapter
-import java.text.DateFormat
+import java.lang.Exception
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
-import kotlin.time.days
 
-class WhenFrag : BaseFrag(), View.OnClickListener {
+class WhenFrag : BaseFrag(), View.OnClickListener, WhenFragView {
 
     private var _binding: FragmentDateBinding? = null
     private val binding get() = _binding!!
-    private var maindata: ArrayList<homedata>? = ArrayList()
-    private var data2: homedata? = null
-
-
+    private var mainData: ArrayList<homedata>? = ArrayList()
+    private var mainData2: ArrayList<Results> = ArrayList()
+    private var confirmedTimes: ArrayList<ConfirmedTimes> = ArrayList()
+    private lateinit var adapter: CustomAdapter
+    private var id : Int? = null
     @SuppressLint("CutPasteId")
 
     override fun onCreateView(
@@ -39,16 +39,18 @@ class WhenFrag : BaseFrag(), View.OnClickListener {
     ): View {
         _binding = FragmentDateBinding.inflate(inflater, container, false)
         val view = binding.root
-
         settings()
-        putdata()
+        getRecyclerView()
         setUrgentPlan()
-        val adapter = CustomAdapter(requireContext(), maindata!!)
-        view.findViewById<RecyclerView>(R.id.recyclerview_main_list).adapter = adapter
-        view.findViewById<RecyclerView>(R.id.recyclerview_main_list).layoutManager =
-            LinearLayoutManager(
-                context, LinearLayoutManager.VERTICAL, false
-            )
+        getData()
+
+//        binding.dateText12.setOnClickListener {
+//            navController.navigate(R.id.action_mainFrag_to_teamDetailBeforeFrag)
+//        }
+//        binding.test.setOnClickListener {
+//            navController.navigate(R.id.action_mainFrag_to_teamDetailAfterFrag)
+//        }
+
         return view
     }
 
@@ -59,7 +61,6 @@ class WhenFrag : BaseFrag(), View.OnClickListener {
 
         binding.btnMypage.setOnClickListener(this)
         binding.btnPlanCreate.setOnClickListener(this)
-
     }
 
 
@@ -69,12 +70,12 @@ class WhenFrag : BaseFrag(), View.OnClickListener {
 
     @SuppressLint("SimpleDateFormat")
     fun putdata() {
-        maindata!!.add(homedata(1, "팀프앙 회의1", "2021-03-15", "우리집1", countdday("2021-03-15")))
-        maindata!!.add(homedata(2, "팀프앙 회의2", "2021-03-14", null, countdday("2021-03-14")))
-        maindata!!.add(homedata(3, "팀프앙 회의3", "2021-03-17", "우리집3", countdday("2021-03-17")))
-        maindata!!.add(homedata(4, "팀프앙 회의4", "2021-03-18", "우리집4", countdday("2021-03-18")))
+        mainData!!.add(homedata(1, "팀프앙 회의1", "2021-03-15", "우리집1", countdday("2021-03-15")))
+        mainData!!.add(homedata(2, "팀프앙 회의2", "2021-03-14", null, countdday("2021-03-14")))
+        mainData!!.add(homedata(3, "팀프앙 회의3", "2021-03-17", "우리집3", countdday("2021-03-17")))
+        mainData!!.add(homedata(4, "팀프앙 회의4", "2021-03-18", "우리집4", countdday("2021-03-18")))
 
-        maindata!!.sortWith(Comparator { o1, o2 ->
+        mainData!!.sortWith(Comparator { o1, o2 ->
             val firstplantime = o1?.plantime
             val secondplantime = o2?.plantime
             val format = SimpleDateFormat("yyyy-MM-dd")
@@ -84,6 +85,7 @@ class WhenFrag : BaseFrag(), View.OnClickListener {
             date!!.compareTo(date2)
         })
     }
+
 
     //현재날짜 - plantime 현재날짜
     fun countdday(plantime: String): String {
@@ -118,12 +120,12 @@ class WhenFrag : BaseFrag(), View.OnClickListener {
             R.drawable.list__icon6
         )
         val rand = Random()
-        if (maindata!!.size > 1) {
-            binding.dateText5.setText(maindata!![0].planplace)
-            binding.dateText4.setText(maindata!![0].plantime)
-            binding.dateText0.setText(maindata!![0].planname)
+        if (mainData!!.size > 1) {
+            binding.dateText5.setText(mainData!![0].planplace)
+            binding.dateText4.setText(mainData!![0].plantime)
+            binding.dateText0.setText(mainData!![0].planname)
             binding.urgentImage.setImageResource(images[rand.nextInt(images.size)])
-            if (maindata!![0].planplace == null) {
+            if (mainData!![0].planplace == null) {
                 binding.dateText5.setText("장소 미정")
             } else {
                 binding.dateText4.setText("시간 정보가 없습니다.")
@@ -133,15 +135,58 @@ class WhenFrag : BaseFrag(), View.OnClickListener {
         }
     }
 
+    private fun getData() {
+        val whenService = WhenService(this)
+        whenService.getWhen()
+    }
+
     override fun onClick(v: View) {
         when (v) {
-            binding.btnMypage -> navController.navigate(R.id.action_mainFrag_to_myPageFrag)
+            binding.btnMypage -> {
+                navController.navigate(R.id.action_mainFrag_to_myPageFrag)
+            }
+//            binding.test -> {navController.navigate(R.id.action_mainFrag_to_teamDetailBeforeFrag)}
+//            binding.dateText12 -> {navController.navigate(R.id.action_mainFrag_to_teamDetailAfterFrag)}
             binding.btnPlanCreate -> {
                 navController.navigate(R.id.action_mainFrag_to_planCreateNameFrag)
             }
         }
     }
+
+    private fun getRecyclerView() {
+        adapter = CustomAdapter(mainData2){
+            //Todo 상세화면 이동 코드
+        }
+        binding.recyclerviewMainList.adapter = adapter
+
+        binding.recyclerviewMainList.layoutManager =
+            LinearLayoutManager(
+                context, LinearLayoutManager.VERTICAL, false
+            )
+        binding.recyclerviewMainList.setHasFixedSize(true)
+    }
+
+    override fun WhenSuccess(whenResponse: WhenResponse) {
+        when (whenResponse.status) {
+            200 -> {
+                try {
+                    mainData2.addAll(whenResponse.data[0].results)
+                    id = mainData2[0].id
+                    adapter.notifyDataSetChanged()
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                }
+            }
+            else -> showCustomToast(whenResponse.message)
+        }
+    }
+
+    override fun WhenError(errorResponse: ErrorResponse) {
+    }
+
+    override fun WhenFailure(message: Throwable?) {
+    }
 }
 
 
-// adapter.notifyDataSetChanged()
+

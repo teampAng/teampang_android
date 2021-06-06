@@ -1,10 +1,8 @@
 package com.alice.teampang.src.my_schedule
 
-import com.alice.teampang.src.GlobalApplication.Companion.getRetrofit
+import com.alice.teampang.model.MyScheduleResponse
+import com.alice.teampang.retrofit.RetrofitHelper
 import com.alice.teampang.src.error.ErrorUtils
-import com.alice.teampang.src.my_schedule.model.*
-import com.alice.teampang.src.my_schedule.interfaces.MyScheduleFragView
-import com.alice.teampang.src.my_schedule.interfaces.MyScheduleRetrofitInterface
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
@@ -14,10 +12,7 @@ class MyScheduleService(myScheduleFragView: MyScheduleFragView) {
     val mMyScheduleFragView: MyScheduleFragView = myScheduleFragView
 
     fun getMySchedule() {
-        val myScheduleRetrofitInterface: MyScheduleRetrofitInterface = getRetrofit()!!.create(
-            MyScheduleRetrofitInterface::class.java
-        )
-        myScheduleRetrofitInterface.getMySchedule().enqueue(object :
+        RetrofitHelper.RetrofitForInterface().getMySchedule().enqueue(object :
             Callback<MyScheduleResponse?> {
             override fun onResponse(
                 call: Call<MyScheduleResponse?>,

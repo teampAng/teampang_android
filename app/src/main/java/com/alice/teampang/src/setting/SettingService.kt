@@ -1,10 +1,9 @@
 package com.alice.teampang.src.setting
 
-import com.alice.teampang.src.GlobalApplication.Companion.getRetrofit
+import com.alice.teampang.model.LogoutBody
+import com.alice.teampang.model.LogoutResponse
+import com.alice.teampang.retrofit.RetrofitHelper
 import com.alice.teampang.src.error.ErrorUtils
-import com.alice.teampang.src.login.interfaces.SettingRetrofitInterface
-import com.alice.teampang.src.setting.interfaces.SettingFragView
-import com.alice.teampang.src.setting.model.*
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
@@ -14,10 +13,7 @@ class SettingService(settingFragView: SettingFragView) {
     val mSettingFragView: SettingFragView = settingFragView
 
     fun postLogout(logoutBody: LogoutBody) {
-        val settingRetrofitInterface: SettingRetrofitInterface = getRetrofit()!!.create(
-            SettingRetrofitInterface::class.java
-        )
-        settingRetrofitInterface.postLogout(logoutBody).enqueue(object :
+        RetrofitHelper.RetrofitForInterface().postLogout(logoutBody).enqueue(object :
             Callback<LogoutResponse?> {
             override fun onResponse(
                 call: Call<LogoutResponse?>,

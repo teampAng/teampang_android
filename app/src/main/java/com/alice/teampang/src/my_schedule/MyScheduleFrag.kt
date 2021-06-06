@@ -3,7 +3,6 @@ package com.alice.teampang.src.my_schedule
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
@@ -13,12 +12,11 @@ import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.alice.teampang.R
 import com.alice.teampang.databinding.FragMyScheduleBinding
-import com.alice.teampang.src.BaseFrag
+import com.alice.teampang.base.BaseFrag
+import com.alice.teampang.model.Data
+import com.alice.teampang.model.MyScheduleResponse
 import com.alice.teampang.src.error.model.ErrorResponse
-import com.alice.teampang.src.my_schedule.interfaces.MyScheduleFragView
-import com.alice.teampang.src.my_schedule.model.*
-import com.alice.teampang.src.my_schedule.model.Times
-import com.alice.teampang.src.splash.SplashService
+import com.alice.teampang.model.Times
 
 class MyScheduleFrag : BaseFrag(), MyScheduleFragView, View.OnClickListener {
 

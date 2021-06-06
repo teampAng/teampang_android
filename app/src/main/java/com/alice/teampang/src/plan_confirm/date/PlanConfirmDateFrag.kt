@@ -10,17 +10,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.cardview.widget.CardView
 import androidx.core.os.bundleOf
-import androidx.fragment.app.setFragmentResult
-import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.alice.teampang.R
 import com.alice.teampang.databinding.FragPlanConfirmDateBinding
-import com.alice.teampang.src.BaseFrag
+import com.alice.teampang.base.BaseFrag
 import com.alice.teampang.src.plan_confirm.date.Dialog.YesNoDialogFragment
-import com.alice.teampang.src.plan_confirm.planshare.Confirmfinal
-import com.alice.teampang.src.plan_possible.selection.PlanPossibleSelectionFrag
-import com.alice.teampang.src.plan_possible.selection.PlanPossibleSelectionFrag.Companion.SELECTION_HOURS
 import com.prolificinteractive.materialcalendarview.CalendarDay
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView
 import com.prolificinteractive.materialcalendarview.OnDateSelectedListener
@@ -39,7 +34,6 @@ class PlanConfirmDateFrag : BaseFrag(), OnDateSelectedListener {
     private var mPersonalSchedule: ArrayList<ConfirmTimeData> = ArrayList()
     private var mTeamScheduleList: ArrayList<CalendarDay> = ArrayList()
     private var mTeamScheduleList2: ArrayList<CalendarDay> = ArrayList()
-    private var mTeamScheduleList3: ArrayList<CalendarDay> = ArrayList()
     private var mAdapter: ConfirmAdapter? = null
     private var startdate = "2021-04-05" //팀장이 정한 시작 기간을 다음과 같이 서버에서 가져와줌
     private var finishdate = "2021-04-10" //팀장이 정한 끝 기간
@@ -53,9 +47,10 @@ class PlanConfirmDateFrag : BaseFrag(), OnDateSelectedListener {
     private lateinit var mEnableDecorator: DayEnableDecorator
     private var disabledList = ArrayList<CalendarDay>()
     private var ableList = ArrayList<CalendarDay>()
-    private var availableTimes = JSONObject()
+    private var availableTimes2 = JSONObject()
     private var strings3 = ArrayList<String>()
     private var strings4 = ArrayList<String>()
+    private var strings5 = ArrayList<String>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -73,11 +68,10 @@ class PlanConfirmDateFrag : BaseFrag(), OnDateSelectedListener {
 
         val button1 = view.findViewById<CardView>(R.id.date_btn2)
         button1.setOnClickListener{
-            gettime(mDaySelectionMap)
-
-            val bundle2 = bundleOf("strings3" to strings3,"json" to availableTimes.toString())
-            Log.i(TAG2, "mValue3 = $strings3")
-            navController.navigate(R.id.action_planConfirmDateFrag_to_confirmfinal,bundle2)
+          val x = gettime(mDaySelectionMap)
+            val bundle2 = bundleOf("data2" to strings3)
+                Log.i(TAG2, "timelist1 = $bundle2")
+        navController.navigate(R.id.action_planConfirmDateFrag_to_confirmfinal, bundle2)
         }
         return view
     }
@@ -299,13 +293,11 @@ class PlanConfirmDateFrag : BaseFrag(), OnDateSelectedListener {
                         val args2 = Bundle()
                         args2.putString("key", selection.titleOfSchedule)
                         dialog2.arguments = args2
-                        //dialog2.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-                        //dialog2.window?.requestFeature(Window.FEATURE_NO_TITLE)
                         dialog2.show(fragmentManager, "hi")
                         dialog2.setOnItemClickListener(object :
                             YesNoDialogFragment.DialClickListener {
                             override fun DialMemberClick(check: Boolean) {
-//                            selection.membernone = !selection.membernone   //콜백 리스너 활용해서 yes를 누를시에 해당변수가 true로
+//                            selection.membernone = !selection.m   embernone   //콜백 리스너 활용해서 yes를 누를시에 해당변수가 true로
                                 selection.membernone = true
                                 mAdapter!!.notifyItemChanged(position)
                             }
@@ -349,22 +341,41 @@ class PlanConfirmDateFrag : BaseFrag(), OnDateSelectedListener {
         Log.d("able",ableList.toString())
     }
 
-    private fun gettime(map: ArrayMap<CalendarDay, ArrayList<Confirm>>) {
+    private fun gettime(map: ArrayMap<CalendarDay, ArrayList<Confirm>>): JSONObject {
+        // 시간이 연속되는지를 확인하기 위한 변수
+        var isContinue: Boolean = false
+        // obj scope 변경
+        lateinit var obj: JSONObject
         val jsonDayAndTime = JSONArray()
         for (e in map) {
             for (i in 0 until SELECTION_HOURS) {
                 if (e.value[i].membernone) {
-                    val obj = JSONObject()
-                    obj.put("date", e.key.date)
-                    obj.put("time", e.value[i].toString())
+                    // membernone이면 start
+                    if (!isContinue) {
+                        obj = JSONObject()
+                        obj.put("start_datetime", "${e.key.date} " + e.value[i].toString()+ ":00")
+                        strings3.add("${e.key.date} " + e.value[i].toString())
+                    }
+
+                    // 다음 시간도 membernone이면 end_datetime은 다음번에 추가하기 위한 조건
+                    if ((i < SELECTION_HOURS -1) && (e.value[i + 1].membernone)) {
+                        isContinue = true
+                        continue
+                    }
+
+                    // end_datetime을 마지막 시간으로 추가
+                    isContinue = false
+                    obj.put("end_datetime", "${e.key.date} " + (e.value[i].id +1) + ":00")
                     jsonDayAndTime.put(obj)
-                    strings3.add(e.key.date.toString())
-                    strings3.add(e.value[i].toString())
+                    strings3.add("${e.key.date} " + (e.value[i].id +1))
                 }
             }
         }
-        availableTimes.put("available_times", jsonDayAndTime)
+        Log.d(TAG2, "json = $jsonDayAndTime")
+        availableTimes2.put("confirmed_times", jsonDayAndTime)
+        return availableTimes2
     }
+
 
     companion object {
         const val TAG2 = "ConfrimDateFrag"
@@ -398,4 +409,22 @@ class PlanConfirmDateFrag : BaseFrag(), OnDateSelectedListener {
 	},
 	]
 }
+ */
+/*
+id: 1
+confirmed_times : [
+   {
+    start_datetime: "2021-03-12 14:00"
+    end_datetime: "2021-03-12 15:00"
+   },
+{
+    start_datetime: "2021-03-12 17:00"
+    end_datetime: "2021-03-12 18:00"
+   },
+   {
+    start_datetime: "2021-03-13 15:00"
+    end_datetime: "2021-03-13 18:00"
+   }
+]
+
  */

@@ -12,7 +12,7 @@ import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.alice.teampang.R
 import com.alice.teampang.databinding.FragPlanConfirmDateBinding
-import com.alice.teampang.src.BaseFrag
+import com.alice.teampang.base.BaseFrag
 import com.alice.teampang.src.plan_possible.selection.PlanPossibleSelectionFrag.Companion.SELECTION_HOURS
 import com.alice.teampang.src.plan_confirm.date.Dialog.YesNoDialogFragment
 import com.prolificinteractive.materialcalendarview.CalendarDay

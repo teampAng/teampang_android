@@ -1,7 +1,7 @@
 package com.alice.teampang.config
 
-import com.alice.teampang.src.GlobalApplication.Companion.ACCESS_TOKEN
-import com.alice.teampang.src.GlobalApplication.Companion.prefs
+import com.alice.teampang.application.GlobalApplication.Companion.ACCESS_TOKEN
+import com.alice.teampang.application.GlobalApplication.Companion.prefs
 import okhttp3.Interceptor
 import okhttp3.Response
 import java.io.IOException

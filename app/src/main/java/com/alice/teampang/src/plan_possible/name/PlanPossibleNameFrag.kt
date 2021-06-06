@@ -11,11 +11,10 @@ import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
 import androidx.core.os.bundleOf
-import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.alice.teampang.R
 import com.alice.teampang.databinding.FragPlanPossibleNameBinding
-import com.alice.teampang.src.BaseFrag
+import com.alice.teampang.base.BaseFrag
 
 private lateinit var membername : String
 class PlanPossibleNameFrag : BaseFrag(), View.OnClickListener {

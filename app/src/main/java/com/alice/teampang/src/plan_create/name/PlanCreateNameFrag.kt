@@ -11,11 +11,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
-import androidx.navigation.NavController
+import androidx.core.os.bundleOf
 import androidx.navigation.Navigation
 import com.alice.teampang.R
 import com.alice.teampang.databinding.FragPlanCreateNameBinding
-import com.alice.teampang.src.BaseFrag
+import com.alice.teampang.base.BaseFrag
 
 class PlanCreateNameFrag : BaseFrag(), View.OnClickListener {
 
@@ -42,7 +42,7 @@ class PlanCreateNameFrag : BaseFrag(), View.OnClickListener {
         navController = Navigation.findNavController(view)
 
         val listener = EnterListener()
-        binding.tvEdit.setOnEditorActionListener(listener)
+        binding.tvEdit.setOnEditorActionListener(listener) //keypad에서 enter 누를 시 키보드 내려감
 
         binding.tvEdit.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(p0: Editable?) {
@@ -76,12 +76,13 @@ class PlanCreateNameFrag : BaseFrag(), View.OnClickListener {
             binding.btnNext -> {
                 if (planName != "") {
                     hideKeyBoard()
-                    navController.navigate(R.id.action_planCreateNameFrag_to_planCreateCalendarFrag)
+                    val name = bundleOf("planname" to planName)
+                    navController.navigate(R.id.action_planCreateNameFrag_to_planCreateCalendarFrag,name)
                 } else {
                     showCustomToast("일정 이름을 입력해주세요.")
                 }
             }
-            binding.layout -> hideKeyBoard()
+            binding.layout -> hideKeyBoard() //아무곳이나 터치 시 키보드 숨김
         }
     }
 
@@ -100,7 +101,7 @@ class PlanCreateNameFrag : BaseFrag(), View.OnClickListener {
     }
 
 
-    override fun onDestroyView() {
+    override fun onDestroyView() {  //??
         super.onDestroyView()
         _binding = null
     }

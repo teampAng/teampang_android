@@ -6,13 +6,16 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
-import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.alice.teampang.R
 import com.alice.teampang.databinding.FragPlanCreateTimeBinding
-import com.alice.teampang.src.BaseFrag
+import com.alice.teampang.base.BaseFrag
+import com.alice.teampang.src.error.model.ErrorResponse
+import com.alice.teampang.src.plan_create.time.interfaces.PlanCreateFragView
+import com.alice.teampang.src.plan_create.time.model.PlanCreateData
+import com.alice.teampang.src.plan_create.time.model.PlanCreateResponse
 
-class PlanCreateTimeFrag : BaseFrag(), View.OnClickListener {
+class PlanCreateTimeFrag : BaseFrag(), View.OnClickListener,PlanCreateFragView {
 
     private lateinit var time_array: ArrayList<ImageView>
     private lateinit var box_array: ArrayList<LinearLayout>
@@ -56,7 +59,13 @@ class PlanCreateTimeFrag : BaseFrag(), View.OnClickListener {
         when (v) {
             binding.btnBack -> navController.popBackStack()
             binding.btnNext -> {
+                val myPlanCreateService = PlanCreateService(this)
                 if (start_time != -1 && end_time != -1) {
+                    val startdate = arguments?.getString("startDate")
+                    val enddate = arguments?.getString("endDate")
+                    val planname = arguments?.getString("planname2")
+                    val myPlanCreateData = PlanCreateData(planname!!,startdate!!,enddate!!,start_time.toString(),end_time.toString())
+                    myPlanCreateService.PostPlanCreate(myPlanCreateData)
                     navController.navigate(R.id.action_planCreateTimeFrag_to_planCreateShareFrag)
                 } else showCustomToast("일정 시간 범위를 선택해주세요")
             }
@@ -218,6 +227,18 @@ class PlanCreateTimeFrag : BaseFrag(), View.OnClickListener {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    override fun PlanCreateSuccess(PlanCreateResponse: PlanCreateResponse) {
+        TODO("Not yet implemented")
+    }
+
+    override fun PlanCreateError(errorResponse: ErrorResponse) {
+        TODO("Not yet implemented")
+    }
+
+    override fun PlanCreateFailure(message: Throwable?) {
+        TODO("Not yet implemented")
     }
 }
 

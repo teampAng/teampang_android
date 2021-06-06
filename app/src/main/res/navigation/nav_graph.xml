@@ -235,7 +235,11 @@
     <fragment
         android:id="@+id/planPossibleComplete"
         android:name="com.alice.teampang.src.plan_possible.complete.PlanPossibleCompleted"
-        android:label="PlanPossibleComplete" />
+        android:label="PlanPossibleComplete" >
+        <action
+            android:id="@+id/action_planPossibleComplete_to_mainFrag"
+            app:destination="@id/mainFrag" />
+    </fragment>
     <fragment
         android:id="@+id/planPossibleInvitationFrag"
         android:name="com.alice.teampang.src.plan_possible.invitation.PlanPossibleInvitationFrag"

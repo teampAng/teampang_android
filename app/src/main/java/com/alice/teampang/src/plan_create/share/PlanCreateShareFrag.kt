@@ -4,14 +4,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.navigation.NavController
 import androidx.navigation.Navigation
-import com.alice.teampang.R
 import com.alice.teampang.databinding.FragPlanCreateShareBinding
-import com.alice.teampang.src.BaseFrag
-import com.alice.teampang.src.GlobalApplication.Companion.USER_NICKNAME
-import com.alice.teampang.src.GlobalApplication.Companion.kakaoLink
-import com.alice.teampang.src.GlobalApplication.Companion.prefs
+import com.alice.teampang.base.BaseFrag
+import com.alice.teampang.application.GlobalApplication.Companion.USER_NICKNAME
+import com.alice.teampang.application.GlobalApplication.Companion.kakaoLink
+import com.alice.teampang.application.GlobalApplication.Companion.prefs
 
 class PlanCreateShareFrag : BaseFrag(), View.OnClickListener {
 

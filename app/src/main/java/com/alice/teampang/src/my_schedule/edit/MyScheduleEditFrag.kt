@@ -20,10 +20,12 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.alice.teampang.databinding.*
-import com.alice.teampang.src.BaseFrag
+import com.alice.teampang.base.BaseFrag
+import com.alice.teampang.model.MyScheduleBody
+import com.alice.teampang.model.PostScheduleResponse
+import com.alice.teampang.model.Times
 import com.alice.teampang.src.error.model.ErrorResponse
-import com.alice.teampang.src.my_schedule.interfaces.MyScheduleEditFragView
-import com.alice.teampang.src.my_schedule.model.*
+
 
 
 class MyScheduleEditFrag : BaseFrag(), MyScheduleEditFragView, View.OnClickListener {

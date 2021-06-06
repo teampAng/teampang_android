@@ -1,29 +1,21 @@
 package com.alice.teampang.src.plan_possible.invited
 
-import android.content.Context
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
-import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.InputMethodManager
-import android.widget.TextView
-import androidx.navigation.NavController
+import androidx.core.os.bundleOf
 import androidx.navigation.Navigation
 import com.alice.teampang.R
-import com.alice.teampang.databinding.FragPlanPossibleInvitationBinding
 import com.alice.teampang.databinding.FragPlanPossibleInvitedBinding
-import com.alice.teampang.databinding.FragPlanPossibleNameBinding
-import com.alice.teampang.src.BaseFrag
+import com.alice.teampang.base.BaseFrag
 
 class PlanPossibleInvitedFrag : BaseFrag(), View.OnClickListener {
 
 
     private var _binding: FragPlanPossibleInvitedBinding? = null
     private val binding get() = _binding!!
-
+    private var name1 : String? = ""
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -32,6 +24,7 @@ class PlanPossibleInvitedFrag : BaseFrag(), View.OnClickListener {
     ): View {
         _binding = FragPlanPossibleInvitedBinding.inflate(inflater, container, false)
         val view = binding.root
+        name1 = arguments?.getString("membername")
         return view
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -39,12 +32,13 @@ class PlanPossibleInvitedFrag : BaseFrag(), View.OnClickListener {
 
         navController = Navigation.findNavController(view)
 
-        binding.possibleInvitedBtn.setOnClickListener(this)
+        binding.planInvitedBtn.setOnClickListener(this)
     }
     override fun onClick(v: View) {
         when(v.id) {
-            R.id.possible_invited_btn -> {
-              navController.navigate(R.id.action_planPossibleInvitedFrag_to_planPossibleSelectionFrag)
+            R.id.plan_invited_btn -> {
+                val name2 = bundleOf("membername2" to name1)
+              navController.navigate(R.id.action_planPossibleInvitedFrag_to_planPossibleSelectionFrag, name2)
             }
         }
     }

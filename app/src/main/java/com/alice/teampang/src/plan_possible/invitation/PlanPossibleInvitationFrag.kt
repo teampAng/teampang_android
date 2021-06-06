@@ -2,21 +2,14 @@ package com.alice.teampang.src.plan_possible.invitation
 
 import android.content.Context
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.util.Log
-import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.InputMethodManager
-import android.widget.TextView
-import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.alice.teampang.R
 import com.alice.teampang.databinding.FragPlanPossibleInvitationBinding
-import com.alice.teampang.databinding.FragPlanPossibleNameBinding
-import com.alice.teampang.src.BaseFrag
+import com.alice.teampang.base.BaseFrag
 import com.kakao.sdk.common.util.Utility
 
 class PlanPossibleInvitationFrag : BaseFrag(), View.OnClickListener {

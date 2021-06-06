@@ -11,4 +11,7 @@ data class Confirm(val id : Int){
 
     var isAvailableTime = false
 
+    override fun toString(): String {
+        return "$id"
+    }
 }

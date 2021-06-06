@@ -4,22 +4,22 @@ import android.os.Bundle
 import android.text.SpannableString
 import android.text.style.UnderlineSpan
 import android.text.util.Linkify
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.Navigation
 import com.alice.teampang.R
 import com.alice.teampang.databinding.FragLoginBinding
-import com.alice.teampang.src.BaseFrag
-import com.alice.teampang.src.GlobalApplication
-import com.alice.teampang.src.GlobalApplication.Companion.ACCESS_TOKEN
-import com.alice.teampang.src.GlobalApplication.Companion.REFRESH_TOKEN
-import com.alice.teampang.src.GlobalApplication.Companion.prefs
+import com.alice.teampang.base.BaseFrag
+import com.alice.teampang.application.GlobalApplication
+import com.alice.teampang.application.GlobalApplication.Companion.ACCESS_TOKEN
+import com.alice.teampang.application.GlobalApplication.Companion.REFRESH_TOKEN
+import com.alice.teampang.application.GlobalApplication.Companion.prefs
 import com.alice.teampang.src.error.model.ErrorResponse
-import com.alice.teampang.src.login.interfaces.LoginFragView
-import com.alice.teampang.src.login.model.KakaoTokenBody
-import com.alice.teampang.src.login.model.KakaoTokenResponse
-import com.alice.teampang.src.splash.model.GetProfileResponse
+import com.alice.teampang.model.KakaoTokenBody
+import com.alice.teampang.model.KakaoTokenResponse
+import com.alice.teampang.model.GetProfileResponse
 import com.kakao.sdk.auth.LoginClient
 import com.kakao.sdk.auth.model.AuthType
 import com.kakao.sdk.auth.model.OAuthToken
@@ -94,6 +94,7 @@ class LoginFrag : BaseFrag(), LoginFragView, View.OnClickListener {
             200 -> {
                 //로그인 성공, 신규 회원 or 리프레쉬토큰 만료된 회원
                 prefs.setString(ACCESS_TOKEN, kakaoTokenResponse.data.access)
+                Log.d("Token", ACCESS_TOKEN)
                 prefs.setString(REFRESH_TOKEN, kakaoTokenResponse.data.refresh)
                 //프로필 get 으로 회원 구분
                 tryGetProfile()

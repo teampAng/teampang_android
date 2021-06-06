@@ -3,7 +3,7 @@
     <data>
         <variable
             name="times"
-            type="com.alice.teampang.src.my_schedule.model.Times" />
+            type="com.alice.teampang.model.Times" />
     </data>
 
     <LinearLayout

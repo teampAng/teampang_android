@@ -1,11 +1,10 @@
 package com.alice.teampang.src.my_schedule.edit
 
-import com.alice.teampang.src.GlobalApplication.Companion.getRetrofit
+import com.alice.teampang.application.GlobalApplication.Companion.getRetrofit
+import com.alice.teampang.model.MyScheduleBody
+import com.alice.teampang.model.PostScheduleResponse
+import com.alice.teampang.retrofit.RetrofitHelper
 import com.alice.teampang.src.error.ErrorUtils
-import com.alice.teampang.src.my_schedule.interfaces.MyScheduleEditFragView
-import com.alice.teampang.src.my_schedule.model.*
-import com.alice.teampang.src.my_schedule.interfaces.MyScheduleFragView
-import com.alice.teampang.src.my_schedule.interfaces.MyScheduleRetrofitInterface
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
@@ -15,10 +14,7 @@ class MyScheduleEditService(myScheduleEditFragView: MyScheduleEditFragView) {
     val mMyScheduleEditFragView: MyScheduleEditFragView = myScheduleEditFragView
 
     fun postMySchedule(myScheduleBody: MyScheduleBody) {
-        val myScheduleRetrofitInterface: MyScheduleRetrofitInterface = getRetrofit()!!.create(
-            MyScheduleRetrofitInterface::class.java
-        )
-        myScheduleRetrofitInterface.postMySchedule(myScheduleBody).enqueue(object :
+        RetrofitHelper.RetrofitForInterface().postMySchedule(myScheduleBody).enqueue(object :
             Callback<PostScheduleResponse?> {
             override fun onResponse(
                 call: Call<PostScheduleResponse?>,
@@ -41,10 +37,7 @@ class MyScheduleEditService(myScheduleEditFragView: MyScheduleEditFragView) {
     }
 
     fun putMySchedule(id: Int, myScheduleBody: MyScheduleBody) {
-        val myScheduleRetrofitInterface: MyScheduleRetrofitInterface = getRetrofit()!!.create(
-            MyScheduleRetrofitInterface::class.java
-        )
-        myScheduleRetrofitInterface.putMySchedule(id, myScheduleBody).enqueue(object :
+        RetrofitHelper.RetrofitForInterface().putMySchedule(id, myScheduleBody).enqueue(object :
             Callback<PostScheduleResponse?> {
             override fun onResponse(
                 call: Call<PostScheduleResponse?>,

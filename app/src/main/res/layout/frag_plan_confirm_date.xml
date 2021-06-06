@@ -33,12 +33,14 @@
         android:id="@+id/confirmDateCalendar"
         android:layout_width="0dp"
         android:layout_height="311dp"
-        app:layout_constraintStart_toStartOf="@id/start_guideline3"
-        app:layout_constraintEnd_toEndOf="@id/start_guideline4"
+        android:layout_marginLeft="22dp"
+        android:layout_marginRight="22dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@id/top_guideline3"
-        app:mcv_showOtherDates="out_of_range"
         app:mcv_selectionColor="#8ec5ff"
-        android:orientation="horizontal"/>
+        app:mcv_showOtherDates="out_of_range" />
 
     <TextView
         android:id="@+id/confirmText"
@@ -153,7 +155,8 @@
         app:layout_constraintWidth_default="percent"
         app:layout_constraintWidth_percent="0.915"
         app:layout_constraintStart_toStartOf="@id/start_guideline"
-        app:layout_constraintTop_toTopOf="@id/top_guideline7"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="16dp"
         android:backgroundTint="@color/primary"
         app:cardCornerRadius="7dp">
 

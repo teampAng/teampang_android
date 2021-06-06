@@ -26,35 +26,44 @@
         android:textColor="#333333"/>
 
     <TextView
+        android:id="@+id/final_text1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/spoqahansansneomedium"
-        android:textStyle="normal"
-        android:textSize="16sp"
-        android:textColor="#4f4f4f"
         android:text="확정 일정을 공유하세요!"
-        app:layout_constraintStart_toStartOf="@id/start_guideline2"
-        app:layout_constraintTop_toTopOf="@id/top_guideline2"/>
+        android:textColor="#4f4f4f"
+        android:textSize="16sp"
+        android:textStyle="normal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/top_guideline2" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/final_recyclerview"
         android:layout_width="0dp"
-        android:layout_height="499dp"
+        android:layout_height="0dp"
         app:layout_constraintWidth_default="percent"
         app:layout_constraintWidth_percent="0.915"
         app:layout_constraintStart_toStartOf="@id/start_guideline"
-        app:layout_constraintTop_toTopOf="@id/top_guideline3"/>
+        app:layout_constraintTop_toBottomOf="@id/final_text1"
+        app:layout_constraintBottom_toTopOf="@id/constlayout"
+        android:layout_marginTop="26dp"
+        android:layout_marginBottom="39dp"
+        />
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constlayout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintWidth_default="percent"
         app:layout_constraintWidth_percent="0.915"
         app:layout_constraintStart_toStartOf="@id/start_guideline"
-        app:layout_constraintTop_toTopOf="@id/top_guideline4"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="16dp"
         >
         
         <LinearLayout
+            android:id="@+id/confirm_btn_share"
             android:layout_width="0dp"
             android:layout_height="43dp"
             app:layout_constraintWidth_default="percent"

@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.alice.teampang.databinding.MyScheduleEditListBinding
-import com.alice.teampang.src.my_schedule.model.Times
+import com.alice.teampang.model.Times
 
 class MyScheduleEditAdapter (private val context : Context) : RecyclerView.Adapter<MyScheduleEditAdapter.ViewHolder>() {
 

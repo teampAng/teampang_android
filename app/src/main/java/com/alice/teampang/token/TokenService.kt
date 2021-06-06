@@ -1,12 +1,9 @@
 package com.alice.teampang.token
 
 import com.alice.teampang.src.error.ErrorUtils
-import com.alice.teampang.src.GlobalApplication.Companion.getRetrofit
-import com.alice.teampang.src.error.model.ErrorResponse
-import com.alice.teampang.src.token.interfaces.TokenFragView
-import com.alice.teampang.src.token.interfaces.TokenRetrofitInterface
-import com.alice.teampang.src.token.model.RefreshTokenBody
-import com.alice.teampang.src.token.model.TokenResponse
+import com.alice.teampang.retrofit.RetrofitHelper
+import com.alice.teampang.model.RefreshTokenBody
+import com.alice.teampang.model.TokenResponse
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
@@ -17,10 +14,8 @@ class TokenService(tokenFragView: TokenFragView) {
     val mTokenFragView: TokenFragView = tokenFragView
 
     fun postRefreshToken(refreshTokenBody: RefreshTokenBody) {
-        val tokenRetrofitInterface: TokenRetrofitInterface = getRetrofit()!!.create(
-            TokenRetrofitInterface::class.java
-        )
-        tokenRetrofitInterface.postRefreshToken(refreshTokenBody).enqueue(object :
+
+        RetrofitHelper.RetrofitForInterface().postRefreshToken(refreshTokenBody).enqueue(object :
             Callback<TokenResponse?> {
             override fun onResponse(
                 call: Call<TokenResponse?>,
@@ -41,8 +36,6 @@ class TokenService(tokenFragView: TokenFragView) {
             }
         })
     }
-
-
 }
 
 

@@ -1,12 +1,10 @@
 package com.alice.teampang.src.login
 
-import com.alice.teampang.src.GlobalApplication.Companion.getRetrofit
+import com.alice.teampang.retrofit.RetrofitHelper
 import com.alice.teampang.src.error.ErrorUtils
-import com.alice.teampang.src.login.interfaces.LoginFragView
-import com.alice.teampang.src.login.interfaces.LoginRetrofitInterface
-import com.alice.teampang.src.login.model.*
-import com.alice.teampang.src.splash.interfaces.SplashRetrofitInterface
-import com.alice.teampang.src.splash.model.GetProfileResponse
+import com.alice.teampang.model.KakaoTokenBody
+import com.alice.teampang.model.KakaoTokenResponse
+import com.alice.teampang.model.GetProfileResponse
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
@@ -16,10 +14,7 @@ class LoginService(loginFragView: LoginFragView) {
     val mLoginFragView: LoginFragView = loginFragView
 
     fun postKakaoToken(kakaoTokenBody: KakaoTokenBody) {
-        val loginRetrofitInterface: LoginRetrofitInterface = getRetrofit()!!.create(
-            LoginRetrofitInterface::class.java
-        )
-        loginRetrofitInterface.postKakoToken(kakaoTokenBody).enqueue(object :
+        RetrofitHelper.RetrofitForInterface().postKakoToken(kakaoTokenBody).enqueue(object :
             Callback<KakaoTokenResponse?> {
             override fun onResponse(
                 call: Call<KakaoTokenResponse?>,
@@ -42,10 +37,7 @@ class LoginService(loginFragView: LoginFragView) {
     }
 
     fun getProfile() {
-        val splashRetrofitInterface: SplashRetrofitInterface = getRetrofit()!!.create(
-            SplashRetrofitInterface::class.java
-        )
-        splashRetrofitInterface.getProfile().enqueue(object :
+        RetrofitHelper.RetrofitForInterface().getProfile().enqueue(object :
             Callback<GetProfileResponse?> {
             override fun onResponse(
                 call: Call<GetProfileResponse?>,

@@ -10,22 +10,22 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
-import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.alice.teampang.R
 import com.alice.teampang.databinding.FragSignupBinding
-import com.alice.teampang.src.BaseFrag
-import com.alice.teampang.src.GlobalApplication.Companion.UNIV_GRADE
-import com.alice.teampang.src.GlobalApplication.Companion.UNIV_MAJOR
-import com.alice.teampang.src.GlobalApplication.Companion.UNIV_NAME
-import com.alice.teampang.src.GlobalApplication.Companion.UNIV_NUM
-import com.alice.teampang.src.GlobalApplication.Companion.USER_GENDER
-import com.alice.teampang.src.GlobalApplication.Companion.USER_ID
-import com.alice.teampang.src.GlobalApplication.Companion.USER_NICKNAME
-import com.alice.teampang.src.GlobalApplication.Companion.prefs
+import com.alice.teampang.base.BaseFrag
+import com.alice.teampang.application.GlobalApplication.Companion.UNIV_GRADE
+import com.alice.teampang.application.GlobalApplication.Companion.UNIV_MAJOR
+import com.alice.teampang.application.GlobalApplication.Companion.UNIV_NAME
+import com.alice.teampang.application.GlobalApplication.Companion.UNIV_NUM
+import com.alice.teampang.application.GlobalApplication.Companion.USER_GENDER
+import com.alice.teampang.application.GlobalApplication.Companion.USER_ID
+import com.alice.teampang.application.GlobalApplication.Companion.USER_NICKNAME
+import com.alice.teampang.application.GlobalApplication.Companion.prefs
+import com.alice.teampang.model.SignUpBody
+import com.alice.teampang.model.SignUpResponse
+import com.alice.teampang.model.University
 import com.alice.teampang.src.error.model.ErrorResponse
-import com.alice.teampang.src.signup.interfaces.SignupFragView
-import com.alice.teampang.src.signup.model.*
 import org.threeten.bp.LocalDate
 
 class SignupFrag : BaseFrag(), SignupFragView, View.OnClickListener {

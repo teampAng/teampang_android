@@ -4,6 +4,9 @@
     <string name="kakao_scheme">kakao2f1364ac457bb5d65d8e06e5d09df5d1</string>
     <string name="splash_loading">Loading…</string>
     <string name="sunday"><font color="#fb5046">S</font></string>
+
+    <string name="error_timeout">요청시간이 초과되었습니다. 다시 시도해주세요.</string>
+    <string name="error_common">죄송합니다. 서비스가 원활하지 않습니다.</string>
     <array name="weekdays_custom">
         <item>M</item>
         <item>T</item>

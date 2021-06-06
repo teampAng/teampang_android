@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="34dp"
+    android:gravity="center"
+    android:background="@drawable/white92_box"
+    android:orientation="vertical">
+
+    <ImageView
+        android:layout_width="213dp"
+        android:layout_height="184dp"
+        android:layout_marginTop="51dp"
+        app:srcCompat="@drawable/ic_resdevelop">
+    </ImageView>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/spoqahansansneobold"
+        android:textStyle="bold"
+        android:textSize="16sp"
+        android:textColor="@color/secondary"
+        android:lineSpacingExtra="4.8sp"
+        android:layout_marginTop="28.3dp"
+        android:text="아직 개발중인 기능입니다:)"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/spoqahansansneoregular"
+        android:textStyle="normal"
+        android:textSize="11sp"
+        android:textColor="#000000"
+        android:lineSpacingExtra="3.3sp"
+        android:gravity="center_horizontal"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="51dp"
+        android:text="확정한 일정에 사용 가능한 대학교,\n
+    스터디룸, 카페들을 예약 및 추천해줄 예정이에요!"/>
+
+</LinearLayout>

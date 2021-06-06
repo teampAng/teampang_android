@@ -104,6 +104,8 @@
                         android:visibility="invisible"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:background="@color/primary"
+                        android:padding="8dp"
                         app:srcCompat="@drawable/ic_check"/>
                 </LinearLayout>
             </LinearLayout>
@@ -129,6 +131,8 @@
                         android:visibility="invisible"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:background="@color/primary"
+                        android:padding="8dp"
                         app:srcCompat="@drawable/ic_check"/>
                 </LinearLayout>
             </LinearLayout>
@@ -154,6 +158,8 @@
                         android:visibility="invisible"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:background="@color/primary"
+                        android:padding="8dp"
                         app:srcCompat="@drawable/ic_check"/>
                 </LinearLayout>
             </LinearLayout>
@@ -180,6 +186,8 @@
                         android:visibility="invisible"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:background="@color/primary"
+                        android:padding="8dp"
                         app:srcCompat="@drawable/ic_check"/>
                 </LinearLayout>
             </LinearLayout>
@@ -206,6 +214,8 @@
                         android:visibility="invisible"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:background="@color/primary"
+                        android:padding="8dp"
                         app:srcCompat="@drawable/ic_check"/>
                 </LinearLayout>
             </LinearLayout>
@@ -232,6 +242,8 @@
                         android:visibility="invisible"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:background="@color/primary"
+                        android:padding="8dp"
                         app:srcCompat="@drawable/ic_check"/>
                 </LinearLayout>
             </LinearLayout>
@@ -258,6 +270,8 @@
                         android:visibility="invisible"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:background="@color/primary"
+                        android:padding="8dp"
                         app:srcCompat="@drawable/ic_check"/>
                 </LinearLayout>
             </LinearLayout>
@@ -284,6 +298,8 @@
                         android:visibility="invisible"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:background="@color/primary"
+                        android:padding="8dp"
                         app:srcCompat="@drawable/ic_check"/>
                 </LinearLayout>
             </LinearLayout>
@@ -310,6 +326,8 @@
                         android:visibility="invisible"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:background="@color/primary"
+                        android:padding="8dp"
                         app:srcCompat="@drawable/ic_check"/>
                 </LinearLayout>
             </LinearLayout>
@@ -336,6 +354,8 @@
                         android:visibility="invisible"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:background="@color/primary"
+                        android:padding="8dp"
                         app:srcCompat="@drawable/ic_check"/>
                 </LinearLayout>
             </LinearLayout>
@@ -362,6 +382,8 @@
                         android:visibility="invisible"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:background="@color/primary"
+                        android:padding="8dp"
                         app:srcCompat="@drawable/ic_check"/>
                 </LinearLayout>
             </LinearLayout>
@@ -388,6 +410,8 @@
                         android:visibility="invisible"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:background="@color/primary"
+                        android:padding="8dp"
                         app:srcCompat="@drawable/ic_check"/>
                 </LinearLayout>
             </LinearLayout>
@@ -414,6 +438,8 @@
                         android:visibility="invisible"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:background="@color/primary"
+                        android:padding="8dp"
                         app:srcCompat="@drawable/ic_check"/>
                 </LinearLayout>
             </LinearLayout>
@@ -440,6 +466,8 @@
                         android:visibility="invisible"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:background="@color/primary"
+                        android:padding="8dp"
                         app:srcCompat="@drawable/ic_check"/>
                 </LinearLayout>
             </LinearLayout>
@@ -466,6 +494,8 @@
                         android:visibility="invisible"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:background="@color/primary"
+                        android:padding="8dp"
                         app:srcCompat="@drawable/ic_check"/>
                 </LinearLayout>
             </LinearLayout>
@@ -492,6 +522,8 @@
                         android:visibility="invisible"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:background="@color/primary"
+                        android:padding="8dp"
                         app:srcCompat="@drawable/ic_check"/>
                 </LinearLayout>
             </LinearLayout>
@@ -518,6 +550,8 @@
                         android:visibility="invisible"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:background="@color/primary"
+                        android:padding="8dp"
                         app:srcCompat="@drawable/ic_check"/>
                 </LinearLayout>
             </LinearLayout>
@@ -544,6 +578,8 @@
                         android:visibility="invisible"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:background="@color/primary"
+                        android:padding="8dp"
                         app:srcCompat="@drawable/ic_check"/>
                 </LinearLayout>
             </LinearLayout>
@@ -570,6 +606,8 @@
                         android:visibility="invisible"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:background="@color/primary"
+                        android:padding="8dp"
                         app:srcCompat="@drawable/ic_check"/>
                 </LinearLayout>
             </LinearLayout>
@@ -596,6 +634,8 @@
                         android:visibility="invisible"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:background="@color/primary"
+                        android:padding="8dp"
                         app:srcCompat="@drawable/ic_check"/>
                 </LinearLayout>
             </LinearLayout>
@@ -622,6 +662,8 @@
                         android:visibility="invisible"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:background="@color/primary"
+                        android:padding="8dp"
                         app:srcCompat="@drawable/ic_check"/>
                 </LinearLayout>
             </LinearLayout>
@@ -648,6 +690,8 @@
                         android:visibility="invisible"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:background="@color/primary"
+                        android:padding="8dp"
                         app:srcCompat="@drawable/ic_check"/>
                 </LinearLayout>
             </LinearLayout>
@@ -674,6 +718,8 @@
                         android:visibility="invisible"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:background="@color/primary"
+                        android:padding="8dp"
                         app:srcCompat="@drawable/ic_check"/>
                 </LinearLayout>
             </LinearLayout>
@@ -700,6 +746,8 @@
                         android:visibility="invisible"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:background="@color/primary"
+                        android:padding="8dp"
                         app:srcCompat="@drawable/ic_check"/>
                 </LinearLayout>
             </LinearLayout>
